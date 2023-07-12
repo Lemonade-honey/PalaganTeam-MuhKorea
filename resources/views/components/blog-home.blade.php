@@ -15,8 +15,8 @@
             </div>
         </div>
         <div class="flex flex-col justify-center items-center ">
-            <div class="w-1/3 shadow-lg mb-7 rounded-md px-4  md:w-full lg:w-1/2">
-                <div class="mx-auto mb-10 max-w-[370px]">
+            <div class="w-full shadow-lg mb-7 rounded-md px-4  md:w-1/2">
+                <div class="mx-auto mb-10 max-w-[370px] p-5">
                     <div class="mb-8 overflow-hidden rounded">
                         <img src="https://cdn.tailgrids.com/2.0/image/application/images/blogs/blog-01/image-01.jpg"
                             alt="image" class="w-full" />
@@ -39,8 +39,8 @@
                     </div>
                 </div>
             </div>
-            <div class="w-1/3 shadow-lg mb-7 rounded-m px-4 md:w-full lg:w-1/2">
-                <div class="mx-auto mb-10 max-w-[370px]">
+            <div class="w-full shadow-lg mb-7 rounded-md px-4  md:w-1/2">
+                <div class="mx-auto mb-10 max-w-[370px] p-5">
                     <div class="mb-8 overflow-hidden rounded">
                         <img src="https://cdn.tailgrids.com/2.0/image/application/images/blogs/blog-01/image-02.jpg"
                             alt="image" class="w-full" />
@@ -63,8 +63,8 @@
                     </div>
                 </div>
             </div>
-            <div class="w-1/3 shadow-lg mb-7 rounded-m px-4 md:w-full lg:w-1/2">
-                <div class="mx-auto mb-10 max-w-[370px]">
+            <div class="w-full shadow-lg mb-7 rounded-md px-4  md:w-1/2">
+                <div class="mx-auto mb-10 max-w-[370px] p-5">
                     <div class="mb-8 overflow-hidden rounded">
                         <img src="https://cdn.tailgrids.com/2.0/image/application/images/blogs/blog-01/image-03.jpg"
                             alt="image" class="w-full" />

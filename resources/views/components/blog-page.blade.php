@@ -5,7 +5,7 @@ URL: https://flowbite.com/docs/components/typography/
 -->
 
 <main class="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900">
-    <div class="flex justify-center px-4 mx-auto max-w-screen-xl ">
+    <div class="flex justify-center px-4 mx-auto max-w-screen-xl mt-10 md-40 ">
         <article
             class="mx-auto w-full text-justify md:w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
             <header class="mb-4 lg:mb-6 not-format">

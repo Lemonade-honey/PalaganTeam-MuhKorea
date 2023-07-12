@@ -1,7 +1,7 @@
-<section class="py-5 px-5 justify-center items-center">
+<section class="py-5 px-5 justify-center items-center h-screen w-full md:w-1/2">
     <div class="flex relative items-center justify-center">
         <div class="place-items-center">
-            <img src="{{ URL::asset('image/home-judul.png') }}" alt="img-hero" class="w-[650px] items-center" />
+            <img src="./image/home-judul.png" alt="img-hero" class="w-[650px] items-center" />
 
         </div>
     </div>

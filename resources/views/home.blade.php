@@ -1,6 +1,6 @@
-{{-- <x-navbar />
+<x-navbar />
 
-<x-header class="py-9 mt-5" />
+{{-- <x-header class="py-9 mt-5" />
 
 <x-hero class="py-5 mb-6" /> --}}
 
