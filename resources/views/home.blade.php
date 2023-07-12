@@ -8,8 +8,16 @@
 
 {{-- <x-register-page /> --}}
 
+{{-- <x-forgot-password />
+
+<x-forgot-password-notif />
+<x-forgot-password-done /> --}}
+
+{{-- <x-email-verif-notif />
+<x-email-verif-done /> --}}
+
 {{-- <x-blog-page /> --}}
-<x-blog-home />
+{{-- <x-blog-home /> --}}
 
 <x-app-layout>
 
