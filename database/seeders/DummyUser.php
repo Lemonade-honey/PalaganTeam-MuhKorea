@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class DummyUser extends Seeder
 {
@@ -21,19 +22,19 @@ class DummyUser extends Seeder
             [
                 'name' => 'nama user',
                 'email' => 'user@gmail.com',
-                'password' => '123456',
+                'password' => Hash::make('123456'),
                 'role' => 'user'
             ],
             [
                 'name' => 'nama staf',
                 'email' => 'staf@gmail.com',
-                'password' => '123456',
+                'password' => Hash::make('123456'),
                 'role' => 'staf'
             ],
             [
                 'name' => 'nama admin',
                 'email' => 'admin@gmail.com',
-                'password' => '123456',
+                'password' => Hash::make('123456'),
                 'role' => 'admin'
             ],
         ];
