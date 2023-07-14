@@ -2,10 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Service\UserService;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
+
+    private UserService $userService;
+    public function __construct()
+    {
+        $this->userService = new UserService;
+    }
+
     /**
      * GET Home Page, Web Profile
      */
@@ -24,7 +34,22 @@ class HomeController extends Controller
      * POST Login Page
      */
     public function postLogin(Request $request){
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
 
+        try{
+            if($this->userService->loginService($request)){
+                die('sukses login ' . Auth::user()->role);
+            }else{
+                return redirect()->back()->withErrors([
+                    'error' => 'Email or Password is Wrong'
+                ])->withInput();
+            }
+        }catch (Exception $ex){
+            return redirect()->back()->withErrors($ex->getMessage());
+        }
     }
 
     /**

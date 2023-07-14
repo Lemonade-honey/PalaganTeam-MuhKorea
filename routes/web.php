@@ -20,6 +20,7 @@ Route::get('/', function () {
 
 
 Route::get('/login', [HomeController::class, 'login'])->name('Login');
+Route::post('/login', [HomeController::class, 'postLogin'])->name('Login');
 Route::get('/register', [HomeController::class, 'register'])->name('Register');
 Route::get('/forgot-password', [HomeController::class, 'forgetPassword'])->name('Forget-password');
 Route::get('/forgot', [HomeController::class, 'doneEmailVerified']);
