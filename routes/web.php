@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\VerificationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,9 +19,24 @@ Route::get('/', function () {
     return view('home');
 });
 
+Route::middleware(['guest'])->group(function (){
+    Route::get('/login', [HomeController::class, 'login'])->name('login');
+    Route::post('/login', [HomeController::class, 'postLogin']);
+    Route::get('/register', [HomeController::class, 'register']);
+    Route::post('/register', [HomeController::class, 'postRegister'])->name('register');
+    Route::get('/forgot-password', [HomeController::class, 'forgetPassword']);
+    Route::post('/forgot-password', [HomeController::class, 'postForgetPassword']);
 
-Route::get('/login', [HomeController::class, 'login'])->name('Login');
-Route::post('/login', [HomeController::class, 'postLogin'])->name('Login');
-Route::get('/register', [HomeController::class, 'register'])->name('Register');
-Route::get('/forgot-password', [HomeController::class, 'forgetPassword'])->name('Forget-password');
-Route::get('/forgot', [HomeController::class, 'doneEmailVerified']);
+    Route::get('/reset-password/{token}', fn() => dd($token))->name('password.reset');
+});
+
+// verified email
+Route::prefix('email')->group(function (){
+    Route::get('/verify/need-verification', [VerificationController::class, 'notice'])->middleware(['auth'])->name('verification.notice');
+    Route::get('/verify/{id}/{hash}', [VerificationController::class, 'verify'])->middleware(['auth', 'signed'])->name('verification.verify');
+});
+
+// Dashboard
+Route::middleware(['auth', 'verified'])->group(function (){
+
+});

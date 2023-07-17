@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Service;
+use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 class UserService{
     /**
@@ -20,5 +22,14 @@ class UserService{
         }else{
             return false;
         }
+    }
+
+    /**
+     * Register Service
+     */
+    public function registerService($request){
+        $user = User::create($request->except('_token'));
+
+        event(new Registered($user));
     }
 }

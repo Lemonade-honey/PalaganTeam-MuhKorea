@@ -15,11 +15,8 @@
                     <h1 class="text-xl text-center font-bold text-gray-900 md:text-2xl dark:text-white">
                         Email Has Been Verified
                     </h1>
-                    <h3 class="text-lg font-semibold text-center md:text-2xl text-blue-700">
-                        Email Pemohon
-                    </h3>
                     <p class="text-xs text-center text-gray-400 font-light">
-                        Your E-Mail Has Been Verified, Click <a href="/" class="text-blue-700">Login</a> If You Want
+                        Your E-Mail Has Been Verified, Click <a href="/login" class="text-blue-700">Login</a> If You Want
                         To Login
                     </p>
                 </div>

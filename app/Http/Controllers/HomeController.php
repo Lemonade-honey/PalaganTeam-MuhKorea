@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Service\UserService;
 use Exception;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 
 class HomeController extends Controller
 {
@@ -63,23 +67,24 @@ class HomeController extends Controller
      * POST Register Page
      */
     public function postRegister(Request $request){
+        $request->validate([
+            'name' => ['required', 'string', 'max:150'],
+            'email' => ['required', 'email', 'string', 'unique:users'],
+            'password' => ['required', 'min:6', 'confirmed']
+        ]);
 
+        $user = User::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password'])
+        ]);
+
+        event(new Registered($user));
+
+        auth()->login($user);
+
+        return redirect()->route('verification.notice');
     }
-
-    /**
-     * GET Email Verified Notif Page
-     */
-    public function notifEmailVerified(){
-        return view('Home/email-verif-notif');
-    }
-
-    /**
-     * GET Email Verified Done Page
-     */
-    public function doneEmailVerified(){
-        return view('Home/email-verif-done');
-    }
-
 
     /**
      * GET Forget Password Page
@@ -92,24 +97,28 @@ class HomeController extends Controller
      * POST Forget Password
      */
     public function postForgetPassword(Request $request){
+        $request->validate([
+            'email' => ['required', 'email']
+        ]);
+
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+
+        return $status ? view('Home/forgot-password-notif') : redirect()->back()->withErrors(['email' => __($status)]);
+    }
+
+    /**
+     * GET Reset Password
+     */
+    public function resetPassword(){
 
     }
 
     /**
-     * GET Forget Password Notif
-     * 
-     * Halamn untuk menampilkan succsess terkirimnya forget password ke email
+     * POST Rest Password
      */
-    public function notifForgetPassword(){
-        return view('Home/forgot-password-notif');
-    }
-    
-    /**
-     * GET Forget Password Done Update
-     * 
-     * Halaman setelah selesai update password
-     */
-    public function doneForgetPassword(){
-        return view('Home/forgot-password-done');
+    public function postResetPassword(Request $request){
+
     }
 }

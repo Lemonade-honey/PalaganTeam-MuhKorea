@@ -19,9 +19,6 @@
                             please check your email for the verification
                         </p>
                     </h1>
-                    <h3 class="text-lg font-semibold text-center md:text-2xl text-blue-700">
-                        Email Pemohon
-                    </h3>
                 </div>
             </div>
         </div>
