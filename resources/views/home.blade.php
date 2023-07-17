@@ -1,12 +1,12 @@
 <x-navbar />
 
-{{-- <x-header class="py-9 mt-5" />
 
-<x-hero class="py-5 mb-6" /> --}}
 
-{{-- <x-login-page /> --}}
+<x-hero />
 
-{{-- <x-register-page /> --}}
+{{-- <x-login-page />
+
+<x-register-page /> --}}
 
 {{-- <x-forgot-password />
 
@@ -16,8 +16,8 @@
 {{-- <x-email-verif-notif />
 <x-email-verif-done /> --}}
 
-{{-- <x-blog-page /> --}}
-{{-- <x-blog-home /> --}}
+{{-- <x-blog-page />
+<x-blog-home /> --}}
 
 <x-app-layout>
 
