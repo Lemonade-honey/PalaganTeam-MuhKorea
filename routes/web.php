@@ -27,7 +27,8 @@ Route::middleware(['guest'])->group(function (){
     Route::get('/forgot-password', [HomeController::class, 'forgetPassword']);
     Route::post('/forgot-password', [HomeController::class, 'postForgetPassword']);
 
-    Route::get('/reset-password/{token}', fn() => dd($token))->name('password.reset');
+    Route::get('/reset-password/{token}', [HomeController::class, 'resetPassword'])->name('password.reset');
+    Route::post('/reset-password/{token}', [HomeController::class, 'postResetPassword']);
 });
 
 // verified email

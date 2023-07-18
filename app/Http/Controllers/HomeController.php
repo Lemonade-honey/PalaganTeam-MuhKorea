@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Service\UserService;
 use Exception;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -111,14 +112,36 @@ class HomeController extends Controller
     /**
      * GET Reset Password
      */
-    public function resetPassword(){
-
+    public function resetPassword($token){
+        // dd($token);
+        return view('Home/reset-password', ['token' => $token]);
     }
 
     /**
      * POST Rest Password
      */
-    public function postResetPassword(Request $request){
+    public function postResetPassword(Request $request, $token){
+        $request->merge(['token' => $token]);
+        $request->validate([
+            'token' => 'required',
+            'email' => ['required' , 'email'],
+            'password' => ['required', 'min:6', 'confirmed']
+        ]);
 
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function(User $user, string $password){
+                $user->forceFill([
+                    'password' => Hash::make($password)
+                ]);
+
+                $user->save();
+
+                event(new PasswordReset($user));
+            }
+        );
+
+        return $status === Password::PASSWORD_RESET ? 
+        view('Home/forgot-password-done') : back()->withErrors(['email' => [__($status)]]);
     }
 }
