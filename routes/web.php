@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\VerificationController;
 use Illuminate\Support\Facades\Route;
 
@@ -39,6 +40,8 @@ Route::prefix('email')->group(function (){
 });
 
 Route::get('/activity', [ActivityController::class, 'list']);
+Route::get('/news', [NewsController::class, 'list']);
+Route::get('/news/{slug}', [NewsController::class, 'details']);
 
 // Dashboard
 Route::middleware(['auth', 'verified'])->group(function (){
