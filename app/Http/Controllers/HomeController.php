@@ -46,7 +46,8 @@ class HomeController extends Controller
 
         try{
             if($this->userService->loginService($request)){
-                die('sukses login ' . Auth::user()->role);
+                // die('sukses login ' . Auth::user()->role);
+                return redirect()->route('news.create');
             }else{
                 return redirect()->back()->withErrors([
                     'error' => 'Email or Password is Wrong'
@@ -143,5 +144,14 @@ class HomeController extends Controller
 
         return $status === Password::PASSWORD_RESET ? 
         view('Home/forgot-password-done') : back()->withErrors(['email' => [__($status)]]);
+    }
+
+    /**
+     * Logout Action
+     */
+    public function logout(){
+        Auth::logout();
+
+        return redirect('/');
     }
 }
