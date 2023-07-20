@@ -16,6 +16,8 @@ class UserService{
                 $user = Auth::user();
                 $user->setRememberToken(md5(time() . $user->email));
                 $user->save();
+            }else{
+                $user = Auth::user();
             }
 
             return true;
