@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Email has Verified</title>
-    @vite('resources/css/app.css')
+    @vite('public/assets/css/app.css')
 </head>
 <body>
     <section class="bg-gray-50 dark:bg-gray-900 mt-5">

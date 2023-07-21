@@ -25,7 +25,7 @@ class HomeController extends Controller
      * GET Home Page, Web Profile
      */
     public function index(){
-        return view('Home/login-page');
+        return view('Home/home');
     }
 
     /**
