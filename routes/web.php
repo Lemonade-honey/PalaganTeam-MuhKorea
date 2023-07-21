@@ -63,7 +63,9 @@ Route::middleware(['auth', 'verified'])->group(function (){
             Route::get('/', [ActivityController::class, 'list'])->name('activity.list');
             Route::get('/create', [ActivityController::class, 'create'])->name('activity.create');
             Route::post('/create', [ActivityController::class, 'postCreate'])->name('activity.postCreate');
-            Route::get('/update', [ActivityController::class, 'update'])->name('activity.update');
+            Route::get('/update/{id}', [ActivityController::class, 'update'])->name('activity.update');
+            Route::post('/update/{id}', [ActivityController::class, 'postUpdate'])->name('activity.postUpdate');
+            Route::get('/delete/{id}', [ActivityController::class, 'delete'])->name('activity.delete');
         });
 
         //ckeditor image upload

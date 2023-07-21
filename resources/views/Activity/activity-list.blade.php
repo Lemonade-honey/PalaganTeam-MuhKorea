@@ -11,6 +11,10 @@
         <div class="alert alert-success">
             {{ session()->get('success') }}
         </div>
+    @elseif(session()->has('errors'))
+        <div class="alert alert-danger">
+            {{ session()->get('errors') }}
+        </div>
     @endif
     <table>
         <thead>
@@ -28,8 +32,8 @@
                     <td>{{ $value->tanggal }}</td>
                     <td>{{ $value->created_at }}</td>
                     <td>
-                        <a href="#">Edit</a>
-                        <a href="#">Delete</a>
+                        <a href="{{ route('activity.update', ['id' => $value->id]) }}">Edit</a>
+                        <a href="{{ route('activity.delete', ['id' => $value->id]) }}">Delete</a>
                     </td>
                 </tr>
             @empty
