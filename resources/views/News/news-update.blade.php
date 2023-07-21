@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,9 +13,11 @@
     @endif
     <form method="post" enctype="multipart/form-data">
         @csrf
-        <input type="text" name="title" id="">
+        <input type="text" name="title" id="" value="{{  old('title') ?? $news->title }}">
         <input type="file" name="img-thumbnail" id="" accept="image/png, image/gif, image/jpeg">
-        <textarea name="details" id="editor" cols="30" rows="10">{{ old('details') }}</textarea>
+        <textarea name="details" id="editor" cols="30" rows="10">
+            {{ old('details') ?? $news->details }}
+        </textarea>
         <button type="submit">Create</button>
     </form>
 </body>

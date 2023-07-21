@@ -27,7 +27,10 @@
                     <td>{{ $value->title }}</td>
                     <td>{{ $value->created_by }}</td>
                     <td>{{ date('d F Y, H:i:s', strtotime($value->created_at)) }}</td>
-                    <td><a href="{{ route('news.update', ['slug' => $value->slug]) }}">Edit</a></td>
+                    <td>
+                        <a href="{{ route('news.update', ['slug' => $value->slug]) }}">Edit</a>
+                        <a href="{{ route('news.delete', ['slug' => $value->slug]) }}">Delete</a>
+                    </td>
                 </tr>
             @empty
                 <tr>

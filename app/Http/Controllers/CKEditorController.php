@@ -12,13 +12,13 @@ class CKEditorController extends Controller
 
         $filename = date('dmy') . "_" . Str::random(20) . "." . $type;
 
-        $request->file('upload')->move(public_path('image/temp'), $filename);
+        $request->file('upload')->move(public_path('image/news/temp'), $filename);
 
-        $url = asset('image/temp/' . $filename);
+        $url = asset('image/news/temp/' . $filename);
 
         return response()->json([
             'filename' => $filename, 
-            'uploaded' => 1, 
+            'uploaded' => 1,
             'url' => $url
         ]);
     }

@@ -55,6 +55,8 @@ Route::middleware(['auth', 'verified'])->group(function (){
             Route::get('/create', [NewsController::class, 'create'])->name('news.create');
             Route::post('/create', [NewsController::class, 'postCreate'])->name('news.postCreate');
             Route::get('/update/{slug}', [NewsController::class, 'update'])->name('news.update');
+            Route::post('/update/{slug}', [NewsController::class, 'postUpdate'])->name('news.postUpdate');
+            Route::get('/delete/{slug}', [NewsController::class, 'delete'])->name('news.delete');
         });
 
         //ckeditor image upload
