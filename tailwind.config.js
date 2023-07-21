@@ -7,6 +7,17 @@ module.exports = {
   ],
   darkMode: 'class',
   theme: {
+    fontFamily: {
+      sans:[
+        'system-ui',
+        '-apple-system',
+        '"Segoe UI',
+        'Robot',
+        '"Helvetica Neue',
+        'Arial',
+        'sans-serif'
+      ],
+    },
     container: {
       center: true,
     },
