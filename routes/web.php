@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\CKEditorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\VerificationController;
@@ -45,5 +46,18 @@ Route::get('/news/{slug}', [NewsController::class, 'details']);
 
 // Dashboard
 Route::middleware(['auth', 'verified'])->group(function (){
+    Route::prefix('/dashboard')->group(function (){
+        Route::get('/logout', [HomeController::class, 'logout'])->name('logout');
 
+        // news route
+        Route::prefix('/news')->group(function (){
+            Route::get('/', [NewsController::class, 'list'])->name('news.list');
+            Route::get('/create', [NewsController::class, 'create'])->name('news.create');
+            Route::post('/create', [NewsController::class, 'postCreate'])->name('news.postCreate');
+            Route::get('/update/{slug}', [NewsController::class, 'update'])->name('news.update');
+        });
+
+        //ckeditor image upload
+        Route::post('/ckeditor-upload', [CKEditorController::class, 'uploadNews'])->name('ckeditor.uploadNews');
+    });
 });

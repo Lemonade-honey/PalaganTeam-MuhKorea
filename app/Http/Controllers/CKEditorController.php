@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 class CKEditorController extends Controller
 {
-    public function upload(Request $request){
+    public function uploadNews(Request $request){
         $type = $request->file('upload')->getClientOriginalExtension();
 
         $filename = date('dmy') . "_" . Str::random(20) . "." . $type;

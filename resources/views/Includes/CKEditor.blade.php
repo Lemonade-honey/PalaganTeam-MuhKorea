@@ -127,7 +127,7 @@
             'TableOfContents'
         ],
         ckfinder:{
-            uploadUrl: "{{ route('ckeditor.upload', ['_token' => csrf_token()]) }}"
+            uploadUrl: "{{ route('ckeditor.uploadNews', ['_token' => csrf_token()]) }}"
         }
     }).catch(error => {
         console.error( error );
