@@ -43,32 +43,37 @@ Route::prefix('email')->group(function (){
 Route::get('/news', [NewsController::class, 'list']);
 Route::get('/news/{slug}', [NewsController::class, 'details']);
 
+Route::get('/test', fn () => "awww")->middleware(['role:admin,user']);
+
 // Dashboard
 Route::middleware(['auth', 'verified'])->group(function (){
     Route::prefix('/dashboard')->group(function (){
         Route::get('/logout', [HomeController::class, 'logout'])->name('logout');
 
-        // news route
-        Route::prefix('/news')->group(function (){
-            Route::get('/', [NewsController::class, 'list'])->name('news.list');
-            Route::get('/create', [NewsController::class, 'create'])->name('news.create');
-            Route::post('/create', [NewsController::class, 'postCreate'])->name('news.postCreate');
-            Route::get('/update/{slug}', [NewsController::class, 'update'])->name('news.update');
-            Route::post('/update/{slug}', [NewsController::class, 'postUpdate'])->name('news.postUpdate');
-            Route::get('/delete/{slug}', [NewsController::class, 'delete'])->name('news.delete');
-        });
+        // staff or admin only
+        Route::middleware(['role:staf,admin'])->group(function (){
+            // news route
+            Route::prefix('/news')->group(function (){
+                Route::get('/', [NewsController::class, 'list'])->name('news.list');
+                Route::get('/create', [NewsController::class, 'create'])->name('news.create');
+                Route::post('/create', [NewsController::class, 'postCreate'])->name('news.postCreate');
+                Route::get('/update/{slug}', [NewsController::class, 'update'])->name('news.update');
+                Route::post('/update/{slug}', [NewsController::class, 'postUpdate'])->name('news.postUpdate');
+                Route::get('/delete/{slug}', [NewsController::class, 'delete'])->name('news.delete');
+            });
 
-        // activity route
-        Route::prefix('/activity')->group(function (){
-            Route::get('/', [ActivityController::class, 'list'])->name('activity.list');
-            Route::get('/create', [ActivityController::class, 'create'])->name('activity.create');
-            Route::post('/create', [ActivityController::class, 'postCreate'])->name('activity.postCreate');
-            Route::get('/update/{id}', [ActivityController::class, 'update'])->name('activity.update');
-            Route::post('/update/{id}', [ActivityController::class, 'postUpdate'])->name('activity.postUpdate');
-            Route::get('/delete/{id}', [ActivityController::class, 'delete'])->name('activity.delete');
-        });
+            // activity route
+            Route::prefix('/activity')->group(function (){
+                Route::get('/', [ActivityController::class, 'list'])->name('activity.list');
+                Route::get('/create', [ActivityController::class, 'create'])->name('activity.create');
+                Route::post('/create', [ActivityController::class, 'postCreate'])->name('activity.postCreate');
+                Route::get('/update/{id}', [ActivityController::class, 'update'])->name('activity.update');
+                Route::post('/update/{id}', [ActivityController::class, 'postUpdate'])->name('activity.postUpdate');
+                Route::get('/delete/{id}', [ActivityController::class, 'delete'])->name('activity.delete');
+            });
 
-        //ckeditor image upload
-        Route::post('/ckeditor-upload', [CKEditorController::class, 'uploadNews'])->name('ckeditor.uploadNews');
+            //ckeditor image upload
+            Route::post('/ckeditor-upload', [CKEditorController::class, 'uploadNews'])->name('ckeditor.uploadNews');
+        });
     });
 });
