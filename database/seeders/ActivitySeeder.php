@@ -18,7 +18,7 @@ class ActivitySeeder extends Seeder
         $dummy = [
             [
                 'title' => 'Activity 1',
-                'tanggal' => date('Y-m-d', strtotime('13-07-2023')),
+                'tanggal' => date('Y-m-d', strtotime('19-07-2023')),
                 'details' => serialize([
                     'time' => [
                         'start' => '12:00',
@@ -33,7 +33,7 @@ class ActivitySeeder extends Seeder
             ],
             [
                 'title' => 'Activity 2',
-                'tanggal' => date('Y-m-d', strtotime('18-07-2023')),
+                'tanggal' => date('Y-m-d', strtotime('25-07-2023')),
                 'details' => serialize(
                     [
                         'time' => [
@@ -50,7 +50,7 @@ class ActivitySeeder extends Seeder
             ],
             [
                 'title' => 'Activity 3',
-                'tanggal' => date('Y-m-d', strtotime('10-07-2023')),
+                'tanggal' => date('Y-m-d', strtotime('23-07-2023')),
                 'details' => serialize(
                     [
                         'time' => [

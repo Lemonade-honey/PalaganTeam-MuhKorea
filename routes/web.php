@@ -40,7 +40,6 @@ Route::prefix('email')->group(function (){
     Route::get('/verify/{id}/{hash}', [VerificationController::class, 'verify'])->middleware(['auth', 'signed'])->name('verification.verify');
 });
 
-Route::get('/activity', [ActivityController::class, 'list']);
 Route::get('/news', [NewsController::class, 'list']);
 Route::get('/news/{slug}', [NewsController::class, 'details']);
 
@@ -57,6 +56,14 @@ Route::middleware(['auth', 'verified'])->group(function (){
             Route::get('/update/{slug}', [NewsController::class, 'update'])->name('news.update');
             Route::post('/update/{slug}', [NewsController::class, 'postUpdate'])->name('news.postUpdate');
             Route::get('/delete/{slug}', [NewsController::class, 'delete'])->name('news.delete');
+        });
+
+        // activity route
+        Route::prefix('/activity')->group(function (){
+            Route::get('/', [ActivityController::class, 'list'])->name('activity.list');
+            Route::get('/create', [ActivityController::class, 'create'])->name('activity.create');
+            Route::post('/create', [ActivityController::class, 'postCreate'])->name('activity.postCreate');
+            Route::get('/update', [ActivityController::class, 'update'])->name('activity.update');
         });
 
         //ckeditor image upload
