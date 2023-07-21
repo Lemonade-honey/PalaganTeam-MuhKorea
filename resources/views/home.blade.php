@@ -1,8 +1,14 @@
 <x-navbar />
 
-
+{{-- <x-hero-carousel /> --}}
 
 <x-hero />
+
+{{-- <x-visimisi /> --}}
+
+<x-news-carousel />
+
+
 
 {{-- <x-login-page />
 

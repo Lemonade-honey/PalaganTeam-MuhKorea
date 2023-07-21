@@ -1,17 +1,5 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="stylesheet" href="/build/tailwind.css">
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-</head>
-
-<body class="antialiased bg-gray-100 dark-mode:bg-gray-900">
-    <div class="w-full text-gray-700 fixed bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800">
+<body class="antialiased bg-gray-100 ">
+    <div class="w-full text-gray-700 absolute bg-white ">
         <div x-data="{ open: false }"
             class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
             <div class="flex flex-row items-center justify-between p-4">
@@ -123,5 +111,3 @@
         </div>
     </div>
 </body>
-
-</html>
