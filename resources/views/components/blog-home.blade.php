@@ -1,5 +1,5 @@
 <!-- ====== Blog Section Start -->
-<section class="pt-20 pb-10 md:pt-5 md:pb-3 lg:pt-[120px] lg:pb-20 min-w-full h-screen">
+<main class="pt-20 pb-16 lg:pt-16 lg:pb-24">
     <div class="container mx-auto">
         <div class="flex flex-wrap justify-center">
             <div class="w-full px-4">
@@ -89,5 +89,5 @@
             </div>
         </div>
     </div>
-</section>
+</main>
 <!-- ====== Blog Section End -->

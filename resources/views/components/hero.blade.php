@@ -1,4 +1,4 @@
-<section class="h-[60vh] w-full md:h-screen pt-10 mb-11 md:pt-5">
+<main class="pt-8 pb-16 lg:pt-16 lg:pb-24">
     <div class="flex flex-col items-center">
         <div>
             <img src="./image/home-judul.png" alt="img-hero" class="w-[650px] items-center" />
@@ -15,4 +15,4 @@
                 in Kansai, Japan</p>
         </div>
     </div>
-</section>
+</main>
