@@ -4,6 +4,7 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\CKEditorController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MassageController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerificationController;
@@ -23,6 +24,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 });
+
+Route::get('/form/{slug}', [FormController::class, 'details']);
+
+// geteway massage
+Route::post('/massage/{id}/{slug}', [MassageController::class, 'store'])->name('massage.store');
 
 Route::middleware(['guest'])->group(function (){
     Route::get('/login', [HomeController::class, 'login'])->name('login');
