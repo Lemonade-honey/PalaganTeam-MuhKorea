@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->string('desc');
-            $table->string('id_massage')->nullable();
+            $table->string('id_massage')->nullable()->unique();
             $table->text('details');
             $table->timestamps();
         });
