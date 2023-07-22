@@ -4,6 +4,7 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\CKEditorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerificationController;
 use Illuminate\Support\Facades\Route;
 
@@ -74,6 +75,13 @@ Route::middleware(['auth', 'verified'])->group(function (){
 
             //ckeditor image upload
             Route::post('/ckeditor-upload', [CKEditorController::class, 'uploadNews'])->name('ckeditor.uploadNews');
+        });
+
+        // admin only
+        Route::middleware(['role:admin'])->group(function (){
+            Route::prefix('/users')->group(function (){
+                Route::get('/', [UserController::class, 'list'])->name('users.list');
+            });
         });
     });
 });
