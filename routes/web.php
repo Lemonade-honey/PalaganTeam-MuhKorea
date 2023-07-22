@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\CKEditorController;
+use App\Http\Controllers\FormController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
@@ -71,6 +72,12 @@ Route::middleware(['auth', 'verified'])->group(function (){
                 Route::get('/update/{id}', [ActivityController::class, 'update'])->name('activity.update');
                 Route::post('/update/{id}', [ActivityController::class, 'postUpdate'])->name('activity.postUpdate');
                 Route::get('/delete/{id}', [ActivityController::class, 'delete'])->name('activity.delete');
+            });
+
+            // form route
+            Route::prefix('/form')->group(function (){
+                Route::get('/create', [FormController::class, 'create'])->name('form.create');
+                Route::post('/create', [FormController::class, 'postCreate'])->name('form.postCreate');
             });
 
             //ckeditor image upload
