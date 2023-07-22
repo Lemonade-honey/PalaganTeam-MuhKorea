@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>List News</title>
 </head>
 <body>
@@ -34,8 +35,9 @@
                     <td>{{ $value->role }}</td>
                     <td>{{ $value->email_verified_at }}</td>
                     <td>
-                        <a href="#">Edit</a>
-                        <a href="#">Delete</a>
+                        <a href="{{ route('users.details', ['id' => $value->id]) }}">View</a>
+                        {{-- <a href="{{ route('users.delete', ['id' => $value->id]) }}" id="delete">Delete</a> --}}
+                        <a href="#" id="delete" dataGet="{{ $value->id }}">Delete</a>
                     </td>
                 </tr>
             @empty
@@ -48,5 +50,25 @@
     <div style="text-align: center">
         {{ $users->links() }}
     </div>
+    <script>
+        const deleletBtn = document.querySelectorAll('#delete');
+        deleletBtn.forEach(element => {
+            element.addEventListener('click', () => {
+                Swal.fire({
+                    title: 'Are you sure to delete it?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/dashboard/users/delete/' + element.getAttribute('dataGet')
+                }
+            })
+        })
+        });
+    </script>
 </body>
 </html>
