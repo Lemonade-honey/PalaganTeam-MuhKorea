@@ -27,7 +27,8 @@ class MassageController extends Controller
                 'code' => Str::random(5),
                 'by' => Auth::user()->email,
                 'time' => date('H:i:s, d F Y', strtotime(now())),
-                'massage' => $request->massage
+                'massage' => $request->massage,
+                'reply' => []
             ];
             $data = serialize($data);
 
@@ -40,7 +41,8 @@ class MassageController extends Controller
                     'code' => Str::random(5),
                     'by' => Auth::user()->email,
                     'time' => date('H:i:s, d F Y', strtotime(now())),
-                    'massage' => $request->massage
+                    'massage' => $request->massage,
+                    'reply' => []
                 ]
             ]);
 
@@ -71,6 +73,42 @@ class MassageController extends Controller
                     break;
                 }
             }
+            $massage->massage_box = serialize($array);
+            
+            $history = unserialize($massage->massage_history);
+            array_push($history, "Delete" . " -> " .Auth::user()->email . " - " . date('H:i:s, d F Y', strtotime(now())));
+
+            $massage->massage_history = serialize($history);
+
+            $massage->save();
+            return redirect(url()->previous())->with('success', 'Sucses');
+        }
+    }
+
+    /**
+     * POST Reply Massage
+     */
+    public function storeReply(Request $request, int $id, string $slug, string $kode){
+        $massage = Massage::find($id);
+        if(!$massage){
+            return redirect(url()->previous())->with('errors', 'Failed To Delete Massage. Code 001');
+        }
+
+        if($massage->massage_box != null){
+            $array = unserialize($massage->massage_box);
+            foreach($array as $key => $value){
+                if($value['code'] == $kode){
+                    $data = [
+                        'code' => Str::random(5),
+                        'by' => Auth::user()->email,
+                        'time' => date('H:i:s, d F Y', strtotime(now())),
+                        'massage' => $request->reply
+                    ];
+                    array_push($array[$key]['reply'], $data);
+                    break;
+                }
+            }
+
             $massage->massage_box = serialize($array);
             
             $history = unserialize($massage->massage_history);

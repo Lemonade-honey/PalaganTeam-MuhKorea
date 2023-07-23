@@ -29,7 +29,9 @@ Route::get('/form/{slug}', [FormController::class, 'details']);
 
 // geteway massage
 Route::post('/massage/{id}/{slug}', [MassageController::class, 'store'])->name('massage.store');
+Route::post('/massage/reply/{id}/{slug}/{kode}', [MassageController::class, 'storeReply'])->name('massage.storeReply');
 Route::get('/massage/{id}/{slug}/{kode}', [MassageController::class, 'delete'])->name('massage.delete');
+
 Route::get('/test/{id}/{slug}/{kode}', [MassageController::class, 'test'])->name('massage.test');
 
 Route::middleware(['guest'])->group(function (){
