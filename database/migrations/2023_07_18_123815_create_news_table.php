@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('desc');
             $table->text('details');
             $table->text('img');
+            $table->string('id_massage')->nullable()->unique();
             $table->string('created_by');
             $table->timestamps();
         });
