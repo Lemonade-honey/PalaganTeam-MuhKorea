@@ -67,6 +67,7 @@ class FormController extends Controller
             $form->massage_box = unserialize($form->massage_box);
         }
 
-        return view('Form/public-form-detail', compact('form'));
+        // return view('Form/public-form-detail', compact('form'));
+        return view('Form/public-form', compact('form'));
     }
 }
