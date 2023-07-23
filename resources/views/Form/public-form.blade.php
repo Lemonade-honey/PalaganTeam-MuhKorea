@@ -174,7 +174,7 @@
                                     <p>{{ $reply['massage'] }}</p>
                                     <div class="flex items-center mt-4 space-x-4">
                                         @if ($reply['by'] == Auth::user()->email)
-                                            <a href="#">Delete</a>
+                                        <a href="{{ route('massage.deleteReply', ['id' => $form->id_massage, 'slug' => $form->slug, 'kode' => $item['code'], 'replyKode' => $reply['code']]) }}">Delete</a>
                                         @endif
                                     </div>
                                 </article>

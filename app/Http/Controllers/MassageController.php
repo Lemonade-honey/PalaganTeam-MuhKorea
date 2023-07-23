@@ -81,8 +81,8 @@ class MassageController extends Controller
             $massage->massage_history = serialize($history);
 
             $massage->save();
-            return redirect(url()->previous())->with('success', 'Sucses');
         }
+        return redirect(url()->previous())->with('success', 'Sucses');
     }
 
     /**
@@ -117,8 +117,44 @@ class MassageController extends Controller
             $massage->massage_history = serialize($history);
 
             $massage->save();
-            return redirect(url()->previous())->with('success', 'Sucses');
         }
+        return redirect(url()->previous())->with('success', 'Sucses');
+    }
+
+    /**
+     * GET Delete Replay Massage
+     */
+    public function deleteReply(int $id, string $slug, string $kode, string $replyKode){
+        $massage = Massage::find($id);
+        if(!$massage){
+            return redirect(url()->previous())->with('errors', 'Failed To Delete Massage. Code 001');
+        }
+
+        if($massage->massage_box != null){
+            $array = unserialize($massage->massage_box);
+            print_r($array[0]);
+            foreach($array as $key => $value){
+                if($value['code'] == $kode){
+                    foreach($value['reply'] as $item => $reply){
+                        if($reply['code'] == $replyKode){
+                            unset($array[$key]['reply'][$item]);
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+
+            $massage->massage_box = serialize($array);
+            
+            $history = unserialize($massage->massage_history);
+            array_push($history, "Delete" . " -> " .Auth::user()->email . " - " . date('H:i:s, d F Y', strtotime(now())));
+
+            $massage->massage_history = serialize($history);
+
+            $massage->save();
+        }
+        return redirect(url()->previous())->with('success', 'Sucses');
     }
 
     /**
