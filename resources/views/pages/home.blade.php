@@ -1,19 +1,26 @@
 @extends('layout.app')
 
 @section('body')
-    {{-- Hero Carousel Section --}}
     @include('components.hero-carousel')
-    {{--  --}}
 
-    {{-- Hero Section --}}
+
     @include('components.hero')
-    {{--  --}}
 
-    {{-- Visi dan Misi Section --}}
+
     @include('components.visimisi')
-    {{--  --}}
 
-    {{-- News Carousel Section --}}
+
     @include('components.news-carousel')
-    {{--  --}}
+
+
+    @include('components.location')
+
+
+    @include('layout.footer')
 @endsection
+
+
+{{-- @section('body')
+    @include('pages.blog-news.blog-home')
+    @include('pages.blog-news.blog-page')
+@endsection --}}

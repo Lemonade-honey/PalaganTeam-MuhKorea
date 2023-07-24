@@ -9,9 +9,9 @@
                 dolorem odit deserunt veritatis molestias nam distinctio.
             </p>
         </div>
-        <div class="carousel w-full space-x-4">
+        <div class="carousel w-screen md:w-full space-x-4">
             <div class="carousel-item" id="item1">
-                <div class="w-[60vh] bg-white border border-gray-200 rounded-lg shadow">
+                <div class="w-screen md:w-[60vh] bg-white border border-gray-200 rounded-lg shadow">
                     <a href="#">
                         <img class="rounded-t-lg" src="./image/home-judul.png" alt="Cover-Berita" />
                     </a>
@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="carousel-item" id="item2">
-                <div class="w-[60vh] bg-white border border-gray-200 rounded-lg shadow">
+                <div class="w-screen md:w-[60vh] bg-white border border-gray-200 rounded-lg shadow">
                     <a href="#">
                         <img class="rounded-t-lg" src="./image/home-judul.png" alt="Cover-Berita" />
                     </a>
@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div class="carousel-item" id="item3">
-                <div class="w-[60vh] bg-white border border-gray-200 rounded-lg shadow">
+                <div class="w-screen md:w-[60vh] bg-white border border-gray-200 rounded-lg shadow">
                     <a href="#">
                         <img class="rounded-t-lg" src="./image/home-judul.png" alt="Cover-Berita" />
                     </a>
@@ -62,7 +62,7 @@
                 </div>
             </div>
             <div class="carousel-item" id="item4">
-                <div class="w-[60vh] bg-white border border-gray-200 rounded-lg shadow">
+                <div class="w-screen md:w-[60vh] bg-white border border-gray-200 rounded-lg shadow">
                     <a href="#">
                         <img class="rounded-t-lg" src="./image/home-judul.png" alt="Cover-Berita" />
                     </a>
@@ -79,7 +79,7 @@
                 </div>
             </div>
             <div class="carousel-item" id="item5">
-                <div class="w-[60vh] bg-white border border-gray-200 rounded-lg shadow">
+                <div class="w-screen md:w-[60vh] bg-white border border-gray-200 rounded-lg shadow">
                     <a href="#">
                         <img class="rounded-t-lg" src="./image/home-judul.png" alt="Cover-Berita" />
                     </a>
@@ -96,7 +96,7 @@
                 </div>
             </div>
             <div class="carousel-item" id="item6">
-                <div class="w-[60vh] bg-white border border-gray-200 rounded-lg shadow">
+                <div class="w-screen md:w-[60vh] bg-white border border-gray-200 rounded-lg shadow">
                     <a href="#">
                         <img class="rounded-t-lg" src="./image/home-judul.png" alt="Cover-Berita" />
                     </a>
@@ -113,7 +113,7 @@
                 </div>
             </div>
             <div class="carousel-item" id="item7">
-                <div class="w-[60vh] bg-white border border-gray-200 rounded-lg shadow">
+                <div class="w-screen md:w-[60vh] bg-white border border-gray-200 rounded-lg shadow">
                     <a href="#">
                         <img class="rounded-t-lg" src="./image/home-judul.png" alt="Cover-Berita" />
                     </a>

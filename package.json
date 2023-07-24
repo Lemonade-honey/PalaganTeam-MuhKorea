@@ -15,6 +15,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "flowbite": "^1.7.0",
         "flowbite-typography": "^1.0.3"
     }
 }

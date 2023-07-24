@@ -5,8 +5,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite('public/assets/css/app.css')
-    <link href="{{ asset('public/assets/css/owl.carousel.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('public/assets/css/owl.theme.default.min.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -17,9 +15,9 @@
     </div>
 
     <script src="{{ asset('assets/js/jquery-3.7.0.min.js') }}"></script>
-    <script src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
+    <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.js"></script>
     <script>
         $('.news-carousel').owlCarousel({
             loop: true,

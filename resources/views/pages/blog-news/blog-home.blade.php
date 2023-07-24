@@ -89,5 +89,9 @@
             </div>
         </div>
     </div>
+
+    {{-- Footer Section --}}
+    @include('layout.footer')
+    {{--  --}}
 </main>
 <!-- ====== Blog Section End -->
