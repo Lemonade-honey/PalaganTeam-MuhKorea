@@ -12,10 +12,13 @@
             <p>{{ $item }}</p>
         @endforeach
     @endif
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" style="padding: 3rem 15%">
         @csrf
         <input type="text" name="title" id="">
         <input type="file" name="img-thumbnail" id="" accept="image/png, image/gif, image/jpeg">
+        <input type="text" name="desc" id="">
+        <p>Massage?</p>
+        <input type="checkbox" name="form-massage" id="">
         <textarea name="details" id="editor" cols="30" rows="10">{{ old('details') }}</textarea>
         <button type="submit">Create</button>
     </form>

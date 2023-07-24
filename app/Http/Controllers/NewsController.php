@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Massage;
 use App\Models\News;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -29,8 +31,15 @@ class NewsController extends Controller
      * GET Detail News
      */
     public function details(string $slug){
-        $news = DB::table('news')->where('slug', '=', $slug)->first();
-        dd($news);
+        $news = DB::table('news')->select('news.*', 'massages.massage_box')
+        ->leftJoin('massages', 'news.id_massage','=', 'massages.id')
+        ->where('news.slug', '=', $slug)->first();
+        
+        if($news->massage_box != null){
+            $news->massage_box = unserialize($news->massage_box);
+        }
+        
+        return view('News/public-news-detail', compact('news'));
     }
 
     /**
@@ -50,18 +59,35 @@ class NewsController extends Controller
             'img-thumbnail' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2024'],
         ]);
 
-        $type = $request->file('img-thumbnail')->getClientOriginalExtension();
-        $filename = substr($request->title, 0, 10) . "_" . date('dmy') . "_" . Str::random(20) . "." . $type;
-        
-        News::create([
-            'title' => $request->title,
-            'slug' => Str::slug($request->title),
-            'details' => $request->details,
-            'img' => $filename,
-            'created_by' => Auth::user()->name
-        ]);
-        $request->file('img-thumbnail')->move(public_path('image/news/thumbnail'), $filename);
-        return redirect()->route('news.list')->with('success', 'News Succsess Created');
+        try{
+            DB::beginTransaction();
+            if($request->has('form-massage')){
+                $massage = Massage::create(['code' => Str::random(25)]);
+                $massage = $massage->id;
+            }else{
+                $massage = null;
+            }
+
+            $type = $request->file('img-thumbnail')->getClientOriginalExtension();
+            $filename = substr($request->title, 0, 10) . "_" . date('dmy') . "_" . Str::random(20) . "." . $type;
+            
+            News::create([
+                'title' => $request->title,
+                'slug' => Str::slug($request->title),
+                'desc' => $request->desc,
+                'details' => $request->details,
+                'img' => $filename,
+                'id_massage' => $massage,
+                'created_by' => Auth::user()->name
+            ]);
+            $request->file('img-thumbnail')->move(public_path('image/news/thumbnail'), $filename);
+            DB::commit();
+            return redirect()->route('news.list')->with('success', 'News Succsess Created');
+        } catch( Exception $ex){
+            DB::rollBack();
+
+            return redirect()->back()->withErrors(["News Failed Created, Try again later", $ex->getMessage()]);
+        }
     }
 
     /**
