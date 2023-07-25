@@ -1,6 +1,6 @@
-<main class="pt-8 pb-16 lg:pt-15 lg:pb-24">
+<main class="pt-12 pb-16 lg:pt-15 lg:pb-24">
     <div class="flex flex-col items-center">
-        <div class="carousel w-full max-w-full max-h-screen">
+        <div class="carousel w-full md:h-screen h-[40vh]">
             <div id="item1" class="carousel-item w-full">
                 <img src="https://marketplace.canva.com/EAE-xnqWvJk/1/0/1600w/canva-retro-smoke-and-round-light-desktop-wallpapers-JLofAI27pCg.jpg" class="w-full" />
             </div>

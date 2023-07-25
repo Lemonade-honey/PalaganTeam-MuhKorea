@@ -2,7 +2,7 @@
     <div class="mx-auto max-w-screen-xl md:p-8 lg:p-10">
 
         <div class="text-center">
-            <a href="#" class="flex justify-center items-center uppercase mb-5 text-2xl font-semibold text-white">
+            <a href="#" class="flex justify-center items-center uppercase pt-5 md:pt-0 mb-5 text-2xl font-semibold text-white">
                 Muhammadiyah Kansai
             </a>
             <span class="block text-sm text-center text-white dark:text-gray-400">© 2023 <a href="#"

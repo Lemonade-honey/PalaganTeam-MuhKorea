@@ -15,8 +15,6 @@
 
     @include('components.location')
 
-
-    @include('layout.footer')
 @endsection
 
 

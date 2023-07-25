@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('public/assets/css/app.css')
+    <link rel="stylesheet" href="{{asset('assets/css/CK.css')}}">
     <title>Form</title>
 </head>
 <body>
@@ -26,7 +27,7 @@
                 <h1 class="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">{{ $news->title }}</h1>
             </header>
             {{-- details --}}
-            <div class="details">
+            <div class="ck-content">
                 <?= $news->details?>
             </div>
             {{-- Comment --}}
