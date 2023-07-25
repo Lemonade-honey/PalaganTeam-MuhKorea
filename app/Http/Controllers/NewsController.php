@@ -39,7 +39,7 @@ class NewsController extends Controller
             $news->massage_box = unserialize($news->massage_box);
         }
         
-        return view('News/public-news-detail', compact('news'));
+        return view('News/public-detail', compact('news'));
     }
 
     /**

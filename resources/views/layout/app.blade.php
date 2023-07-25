@@ -9,11 +9,10 @@
 </head>
 
 <body>
-    @include('layout.navbar')
+    @include('layout.navbar2')
 
-    <div class="w-full max-h-screen">
-        @yield('body')
-    </div>
+    @yield('body')
+    @include('layout.footer')
 
     <script src="{{ asset('assets/js/jquery-3.7.0.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>

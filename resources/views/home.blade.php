@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layout.app', ['page' => 'home'])
 
 @section('body')
     @include('components.hero-carousel')
