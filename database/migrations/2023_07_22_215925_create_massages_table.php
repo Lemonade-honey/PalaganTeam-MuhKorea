@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('code');
             $table->text('massage_box')->nullable();
             $table->text('massage_history')->nullable();
+            $table->enum('status', ['aktif', 'nonaktif']);
             $table->timestamps();
         });
     }
