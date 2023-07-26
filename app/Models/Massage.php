@@ -12,6 +12,7 @@ class Massage extends Model
     protected $fillable = [
         'code',
         'massage_box',
-        'massage_history'
+        'massage_history',
+        'status'
     ];
 }
