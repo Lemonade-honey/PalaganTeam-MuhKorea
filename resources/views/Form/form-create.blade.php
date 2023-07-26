@@ -18,6 +18,13 @@
         <input type="text" name="desc" id="">
         <p>Form Massage ?</p>
         <input type="checkbox" name="form-massage" id="" checked>
+        <p>Form Public ?</p>
+        <select name="status_form" id="">
+            <option value="public" selected>Public</option>
+            <option value="private">Private</option>
+        </select>
+        <p>Password Form</p>
+        <input type="text" name="password" id="">
         <p>Form Details</p>
         <textarea name="details" id="editor" cols="30" rows="10">{{ old('details') }}</textarea>
         <button type="submit">Create</button>

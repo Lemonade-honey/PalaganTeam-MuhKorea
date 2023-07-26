@@ -25,7 +25,8 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/form/{slug}', [FormController::class, 'details']);
+Route::get('/form/{slug}', [FormController::class, 'details'])->name('public.form.details');
+Route::post('/form/{slug}', [FormController::class, 'formPassword'])->name('form.formPassword');
 Route::get('/news/{slug}', [NewsController::class, 'details']);
 
 // geteway massage
