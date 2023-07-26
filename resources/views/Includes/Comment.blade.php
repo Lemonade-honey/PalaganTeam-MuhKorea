@@ -3,7 +3,7 @@
         <article class="mx-auto w-full text-justify md:w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
             <section class="not-format">
                 {{-- Fix --}}
-                @if ($comment->id_massage != null)
+                @if ($comment->id_massage != null && $comment->status_massage == 'aktif')
                     <div class="flex justify-between items-center mb-6 my-5">
                         <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Comments ({{ $comment->massage_box ? count($comment->massage_box) : '0' }})</h2>
                     </div>

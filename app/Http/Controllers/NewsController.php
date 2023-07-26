@@ -31,7 +31,7 @@ class NewsController extends Controller
      * GET Detail News
      */
     public function details(string $slug){
-        $news = DB::table('news')->select('news.*', 'massages.massage_box')
+        $news = DB::table('news')->select('news.*', 'massages.massage_box', 'massages.status as status_massage')
         ->leftJoin('massages', 'news.id_massage','=', 'massages.id')
         ->where('news.slug', '=', $slug)->first();
         
@@ -62,7 +62,7 @@ class NewsController extends Controller
         try{
             DB::beginTransaction();
             if($request->has('form-massage')){
-                $massage = Massage::create(['code' => Str::random(25)]);
+                $massage = Massage::create(['code' => Str::random(25), 'status' => 'aktif']);
                 $massage = $massage->id;
             }else{
                 $massage = null;

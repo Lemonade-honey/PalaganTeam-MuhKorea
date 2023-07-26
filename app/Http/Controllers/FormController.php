@@ -27,7 +27,7 @@ class FormController extends Controller
         try{
             DB::beginTransaction();
             if($request->has('form-massage')){
-                $massage = Massage::create(['code' => Str::random(25)]);
+                $massage = Massage::create(['code' => Str::random(25), 'status' => 'aktif']);
                 $massage = $massage->id;
             }else{
                 $massage = null;
@@ -134,7 +134,7 @@ class FormController extends Controller
         if(!DB::table('forms')->where('slug', '=', $slug)->exists()){
             return abort(404);
         }
-        $form = DB::table('forms')->select('forms.*', 'massages.massage_box', 'massages.massage_history')
+        $form = DB::table('forms')->select('forms.*', 'massages.massage_box', 'massages.status as status_massage')
         ->leftJoin('massages', 'forms.id_massage','=', 'massages.id')
         ->where('forms.slug', '=', $slug)->first();
         
