@@ -51,6 +51,76 @@ class FormController extends Controller
     }
 
     /**
+     * GET List Form
+     */
+    public function list(){
+        $form = DB::table('forms')->orderByDesc('id')->paginate(10);
+
+        return view('Form/form-list', compact('form'));
+    }
+
+    /**
+     * GET Update Form
+     */
+    public function update(string $slug){
+        $form = DB::table('forms')->where('slug', '=', $slug)->first();
+        if(!$form){
+            return redirect()->route('form.list')->with('errors', 'Form Not Found');
+        }
+        
+        $form->register = unserialize($form->register);
+        return view('Form/form-update', compact('form'));
+    }
+
+    /**
+     * POST Update Form
+     */
+    public function postUpdate(Request $request, string $slug){
+        $request->validate([
+            'title' => ['required', 'max:200', 'unique:forms'],
+            'desc' => ['required', 'max:100'],
+            'status_form' => ['required', 'in:public,private'],
+            'password' => 'required',
+            'details' => 'required'
+        ]);
+    }
+
+    /**
+     * GET List Member Registerd
+     */
+    public function memberRegister(string $slug){
+        $form = DB::table('forms')->where('slug', '=', $slug)->where('register', '!=', null)->first();
+        if(!$form){
+            return redirect()->route('form.list')->with('errors', 'Form Not Found');
+        }
+
+        $member = unserialize($form->register);
+        $slug = $form->slug;
+        return view('Form/form-list-member', compact('member', 'slug'));
+    }
+
+    public function memberDelete(string $slug, string $email){
+        $form = DB::table('forms')->where('slug', '=', $slug)->where('register', '!=', null)->first();
+        if(!$form){
+            return redirect()->route('form.list')->with('errors', 'Form Not Found');
+        }
+        try {
+            $member = unserialize($form->register);
+            foreach($member as $key => $userEmail){
+                if($userEmail == $email){
+                    unset($member[$key]);
+                    break;
+                }
+            }
+
+            DB::table('forms')->where('slug', '=', $slug)->where('register', '!=', null)->update(['register' => serialize($member)]);
+            return redirect()->back()->with('success', "Success Delete Member");
+        } catch (Exception $ex) {
+            return redirect()->back()->with('errors', "Failed Delete Member. " . $ex->getMessage());
+        }
+    }
+
+    /**
      * GET Public List Form
      */
     public function index(){

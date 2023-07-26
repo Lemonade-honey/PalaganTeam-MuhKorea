@@ -89,8 +89,12 @@ Route::middleware(['auth', 'verified'])->group(function (){
 
             // form route
             Route::prefix('/form')->group(function (){
+                Route::get('/', [FormController::class, 'list'])->name('form.list');
                 Route::get('/create', [FormController::class, 'create'])->name('form.create');
                 Route::post('/create', [FormController::class, 'postCreate'])->name('form.postCreate');
+                Route::get('/update/{slug}', [FormController::class, 'update'])->name('form.update');
+                Route::get('/update/{slug}/member', [FormController::class, 'memberRegister'])->name('form.list.member');
+                Route::get('/update/{slug}/member/delete/{email}', [FormController::class, 'memberDelete'])->name('form.list.member.delete');
             });
 
             //ckeditor image upload
