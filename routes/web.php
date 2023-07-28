@@ -26,7 +26,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('dashboardHome');
 });
 
 Route::get('/form/{slug}', [FormController::class, 'details']);
