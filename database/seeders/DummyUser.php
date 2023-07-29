@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\UsersDetails;
 use Exception;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -44,6 +45,7 @@ class DummyUser extends Seeder
 
         foreach ($Dummy as $key => $value) {
             User::create($value);
+            UsersDetails::create(['email' => $value['email']]);
         }
     }
     
