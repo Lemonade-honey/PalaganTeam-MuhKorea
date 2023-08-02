@@ -1,11 +1,13 @@
 @extends('layout.dashboard')
 
 @section('body')
-    {{-- @include('dashboard.activity') --}}
+    @include('dashboard.home')
 
-    {{-- @include('dashboard.news') --}}
+    {{-- @include('dashboard.activity')
 
-    {{-- @include('dashboard.eLearning') --}}
+    @include('dashboard.news')
 
-    @include('dashboard.users')
+    @include('dashboard.eLearning')
+
+    @include('dashboard.users') --}}
 @endsection
