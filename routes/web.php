@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\CKEditorController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MassageController;
@@ -65,6 +66,8 @@ Route::middleware(['auth', 'verified'])->group(function (){
     Route::prefix('/dashboard')->group(function (){
         Route::get('/logout', [HomeController::class, 'logout'])->name('logout');
 
+        Route::get('/', [DashboardController::class, 'index']);
+        Route::get('/profile', [DashboardController::class, 'profile']);
         // staff or admin only
         Route::middleware(['role:staf,admin'])->group(function (){
             // news route

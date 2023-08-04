@@ -75,4 +75,15 @@ class UserController extends Controller
         $user->delete();
         return redirect()->route('users.list')->with('success', 'User Success Delete');
     }
+
+    /**
+     * GET User Profile
+     */
+    public function profile(){
+        if(auth()->check()){
+            return dd('blm login');
+        }
+
+        return dd('sudah login');
+    }
 }
