@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
 
 Route::get('/form/{slug}', [FormController::class, 'details'])->name('public.form.details');
 Route::post('/form/{slug}', [FormController::class, 'formPassword'])->name('form.formPassword');
@@ -66,7 +66,7 @@ Route::middleware(['auth', 'verified'])->group(function (){
     Route::prefix('/dashboard')->group(function (){
         Route::get('/logout', [HomeController::class, 'logout'])->name('logout');
 
-        Route::get('/', [DashboardController::class, 'index']);
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard.home');
         Route::get('/profile', [DashboardController::class, 'profile']);
         // staff or admin only
         Route::middleware(['role:staf,admin'])->group(function (){

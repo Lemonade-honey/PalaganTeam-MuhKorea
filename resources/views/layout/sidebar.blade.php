@@ -12,12 +12,12 @@
  <aside id="drawer-example" class="fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-emerald-600 w-64" tabindex="-1" aria-labelledby="drawer-label">
     <div class="h-full flex flex-col justify-between">
         <div class="top">
-            <a href="#" class="flex items-center pl-2.5 mb-5">
+            <a href="{{ route('home') }}" class="flex items-center pl-2.5 mb-5">
                 <span class="self-center text-xl font-semibold whitespace-nowrap text-white">Hidayah Kansai</span>
             </a>
             <ul class="font-medium">
                 <li>
-                    <a href="#" class="flex items-center p-2 rounded-lg text-white hover:bg-emerald-200 hover:text-black group">
+                    <a href="{{ route('dashboard.home') }}" class="flex items-center p-2 rounded-lg text-white hover:bg-emerald-200 hover:text-black group">
                         <span class="flex-1 ml-3 whitespace-nowrap">Dashboard</span>
                     </a>
                 </li>
@@ -31,7 +31,7 @@
         <div class="bottom">
             <ul class="font-medium">
                 <li>
-                    <a href="#" class="flex items-center p-2 rounded-lg text-white hover:bg-rose-700 group">
+                    <a href="{{ route('logout') }}" class="flex items-center p-2 rounded-lg text-white hover:bg-rose-700 group">
                         <span class="flex-1 ml-3 whitespace-nowrap">Logout</span>
                     </a>
                 </li>
