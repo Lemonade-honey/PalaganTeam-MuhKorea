@@ -38,7 +38,7 @@ Route::get('/massage/{id}/{slug}/{kode}/{replyKode}', [MassageController::class,
 
 Route::get('/test/{id}/{slug}/{kode}', [MassageController::class, 'test'])->name('massage.test');
 
-Route::middleware(['guest'])->group(function (){
+Route::middleware(['guest'])->group(function () {
     Route::get('/login', [HomeController::class, 'login'])->name('login');
     Route::post('/login', [HomeController::class, 'postLogin']);
     Route::get('/register', [HomeController::class, 'register']);
@@ -51,7 +51,7 @@ Route::middleware(['guest'])->group(function (){
 });
 
 // verified email
-Route::prefix('email')->group(function (){
+Route::prefix('email')->group(function () {
     Route::get('/verify/need-verification', [VerificationController::class, 'notice'])->middleware(['auth'])->name('verification.notice');
     Route::get('/verify/{id}/{hash}', [VerificationController::class, 'verify'])->middleware(['auth', 'signed'])->name('verification.verify');
 });
@@ -62,16 +62,16 @@ Route::get('/news/{slug}', [NewsController::class, 'details']);
 Route::get('/test', fn () => "awww")->middleware(['role:admin,user']);
 
 // Dashboard
-Route::middleware(['auth', 'verified'])->group(function (){
-    Route::prefix('/dashboard')->group(function (){
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::prefix('/dashboard')->group(function () {
         Route::get('/logout', [HomeController::class, 'logout'])->name('logout');
 
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard.home');
         Route::get('/profile', [DashboardController::class, 'profile']);
         // staff or admin only
-        Route::middleware(['role:staf,admin'])->group(function (){
+        Route::middleware(['role:staf,admin'])->group(function () {
             // news route
-            Route::prefix('/news')->group(function (){
+            Route::prefix('/news')->group(function () {
                 Route::get('/', [NewsController::class, 'list'])->name('news.list');
                 Route::get('/create', [NewsController::class, 'create'])->name('news.create');
                 Route::post('/create', [NewsController::class, 'postCreate'])->name('news.postCreate');
@@ -81,7 +81,7 @@ Route::middleware(['auth', 'verified'])->group(function (){
             });
 
             // activity route
-            Route::prefix('/activity')->group(function (){
+            Route::prefix('/activity')->group(function () {
                 Route::get('/', [ActivityController::class, 'list'])->name('activity.list');
                 Route::get('/create', [ActivityController::class, 'create'])->name('activity.create');
                 Route::post('/create', [ActivityController::class, 'postCreate'])->name('activity.postCreate');
@@ -105,8 +105,8 @@ Route::middleware(['auth', 'verified'])->group(function (){
         });
 
         // admin only
-        Route::middleware(['role:admin'])->group(function (){
-            Route::prefix('/users')->group(function (){
+        Route::middleware(['role:admin'])->group(function () {
+            Route::prefix('/users')->group(function () {
                 Route::get('/', [UserController::class, 'list'])->name('users.list');
                 Route::get('/details/{id}', [UserController::class, 'details'])->name('users.details');
                 Route::get('/update/{id}', [UserController::class, 'update'])->name('users.update');

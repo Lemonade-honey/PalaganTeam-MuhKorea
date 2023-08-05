@@ -13,8 +13,10 @@
     @include('components.news-carousel')
 
 
-    @include('components.location')
+    @include('components.activity-carousel')
 
+
+    @include('components.location')
 @endsection
 
 
