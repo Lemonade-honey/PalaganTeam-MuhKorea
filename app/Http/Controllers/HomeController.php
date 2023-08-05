@@ -47,7 +47,7 @@ class HomeController extends Controller
         try{
             if($this->userService->loginService($request)){
                 // die('sukses login ' . Auth::user()->role);
-                return redirect()->route('news.create');
+                return redirect()->route('dashboard.home');
             }else{
                 return redirect()->back()->withErrors([
                     'error' => 'Email or Password is Wrong'
