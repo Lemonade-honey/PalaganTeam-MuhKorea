@@ -16,10 +16,6 @@ class ActivityController extends Controller
         ->orderBy('tanggal')
         ->paginate(10);
 
-        $activity->map(function ($activity){
-            $activity->details = unserialize($activity->details);
-        });
-
         return view('Activity/activity-list', compact('activity'));
     }
 
@@ -31,11 +27,18 @@ class ActivityController extends Controller
         ->orderByDesc('id')
         ->paginate(10);
 
-        $activity->map(function ($activity){
-            $activity->details = unserialize($activity->details);
-        });
+        return view('activity.activity', compact('activity'));
+    }
 
-        return view('Activity/activity-list', compact('activity'));
+    /**
+     * GET Search Activity
+     */
+    public function search(Request $request){
+        $activity = DB::table('activities')
+        ->where("title", "like", "%" .$request->search. "%")
+        ->paginate(10);
+
+        return view('activity.activity', compact('activity'));
     }
 
     /**
