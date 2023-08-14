@@ -24,7 +24,7 @@ class NewsController extends Controller
         // });
 
         // dd($news);
-        return view('News/news-list', compact('news'));
+        return view('News.news', compact('news'));
     }
 
     /**
@@ -55,8 +55,8 @@ class NewsController extends Controller
     public function postCreate(Request $request){
         $request->validate([
             'title' => ['required', 'max:100', 'unique:news'],
-            'details' => 'required',
             'img-thumbnail' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2024'],
+            'details' => 'required',
         ]);
 
         try{
@@ -74,11 +74,11 @@ class NewsController extends Controller
             News::create([
                 'title' => $request->title,
                 'slug' => Str::slug($request->title),
-                'desc' => $request->desc,
+                'desc' => 'text deskripsi berita',
                 'details' => $request->details,
                 'img' => $filename,
                 'id_massage' => $massage,
-                'created_by' => Auth::user()->name
+                'created_by' => Auth::user()->email
             ]);
             $request->file('img-thumbnail')->move(public_path('image/news/thumbnail'), $filename);
             DB::commit();
@@ -163,5 +163,18 @@ class NewsController extends Controller
             return redirect()->route('news.list')->withErrors('Failer Delete, News not found');
         }
 
+    }
+
+    /**
+     * News Search dashboard
+     * 
+     */
+    public function searchDas(Request $request){
+        $news = DB::table('news')
+        ->where("title", "like", "%". $request->search ."%")
+        ->orWhere("created_by", "like", "%". $request->search ."%")
+        ->paginate(10);
+
+        return view('news.news', compact('news'));
     }
 }
