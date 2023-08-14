@@ -114,6 +114,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::middleware(['role:admin'])->group(function () {
             Route::prefix('/users')->group(function () {
                 Route::get('/', [UserController::class, 'list'])->name('users.list');
+                Route::get('/search', [UserController::class, 'search'])->name('users.search');
                 Route::get('/details/{id}', [UserController::class, 'details'])->name('users.details');
                 Route::get('/update/{id}', [UserController::class, 'update'])->name('users.update');
                 Route::post('/update/{id}', [UserController::class, 'postUpdate'])->name('users.postUpdate');
