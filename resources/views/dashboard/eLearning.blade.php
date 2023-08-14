@@ -1,6 +1,6 @@
 <div class="p-4 sm:ml-64">
-    <div class="p-4 mt-10">
-        <div class="flex items-center md:justify-between py-5 px-5 mx-10">
+    <div class="p-4">
+        <div class="flex items-center justify-between py-5">
             <h1 class="font-bold text-blue-800 text-2xl mb-0">E-Learning</h1>
             <a href="#">
                 <button class="bg-blue-600 hover:bg-blue-800 text-white rounded px-2 text-md font-semibold p-1">Add
@@ -8,6 +8,7 @@
             </a>
         </div>
         <hr />
+
         <div class="collapse collapse-arrow bg-white mt-3 ">
             <input type="radio" name="my-accordion-2" checked="checked" />
             <div class="collapse-title text-xl font-medium">
@@ -23,8 +24,8 @@
                     </a>
                 </div>
             </div>
-
         </div>
+
         <div class="collapse collapse-arrow bg-white mt-3">
             <input type="radio" name="my-accordion-2" />
             <div class="collapse-title text-xl font-medium">
@@ -41,6 +42,7 @@
                 </div>
             </div>
         </div>
+
         <div class="collapse collapse-arrow bg-white mt-3">
             <input type="radio" name="my-accordion-2" />
             <div class="collapse-title text-xl font-medium">
@@ -57,5 +59,6 @@
                 </div>
             </div>
         </div>
+        
     </div>
 </div>

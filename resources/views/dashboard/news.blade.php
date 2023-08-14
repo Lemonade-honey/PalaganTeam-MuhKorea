@@ -1,10 +1,9 @@
 <div class="p-4 sm:ml-64">
-    <div class="p-4 mt-10">
-        <div class="flex items-center md:justify-between py-5 px-5 mx-10">
+    <div class="p-4">
+        <div class="w-full flex items-center justify-between py-5">
             <h1 class="font-bold text-blue-800 text-2xl mb-0">News List</h1>
             <a href="#">
-                <button class="bg-blue-600 hover:bg-blue-800 text-white rounded px-2 text-md font-semibold p-1">Add
-                    News</button>
+                <button class="bg-blue-600 hover:bg-blue-800 text-white rounded px-2 text-md font-semibold p-1">Add News</button>
             </a>
         </div>
         <hr />
