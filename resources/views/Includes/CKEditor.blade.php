@@ -133,15 +133,3 @@
         console.error( error );
     });
 </script>
-<script>
-    setInterval(() => {
-        const imgElements = document.querySelectorAll("img");
-        const target = document.getElementById('temp')
-        const imgArray = Array.from(imgElements);
-
-        const srcValues = imgArray.map((img) => img.getAttribute("src"));
-
-        target.value = srcValues
-        console.log(srcValues);
-    }, 8000);
-</script>
