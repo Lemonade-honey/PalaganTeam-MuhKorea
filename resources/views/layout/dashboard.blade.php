@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>{{ $title ?? "Dashboard" }}</title>
     @vite('public/assets/css/app.css')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('assets/css/CK.css') }}">
@@ -15,11 +15,14 @@
 
     @include('includes.sideNavbar')
     <div class="main-body mt-20">
-        <div class="p-4 sm:ml-64">
-            @yield('body')
+        <div class="sm:ml-64">
+            <div class="p-4 min-h-screen">
+                @yield('body')
+            </div>
+            @include('includes.footer-dash')
         </div>
     </div>
-
+    @yield('script')
     <script src="{{ asset('assets/js/jquery-3.7.0.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.js"></script>
