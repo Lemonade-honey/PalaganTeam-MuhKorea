@@ -42,7 +42,7 @@
                         <div class="text-gray-400 text-lg">{{ date("l, d", strtotime($value->tanggal)) }}</div>
                         <div class="text-gray-400 text-xs">{{ date("H:i a", strtotime($value->details['time-start'])) }}</div>
                     </div>
-                    <a href="#" class="font-bold hover:text-yellow-800 hover:underline">{{ $value->title }} {{ date("H:i a", strtotime($value->details['time-finish'])) }}</a>
+                    <a href="#" class="font-bold hover:text-yellow-800 hover:underline capitalize">{{ $value->title }}</a>
 
                     @if (date("H:i a", strtotime($value->details['time-finish'])) > date("H:i a", strtotime(now())) && date("d", strtotime($value->tanggal)) == date("d", strtotime(now())) && date("H:i a", strtotime($value->details['time-start'])) <= date("H:i a", strtotime(now())))
                     <div class="flex items-center text-sm text-gray-600">
