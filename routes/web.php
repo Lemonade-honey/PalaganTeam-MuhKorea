@@ -26,6 +26,10 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
+Route::get('/dashboardTest', function () {
+    return view('dashboardHome');
+} );
+
 Route::get('/form/{slug}', [FormController::class, 'details'])->name('public.form.details');
 Route::post('/form/{slug}', [FormController::class, 'formPassword'])->name('form.formPassword');
 Route::get('/news/{slug}', [NewsController::class, 'details']);
@@ -73,6 +77,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             // news route
             Route::prefix('/news')->group(function () {
                 Route::get('/', [NewsController::class, 'list'])->name('news.list');
+                Route::get('/search', [NewsController::class, 'searchDas'])->name('news.searchDas');
                 Route::get('/create', [NewsController::class, 'create'])->name('news.create');
                 Route::post('/create', [NewsController::class, 'postCreate'])->name('news.postCreate');
                 Route::get('/update/{slug}', [NewsController::class, 'update'])->name('news.update');
@@ -83,6 +88,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             // activity route
             Route::prefix('/activity')->group(function () {
                 Route::get('/', [ActivityController::class, 'list'])->name('activity.list');
+                Route::get('/search', [ActivityController::class, 'search'])->name('activity.search');
                 Route::get('/create', [ActivityController::class, 'create'])->name('activity.create');
                 Route::post('/create', [ActivityController::class, 'postCreate'])->name('activity.postCreate');
                 Route::get('/update/{id}', [ActivityController::class, 'update'])->name('activity.update');
