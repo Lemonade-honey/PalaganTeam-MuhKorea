@@ -57,11 +57,12 @@ class NewsController extends Controller
             'title' => ['required', 'max:100', 'unique:news'],
             'img-thumbnail' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2024'],
             'details' => 'required',
+            'massage' => ['required', 'in:yes,no']
         ]);
 
         try{
             DB::beginTransaction();
-            if($request->has('form-massage')){
+            if($request->massage == "yes"){
                 $massage = Massage::create(['code' => Str::random(25), 'status' => 'aktif']);
                 $massage = $massage->id;
             }else{
@@ -151,17 +152,19 @@ class NewsController extends Controller
      * 
      * Delete Logic
      */
-    public function delete(string $slug){
-        if(DB::table('news')->where('slug', '=', $slug)->exists()){
-            $img = DB::table('news')->select('img')->where('slug', '=', $slug)->first();
-            if(file_exists(public_path('image/news/thumbnail/') . $img->img)){
-                unlink(public_path('image/news/thumbnail/') . $img->img);
-            }
-            DB::table('news')->where('slug', '=', $slug)->delete();
-            return redirect()->route('news.list')->with('success', 'News Succsess Deleted');
-        }else{
-            return redirect()->route('news.list')->withErrors('Failer Delete, News not found');
+    public function delete(int $id){
+        $news = News::find($id);
+
+        if(!$news){
+            return redirect()->route('users.list')->with('errors', 'Failed to Delete, News Not Found');
         }
+
+        if(file_exists(public_path('image/news/thumbnail/') . $news->img)){
+            unlink(public_path('image/news/thumbnail/') . $news->img);
+        }
+
+        $news->delete();
+        return redirect()->route('news.list')->with('success', 'News Succsess Deleted');
 
     }
 
