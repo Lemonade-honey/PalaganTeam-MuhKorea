@@ -21,7 +21,7 @@
                 </div>
             </div> --}}
             <div class="p-4 mb-4 bg-yellow-100 rounded-xl text-gray-800">
-                <div class="font-bold text-2xl leading-none">0</div>
+                <div class="font-bold text-2xl leading-none">{{ is_array($forms) ? count($forms) : '0'  }}</div>
                 <div class="mt-2">Forms joined</div>
             </div>
             <div class="p-4 mb-4 bg-purple-100 rounded-xl text-gray-800">
@@ -74,23 +74,24 @@
             <h2 class="text-2xl font-bold mb-4">My Forms</h2>
         </div>
         <div class="space-y-4">
-            <div class="p-4 bg-blue-200 border rounded-xl text-gray-800 space-y-2">
-                <div class="flex justify-between">
-                    <div class="text-black text-lg">Public</div>
+            @forelse ($forms as $key => $value)
+                @if ($key < 5)
+                    <div class="p-4 {{ ($value->status == 'private') ? 'bg-orange-200' : 'bg-blue-200' }} border rounded-xl text-gray-800 space-y-2">
+                        <div class="flex justify-between">
+                            <div class="text-black text-lg capitalize">{{ $value->status }}</div>
+                        </div>
+                        <a href="{{ route('form.mainForm', ['slug' => $value->slug]) }}" class="font-bold hover:text-yellow-800 capitalize hover:underline">{{ $value->title }}</a>
+                    </div>
+                    @if(count($forms) == $key + 1)
+                        <a href="#" class="float-right text-blue-500 hover:text-blue-700 underline">See all my form</a>
+                    @endif
+                @endif
+            @empty
+                <!-- Empty -->
+                <div class="py-10 bg-white border rounded-xl text-gray-800 space-y-2">
+                    <p class="text-center text-lg">No Form Joined</p>
                 </div>
-                <a href="#" class="font-bold hover:text-yellow-800 hover:underline">Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, voluptatem.</a>
-            </div>
-            <div class="p-4 bg-orange-200 border rounded-xl text-gray-800 space-y-2">
-                <div class="flex justify-between">
-                    <div class="text-black text-lg">Private</div>
-                </div>
-                <a href="#" class="font-bold hover:text-yellow-800 hover:underline">Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, voluptatem.</a>
-            </div>
-            <!-- Empty -->
-            <div class="py-10 bg-white border rounded-xl text-gray-800 space-y-2">
-                <p class="text-center text-lg">No Form Joined</p>
-            </div>
-            <!-- Navbar -->
+            @endforelse
         </div>
     </div>
 </main>
