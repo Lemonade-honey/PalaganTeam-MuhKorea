@@ -18,11 +18,13 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->string('desc');
-            $table->text('details');
             $table->enum('status', ['public', 'private']);
-            $table->string('password');
+            $table->string('categori')->nullable();
+            $table->text('form')->nullable();
+            $table->string('password')->nullable();
             $table->text('register')->nullable();
             $table->string('id_massage')->nullable()->unique();
+            $table->string('created_by');
             $table->timestamps();
         });
     }
