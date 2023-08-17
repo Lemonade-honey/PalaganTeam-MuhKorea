@@ -27,7 +27,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/dashboardTest', function () {
-    return view('dashboardHome');
+    return view('form.form-dashboard');
 } );
 
 Route::get('/form/{slug}', [FormController::class, 'details'])->name('public.form.details');
@@ -72,6 +72,28 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard.home');
         Route::get('/profile', [DashboardController::class, 'profile']);
+
+        // form route
+        Route::prefix('/form')->group(function (){
+
+            Route::middleware(['role:staf,admin'])->group(function (){
+                Route::get('/', [FormController::class, 'list'])->name('form.list');
+                Route::get('/create', [FormController::class, 'create'])->name('form.create');
+                Route::post('/create', [FormController::class, 'postCreate'])->name('form.postCreate');
+                
+                Route::get('/{slug}/create', [FormController::class, 'subFormCreate'])->name('form.subForm.create');
+                Route::post('/{slug}/create', [FormController::class, 'postSubFormCreate'])->name('subForm.postCreate');
+
+                Route::get('/update/{slug}', [FormController::class, 'update'])->name('form.update');
+                Route::get('/update/{slug}/member', [FormController::class, 'memberRegister'])->name('form.list.member');
+                Route::get('/update/{slug}/member/delete/{email}', [FormController::class, 'memberDelete'])->name('form.list.member.delete');
+            });
+
+            Route::get('/myform', [FormController::class, 'myForms'])->name('form.myForm');
+            Route::get('/{slug}', [FormController::class, 'mainForm'])->name('form.mainForm');
+            Route::get('/{slug}/{sub_slug}', [FormController::class, 'subForm'])->name('form.subForm');
+        });
+
         // staff or admin only
         Route::middleware(['role:staf,admin'])->group(function () {
             // news route
@@ -97,14 +119,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
             });
 
             // form route
-            Route::prefix('/form')->group(function (){
-                Route::get('/', [FormController::class, 'list'])->name('form.list');
-                Route::get('/create', [FormController::class, 'create'])->name('form.create');
-                Route::post('/create', [FormController::class, 'postCreate'])->name('form.postCreate');
-                Route::get('/update/{slug}', [FormController::class, 'update'])->name('form.update');
-                Route::get('/update/{slug}/member', [FormController::class, 'memberRegister'])->name('form.list.member');
-                Route::get('/update/{slug}/member/delete/{email}', [FormController::class, 'memberDelete'])->name('form.list.member.delete');
-            });
+            // Route::prefix('/form')->group(function (){
+            //     Route::get('/', [FormController::class, 'list'])->name('form.list');
+            //     Route::get('/create', [FormController::class, 'create'])->name('form.create');
+            //     Route::post('/create', [FormController::class, 'postCreate'])->name('form.postCreate');
+                
+            //     Route::get('/{slug}/create', [FormController::class, 'subFormCreate'])->name('form.subForm.create');
+            //     Route::post('/{slug}/create', [FormController::class, 'postSubFormCreate'])->name('subForm.postCreate');
+
+            //     Route::get('/update/{slug}', [FormController::class, 'update'])->name('form.update');
+            //     Route::get('/update/{slug}/member', [FormController::class, 'memberRegister'])->name('form.list.member');
+            //     Route::get('/update/{slug}/member/delete/{email}', [FormController::class, 'memberDelete'])->name('form.list.member.delete');
+
+            //     Route::get('/{slug}', [FormController::class, 'mainForm'])->name('form.mainForm');
+            //     Route::get('/{slug}/{sub_slug}', [FormController::class, 'subForm'])->name('form.subForm');
+            // });
 
             //ckeditor image upload
             Route::post('/ckeditor-upload', [CKEditorController::class, 'uploadNews'])->name('ckeditor.uploadNews');
