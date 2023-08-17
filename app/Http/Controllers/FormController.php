@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Form;
 use App\Models\Massage;
+use App\Models\SubForm;
+use App\Models\UsersDetails;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -18,15 +21,14 @@ class FormController extends Controller
     public function postCreate(Request $request){
         $request->validate([
             'title' => ['required', 'max:200', 'unique:forms'],
-            'desc' => ['required', 'max:100'],
+            'desc' => 'required',
             'status_form' => ['required', 'in:public,private'],
-            'password' => 'required',
-            'details' => 'required'
+            'password' => 'nullable',
         ]);
 
         try{
             DB::beginTransaction();
-            if($request->has('form-massage')){
+            if($request->massage == 'yes'){
                 $massage = Massage::create(['code' => Str::random(25), 'status' => 'aktif']);
                 $massage = $massage->id;
             }else{
@@ -37,16 +39,163 @@ class FormController extends Controller
                 'title' => $request->title,
                 'slug' => Str::slug($request->title),
                 'desc' => $request->desc,
-                'details' => $request->details,
                 'status' => $request->status_form,
-                'password' => $request->password,
+                'categori' => $request->categori ?? null,
+                'form' => Str::random(10),
+                'password' => $request->password ?? null,
                 'id_massage' => $massage,
+                'created_by' => Auth::user()->email
             ]);
             DB::commit();
-            return dd($form);
+            return redirect()->route('form.mainForm', ['slug' => $form->slug])->with('succsess', 'Form Succsess Created');
         }catch(Exception $ex){
             DB::rollBack();
             return back()->withErrors($ex->getMessage());
+        }
+    }
+
+    /**
+     * GET Main Form
+     */
+    public function mainForm(string $slug){
+
+        $form = DB::table('forms')
+        ->select("forms.*", 'massages.massage_box', 'massages.status as status_massage')
+        ->leftJoin('massages', 'forms.id_massage', '=', 'massages.id')
+        ->where("forms.slug", "=", $slug)->first();
+
+        if(!$form){
+            return redirect()->route('form.list')->with('errors', "Form not Found");
+        }
+
+        $sub_form = DB::table('sub_forms')
+        ->select(["title", "slug", "created_at"])
+        ->where("form", "=", $form->form)
+        ->get();
+
+        if($form->massage_box != null){
+            $form->massage_box = unserialize($form->massage_box);
+        }
+
+        // validasi
+        if($form->status == 'private' && Auth::user()->role == "user" && Auth::user()->email != $form->created_by){
+            if($form->register != null){
+                $form->register = unserialize($form->register);
+                if(in_array(auth()->user()->email, $form->register)){
+                    return view("form.form-main", compact('form', 'sub_form'));
+                }
+                else{
+                    return view('Form/form-password', ['slug' => $slug]);
+                }
+            }
+            return view('Form/form-password', ['slug' => $slug]);
+        }else{
+            return view("form.form-main", compact('form', 'sub_form'));
+        }
+    }
+
+    /**
+     * Get Sub Form
+     */
+    public function subForm(string $slug, string $sub_slug){
+        $sub_form = DB::table('sub_forms')
+        ->select("sub_forms.*", 'massages.massage_box', 'massages.status as status_massage')
+        ->leftJoin('massages', 'sub_forms.id_massage', '=', 'massages.id')
+        ->where("sub_forms.slug", "=", $sub_slug)
+        ->first();
+
+        $form = DB::table("forms")
+        ->select(["slug", "status", "register"])
+        ->where("slug", "=", $slug)
+        ->first();
+
+        if($sub_form->massage_box != null){
+            $sub_form->massage_box = unserialize($sub_form->massage_box);
+        }
+
+        // validasi
+        if($form->status == 'private' && Auth::user()->role == "user" && Auth::user()->email != $form->created_by){
+            if($form->register != null){
+                $form->register = unserialize($form->register);
+                if(in_array(auth()->user()->email, $form->register)){
+                    return view('form.sub-form', compact('sub_form', 'form'));
+                }else{
+                    return redirect()->route('form.mainForm', ['slug' => $slug]);
+                }
+            }
+            return redirect()->route('form.mainForm', ['slug' => $slug]);
+        }else{
+            return view('form.sub-form', compact('sub_form', 'form'));
+        }
+        
+    }
+
+    /**
+     * GET My Form
+     */
+    public function myForms(){
+        $user = UsersDetails::findOrFail(Auth::user()->id);
+        if($user->form){
+            $forms = unserialize($user->form);
+            if($forms == null || !is_array($forms)){
+                // view
+                return (object) null;
+            }
+
+            // view
+            return $forms;
+        }
+
+        // view
+        return (object) null;
+    }
+
+    /**
+     * GET Created Sub Form
+     */
+    public function subFormCreate(){
+        return view('form.subform-create');
+    }
+
+    /**
+     * POST Sub Form Create
+     */
+    public function postSubFormCreate(string $slug, Request $request){
+        $request->validate([
+            'title' => ['required', 'max:80'],
+            'details' => 'required'
+        ]);
+
+        try{
+            DB::beginTransaction();
+            if($request->massage == 'yes'){
+                $massage = Massage::create(['code' => Str::random(25), 'status' => 'aktif']);
+                $massage = $massage->id;
+            }else{
+                $massage = null;
+            }
+
+            $form = DB::table("forms")
+            ->where("slug", "=", $slug)
+            ->first();
+
+            $subform = SubForm::create([
+                'title' => $request->title,
+                'slug' => Str::slug($request->title),
+                'form' => $form->form,
+                'details' => $request->details,
+                'id_massage' => $massage,
+                'created_by' => Auth::user()->name
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('form.mainForm', ['slug' => $slug]);
+        } catch(Exception $ex){
+            DB::rollBack();
+
+
+            return redirect()->back()->withErrors($ex->getMessage());
         }
     }
 
@@ -56,7 +205,7 @@ class FormController extends Controller
     public function list(){
         $form = DB::table('forms')->orderByDesc('id')->paginate(10);
 
-        return view('Form/form-list', compact('form'));
+        return view('form.form', compact('form'));
     }
 
     /**
@@ -121,44 +270,6 @@ class FormController extends Controller
     }
 
     /**
-     * GET Public List Form
-     */
-    public function index(){
-
-    }
-
-    /**
-     * GET Public Form Details
-     */
-    public function details(string $slug){
-        if(!DB::table('forms')->where('slug', '=', $slug)->exists()){
-            return abort(404);
-        }
-        $form = DB::table('forms')->select('forms.*', 'massages.massage_box', 'massages.status as status_massage')
-        ->leftJoin('massages', 'forms.id_massage','=', 'massages.id')
-        ->where('forms.slug', '=', $slug)->first();
-        
-        if($form->massage_box != null){
-            $form->massage_box = unserialize($form->massage_box);
-        }
-
-        // validasi
-        if($form->status == 'private'){
-            if($form->register != null){
-                $form->register = unserialize($form->register);
-                if(in_array(auth()->user()->email, $form->register)){
-                    return view('Form/public-form-detail', compact('form'));
-                }else{
-                    return view('Form/form-password', ['slug' => $slug]);
-                }
-            }
-            return view('Form/form-password', ['slug' => $slug]);
-        }else{
-            return view('Form/public-form-detail', compact('form'));
-        }
-    }
-
-    /**
      * POST Password Form
      */
     public function formPassword(Request $request, string $slug){
@@ -176,10 +287,31 @@ class FormController extends Controller
                 $register = serialize([auth()->user()->email]);
             }
 
-            $form = DB::table('forms')->where('slug', '=', $slug)->update(['register' => $register]);
-            return redirect()->route('public.form.details', ['slug' => $slug]);
+            try{
+                DB::beginTransaction();
+                $form = DB::table('forms')->where('slug', '=', $slug)->update(['register' => $register]);
+                $user = UsersDetails::find(Auth::user()->id);
+
+                if($user->form != null){
+                    $userForm = unserialize($user->form);
+                    array_push($userForm, $slug);
+
+                    $user->form = serialize($userForm);
+                }else{
+                    $user->form = serialize([$slug]);
+                }
+
+                $user->save();
+
+                DB::commit();
+                return redirect(url()->previous());
+            } catch (Exception $ex){
+                DB::rollBack();
+
+                return back()->with('errors', 'Oops Something errors, try again letar. Error :' . $ex->getMessage());
+            }
         }else{
-            return back()->withErrors('password is wrong');
+            return back()->with('errors', 'password not match');
         }
     }
 }
