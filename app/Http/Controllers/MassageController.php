@@ -25,7 +25,7 @@ class MassageController extends Controller
             $data = unserialize($massage->massage_box);
             $data[] =[
                 'code' => Str::random(5),
-                'by' => Auth::user()->email,
+                'by' => Auth::user()->name,
                 'time' => date('H:i:s, d F Y', strtotime(now())),
                 'massage' => $request->massage,
                 'reply' => []
@@ -33,26 +33,39 @@ class MassageController extends Controller
             $data = serialize($data);
 
             $history = unserialize($massage->massage_history);
-            array_push($history, "Post" . " -> " .Auth::user()->email . " - " . date('H:i:s, d F Y', strtotime(now())));
+            $massage_history = [
+                "action" => 'POST',
+                "name" => Auth::user()->name,
+                "email" => Auth::user()->email,
+                "time" => date('H:i:s, d F Y', strtotime(now()))
+            ];
+            array_push($history, $massage_history);
             $history = serialize($history);
         }else{
             $data = serialize([
                 [
                     'code' => Str::random(5),
-                    'by' => Auth::user()->email,
+                    'by' => Auth::user()->name,
                     'time' => date('H:i:s, d F Y', strtotime(now())),
                     'massage' => $request->massage,
                     'reply' => []
                 ]
             ]);
 
-            $history = serialize(["Post" . " -> " .Auth::user()->email . " - " . date('H:i:s, d F Y', strtotime(now()))]);
+            $massage_history = [
+                "action" => 'POST',
+                "name" => Auth::user()->name,
+                "email" => Auth::user()->email,
+                "time" => date('H:i:s, d F Y', strtotime(now()))
+            ];
+            $history = serialize($massage_history);
         }
         $massage->massage_box = $data;
         $massage->massage_history = $history;
 
         $massage->save();
 
+        // redirect back with massage
         return redirect(url()->previous())->with('success', 'Sucses');
     }
 
@@ -76,12 +89,20 @@ class MassageController extends Controller
             $massage->massage_box = serialize($array);
             
             $history = unserialize($massage->massage_history);
-            array_push($history, "Delete" . " -> " .Auth::user()->email . " - " . date('H:i:s, d F Y', strtotime(now())));
-
+            $massage_history = [
+                "action" => 'Delete',
+                "name" => Auth::user()->name,
+                "email" => Auth::user()->email,
+                "time" => date('H:i:s, d F Y', strtotime(now()))
+            ];
+            array_push($history, $massage_history);
             $massage->massage_history = serialize($history);
 
+            // save
             $massage->save();
         }
+
+        // redirect back
         return redirect(url()->previous())->with('success', 'Sucses');
     }
 
@@ -100,7 +121,7 @@ class MassageController extends Controller
                 if($value['code'] == $kode){
                     $data = [
                         'code' => Str::random(5),
-                        'by' => Auth::user()->email,
+                        'by' => Auth::user()->name,
                         'time' => date('H:i:s, d F Y', strtotime(now())),
                         'massage' => $request->reply
                     ];
@@ -112,12 +133,19 @@ class MassageController extends Controller
             $massage->massage_box = serialize($array);
             
             $history = unserialize($massage->massage_history);
-            array_push($history, "Delete" . " -> " .Auth::user()->email . " - " . date('H:i:s, d F Y', strtotime(now())));
-
+            $massage_history = [
+                "action" => 'POST',
+                "name" => Auth::user()->name,
+                "email" => Auth::user()->email,
+                "time" => date('H:i:s, d F Y', strtotime(now()))
+            ];
+            array_push($history, $massage_history);
             $massage->massage_history = serialize($history);
 
+            // save
             $massage->save();
         }
+
         return redirect(url()->previous())->with('success', 'Sucses');
     }
 
@@ -132,7 +160,7 @@ class MassageController extends Controller
 
         if($massage->massage_box != null){
             $array = unserialize($massage->massage_box);
-            print_r($array[0]);
+            // return dd($array);
             foreach($array as $key => $value){
                 if($value['code'] == $kode){
                     foreach($value['reply'] as $item => $reply){
@@ -148,7 +176,13 @@ class MassageController extends Controller
             $massage->massage_box = serialize($array);
             
             $history = unserialize($massage->massage_history);
-            array_push($history, "Delete" . " -> " .Auth::user()->email . " - " . date('H:i:s, d F Y', strtotime(now())));
+            $massage_history = [
+                "action" => 'Delete',
+                "name" => Auth::user()->name,
+                "email" => Auth::user()->email,
+                "time" => date('H:i:s, d F Y', strtotime(now()))
+            ];
+            array_push($history, $massage_history);
 
             $massage->massage_history = serialize($history);
 
