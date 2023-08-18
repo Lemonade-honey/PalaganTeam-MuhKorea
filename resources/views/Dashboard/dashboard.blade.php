@@ -21,7 +21,7 @@
                 </div>
             </div> --}}
             <div class="p-4 mb-4 bg-yellow-100 rounded-xl text-gray-800">
-                <div class="font-bold text-2xl leading-none">{{ is_array($forms) ? count($forms) : '0'  }}</div>
+                <div class="font-bold text-2xl leading-none">{{ count((array)$forms) ?? '0'  }}</div>
                 <div class="mt-2">Forms joined</div>
             </div>
             <div class="p-4 mb-4 bg-purple-100 rounded-xl text-gray-800">
