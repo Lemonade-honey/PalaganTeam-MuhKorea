@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('desc');
             $table->enum('status', ['public', 'private']);
+            $table->string('img')->nullable();
             $table->string('categori')->nullable();
             $table->text('form')->nullable();
             $table->string('password')->nullable();
