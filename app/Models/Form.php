@@ -16,6 +16,7 @@ class Form extends Model
         'details',
         'form',
         'status',
+        'categori',
         'img',
         'password',
         'register',
