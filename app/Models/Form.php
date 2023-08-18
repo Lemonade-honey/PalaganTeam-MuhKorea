@@ -16,6 +16,7 @@ class Form extends Model
         'details',
         'form',
         'status',
+        'img',
         'password',
         'register',
         'id_massage',
