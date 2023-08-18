@@ -40,6 +40,7 @@ class FormController extends Controller
                 'slug' => Str::slug($request->title),
                 'desc' => $request->desc,
                 'status' => $request->status_form,
+                'img' => $this->randomRGBColor(),
                 'categori' => $request->categori ?? null,
                 'form' => Str::random(10),
                 'password' => $request->password ?? null,
@@ -52,6 +53,26 @@ class FormController extends Controller
             DB::rollBack();
             return back()->withErrors($ex->getMessage());
         }
+    }
+
+    /**
+     * Random RGB Color
+     */
+    private function randomRGBColor(){
+        function random(){
+            return 'rgb(' . rand(0, 255) . ',' . rand(0, 255) . ',' . rand(0, 255) . ') ';
+        }
+      
+        function derajat(){
+            return rand(0, 360) . "deg, ";
+        }
+        
+        function persen(){
+            return rand(0, 30) . "%, ";
+        }
+        
+        // linear-gradient(190deg, rgb(129, 168, 50) 0%, rgb(176, 46, 48) 100%)
+        return "linear-gradient(" . derajat() . random() . persen() . random() . "100%)";
     }
 
     /**
@@ -105,7 +126,7 @@ class FormController extends Controller
         ->first();
 
         $form = DB::table("forms")
-        ->select(["slug", "status", "register"])
+        ->select(["slug", "status", "register", "created_by"])
         ->where("slug", "=", $slug)
         ->first();
 
@@ -138,16 +159,19 @@ class FormController extends Controller
         if($user->form){
             $forms = unserialize($user->form);
             if($forms == null || !is_array($forms)){
-                // view
-                return (object) null;
+                $forms = (object) null;
+                return view('form.form-my', compact('forms'));
             }
 
-            // view
-            return $forms;
+            $forms = DB::table("forms")
+            ->whereIn("slug", $forms)
+            ->get();
+            
+            return view('form.form-my', compact('forms'));
         }
 
-        // view
-        return (object) null;
+        $forms = (object) null;
+        return view('form.form-my', compact('forms'));
     }
 
     /**
@@ -200,12 +224,34 @@ class FormController extends Controller
     }
 
     /**
+     * GET List User Form
+     */
+    public function listUser(){
+        $forms = DB::table('forms')->orderByDesc('id')->paginate(6);
+
+        return view('form.form-list', compact('forms'));
+    }
+
+    /**
      * GET List Form
      */
     public function list(){
         $form = DB::table('forms')->orderByDesc('id')->paginate(10);
 
         return view('form.form', compact('form'));
+    }
+
+    /**
+     * GET Search List Form
+     */
+    public function searchList(Request $request){
+        $forms = DB::table("forms")
+        ->where("title", "like", "%". $request->search ."%")
+        ->orWhere("created_by", "like", "%". $request->search ."%")
+        ->orWhere("categori", "like", "%". $request->search ."%")
+        ->paginate(6);
+
+        return view('form.form-list', compact('forms'));
     }
 
     /**
