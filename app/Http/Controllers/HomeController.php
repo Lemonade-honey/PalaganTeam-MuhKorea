@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UsersDetails;
 use App\Service\UserService;
 use Exception;
 use Illuminate\Auth\Events\PasswordReset;
@@ -79,6 +80,10 @@ class HomeController extends Controller
             'name' => $request['name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password'])
+        ]);
+
+        $userDetail = UsersDetails::create([
+            'email' => $request['email']
         ]);
 
         event(new Registered($user));
