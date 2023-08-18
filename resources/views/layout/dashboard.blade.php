@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="{{ asset('assets/css/CK.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .min-height{
+            min-height: 71vh;
+        }
+    </style>
 </head>
 
 <body>
@@ -18,7 +23,7 @@
     @include('includes.sideNavbar')
     <div class="main-body mt-20">
         <div class="sm:ml-64">
-            <div class="p-4 min-h-screen">
+            <div class="p-4 min-height">
                 @yield('body')
             </div>
             @include('includes.footer-dash')
