@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Form;
 use App\Models\Massage;
 use App\Models\SubForm;
+use App\Models\User;
 use App\Models\UsersDetails;
 use Exception;
 use Illuminate\Http\Request;
@@ -98,20 +99,25 @@ class FormController extends Controller
             $form->massage_box = unserialize($form->massage_box);
         }
 
-        // validasi
-        if($form->status == 'private' && Auth::user()->role == "user" && Auth::user()->email != $form->created_by){
-            if($form->register != null){
-                $form->register = unserialize($form->register);
-                if(in_array(auth()->user()->email, $form->register)){
-                    return view("form.form-main", compact('form', 'sub_form'));
-                }
-                else{
+        if(!$form->register) $form->register = serialize([]); 
+
+        $form->register = unserialize($form->register);
+        if(!is_array($form->register)) abort(505, "coruption data");
+
+        (in_array(auth()->user()->email, $form->register)) ? $btn = false : $btn = true;
+
+        switch ($form->status) {
+            case 'public':
+                return view("form.form-main", compact('form', 'sub_form', 'btn'));
+    
+            case 'private':
+                if($btn){
                     return view('Form/form-password', ['slug' => $slug]);
                 }
-            }
-            return view('Form/form-password', ['slug' => $slug]);
-        }else{
-            return view("form.form-main", compact('form', 'sub_form'));
+                return view("form.form-main", compact('form', 'sub_form', 'btn'));
+
+            default:
+                return abort(505, "coruption form");
         }
     }
 
@@ -312,6 +318,63 @@ class FormController extends Controller
             return redirect()->back()->with('success', "Success Delete Member");
         } catch (Exception $ex) {
             return redirect()->back()->with('errors', "Failed Delete Member. " . $ex->getMessage());
+        }
+    }
+
+    /**
+     * GET register user public
+     */
+    public function registerUserForm(string $slug){
+        $form = DB::table('forms')->where('slug', '=', $slug)->first();
+        if(!$form){
+            return redirect(url()->previous())->with('errors', "form not found");
+        }
+
+        try{
+            $user = UsersDetails::findOrFail(Auth::user()->id);
+
+            // logic user form
+            if($user->form){
+                $user->form = unserialize($user->form);
+                $userForm = array_unique($user->form);
+            }else{
+                // set empty array
+                $userForm = [];
+            }
+
+            DB::beginTransaction();
+            if($form->register == null || !$form->register = unserialize($form->register)){
+                // kondisi null atau kosongan atau tidak bisa di unserialize
+                array_push($userForm, $form->slug);
+                $user->form = serialize($userForm);
+                $user->save();
+                $form = DB::table('forms')->where('slug', '=', $slug)->update(["register" => serialize([Auth::user()->email])]);
+
+                DB::commit();
+                // return succses massage
+                return redirect(url()->previous())->with("success", "berhasil daftar");
+            }else{
+                foreach($form->register as $userEmail){
+                    if($userEmail == Auth::user()->email){
+                        return redirect(url()->previous())->with("success", "Sudah Terdaftar di form ini");
+                    }
+                }
+
+                // logic daftar daftar
+                array_push($userForm, $form->slug);
+                $user->form = serialize($userForm);
+                $user->save();
+
+                array_push($form->register, Auth::user()->email);
+                $form = DB::table('forms')->where('slug', '=', $slug)->update(["register" => serialize([Auth::user()->email])]);
+
+                DB::commit();
+                return redirect(url()->previous())->with("success", "berhasil daftar");
+            }
+        } catch(Exception $ex){
+            DB::rollBack();
+
+            return abort(504, "failed to join this form, try again later. Error : " . $ex->getMessage());
         }
     }
 
