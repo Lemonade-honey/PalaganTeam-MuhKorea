@@ -4,7 +4,7 @@
 
 <div class="p-4">
     <div class="mb-5">
-        <h1 class="font-bold text-blue-800 text-2xl mb-1">My Form</h1>
+        <h1 class="font-bold text-blue-800 text-2xl mb-1">List Form</h1>
         <hr>
 
         <form action="{{ route('form.listSearch') }}" method="GET">   
@@ -20,7 +20,7 @@
             </div>
         </form>
     </div>
-    <div class="flex flex-wrap xl:gap-10 gap-5 xl:justify-start justify-center">
+    <div class="flex flex-wrap xl:gap-10 gap-5 justify-start">
         
         @forelse($forms as $item)
         <div class="max-w-xs w-full bg-white border border-gray-200 rounded-lg shadow">
