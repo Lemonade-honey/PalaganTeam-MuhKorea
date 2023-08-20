@@ -95,6 +95,7 @@ class FormController extends Controller
         ->where("form", "=", $form->form)
         ->get();
 
+        // massage
         if($form->massage_box != null){
             $form->massage_box = unserialize($form->massage_box);
         }
@@ -104,7 +105,8 @@ class FormController extends Controller
         $form->register = unserialize($form->register);
         if(!is_array($form->register)) abort(505, "coruption data");
 
-        (in_array(auth()->user()->email, $form->register)) ? $btn = false : $btn = true;
+        // cek register
+        (in_array(auth()->user()->email, $form->register) || auth()->user()->role == 'admin' || $form->created_by == auth()->user()->email) ? $btn = false : $btn = true;
 
         switch ($form->status) {
             case 'public':
@@ -366,7 +368,7 @@ class FormController extends Controller
                 $user->save();
 
                 array_push($form->register, Auth::user()->email);
-                $form = DB::table('forms')->where('slug', '=', $slug)->update(["register" => serialize([Auth::user()->email])]);
+                $form = DB::table('forms')->where('slug', '=', $slug)->update(["register" => serialize($form->register)]);
 
                 DB::commit();
                 return redirect(url()->previous())->with("success", "berhasil daftar");
@@ -375,6 +377,54 @@ class FormController extends Controller
             DB::rollBack();
 
             return abort(504, "failed to join this form, try again later. Error : " . $ex->getMessage());
+        }
+    }
+
+    /**
+     * GET Unregister User Form
+     */
+    public function leaveUserForm(string $slug){
+        $form = DB::table('forms')->where('slug', '=', $slug)->first();
+
+        if(!$form){
+            return redirect(url()->previous())->with('errors', "form not found");
+        }
+
+        try{
+            if($form->register == null || !unserialize($form->register)) return redirect('form.myForm');
+
+            $usersEmail = unserialize($form->register);
+            foreach($usersEmail as $key => $userEmail){
+                if($userEmail == Auth::user()->email){
+
+                    DB::beginTransaction();
+                    unset($usersEmail[$key]);
+
+                    // user logic
+                    $user = UsersDetails::findOrFail(Auth::user()->id);
+                    foreach($forms = unserialize($user->form) as $key => $formsJoined){
+                        if($formsJoined == $form->slug){
+                            unset($forms[$key]);
+                            $user->form = serialize($forms);
+                            $user->save();
+
+                            break;
+                        }
+                    }
+
+                    // save form
+                    $form = DB::table('forms')->where('slug', '=', $slug)->update(["register" => serialize($usersEmail)]);
+
+                    DB::commit();
+                    return redirect(url()->previous())->with("success", "user sukses meninggalkan form");
+                }
+            }
+
+            return redirect(url()->previous())->with("success", "user tidak ditemukan di form");
+        } catch(Exception $ex){
+            DB::rollBack();
+
+            return abort(504, "error server. Error : " . $ex->getMessage());
         }
     }
 
