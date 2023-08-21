@@ -85,7 +85,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::get('/{slug}/create', [FormController::class, 'subFormCreate'])->name('form.subForm.create');
                 Route::post('/{slug}/create', [FormController::class, 'postSubFormCreate'])->name('subForm.postCreate');
 
+                // delete form
+                Route::get('/delete/{slug}', [FormController::class, 'deleteForm'])->name('form.deleteForm');
+                Route::get('/delete/{id}/{slug}', [FormController::class, 'deleteSubForm'])->name('subForm.deleteSubForm');
+
                 Route::get('/update/{slug}', [FormController::class, 'update'])->name('form.update');
+                Route::post('/update/{slug}', [FormController::class, 'postUpdate'])->name('form.postUpdate');
+
                 Route::get('/update/{slug}/member', [FormController::class, 'memberRegister'])->name('form.list.member');
                 Route::get('/update/{slug}/member/delete/{email}', [FormController::class, 'memberDelete'])->name('form.list.member.delete');
             });
