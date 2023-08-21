@@ -91,7 +91,7 @@ class FormController extends Controller
         }
 
         $sub_form = DB::table('sub_forms')
-        ->select(["title", "slug", "created_at"])
+        ->select([ "id", "title", "slug", "created_at"])
         ->where("form", "=", $form->form)
         ->get();
 
@@ -229,6 +229,32 @@ class FormController extends Controller
 
             return redirect()->back()->withErrors($ex->getMessage());
         }
+    }
+
+    /**
+     * GET Delete subform
+     */
+    public function deleteSubForm(int $id){
+        $subForm = SubForm::findOrFail($id);
+        $subForm->delete();
+        return redirect(url()->previous())->with("success", "berhasil menghapus sub-form");
+    }
+
+    /**
+     * GET Delete Main Form
+     */
+    public function deleteForm(string $slug){
+        $form = DB::table("forms")
+        ->where("slug", "=", $slug)
+        ->first();
+
+        if(!$form){
+            return redirect()->route('form.list')->with('errors', "Form not Found");
+        }
+
+        $form = Form::find($form->id);
+        $form->delete();
+        return redirect()->route('form.list')->with('success', "Form deleted");
     }
 
     /**
