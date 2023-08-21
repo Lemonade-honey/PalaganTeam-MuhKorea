@@ -26,6 +26,7 @@ class MassageController extends Controller
             $data[] =[
                 'code' => Str::random(5),
                 'by' => Auth::user()->name,
+                'email' => Auth::user()->email,
                 'time' => date('H:i:s, d F Y', strtotime(now())),
                 'massage' => $request->massage,
                 'reply' => []
@@ -46,6 +47,7 @@ class MassageController extends Controller
                 [
                     'code' => Str::random(5),
                     'by' => Auth::user()->name,
+                    'email' => Auth::user()->email,
                     'time' => date('H:i:s, d F Y', strtotime(now())),
                     'massage' => $request->massage,
                     'reply' => []
@@ -122,6 +124,7 @@ class MassageController extends Controller
                     $data = [
                         'code' => Str::random(5),
                         'by' => Auth::user()->name,
+                        'email' => Auth::user()->email,
                         'time' => date('H:i:s, d F Y', strtotime(now())),
                         'massage' => $request->reply
                     ];
