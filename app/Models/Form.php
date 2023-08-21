@@ -13,7 +13,6 @@ class Form extends Model
         'title',
         'slug',
         'desc',
-        'details',
         'form',
         'status',
         'categori',
