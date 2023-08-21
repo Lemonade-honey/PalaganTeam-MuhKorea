@@ -15,65 +15,65 @@ use Illuminate\Support\Str;
 
 class FormController extends Controller
 {
-    public function create(){
-        return view('Form/form-create');
-    }
+    /**
+     * GET List User Form
+     */
+    public function listUser(){
+        $forms = DB::table('forms')->orderByDesc('id')->paginate(6);
 
-    public function postCreate(Request $request){
-        $request->validate([
-            'title' => ['required', 'max:200', 'unique:forms'],
-            'desc' => 'required',
-            'status_form' => ['required', 'in:public,private'],
-            'password' => 'nullable',
-        ]);
-
-        try{
-            DB::beginTransaction();
-            if($request->massage == 'yes'){
-                $massage = Massage::create(['code' => Str::random(25), 'status' => 'aktif']);
-                $massage = $massage->id;
-            }else{
-                $massage = null;
-            }
-
-            $form = Form::create([
-                'title' => $request->title,
-                'slug' => Str::slug($request->title),
-                'desc' => $request->desc,
-                'status' => $request->status_form,
-                'img' => $this->randomRGBColor(),
-                'categori' => $request->categori ?? null,
-                'form' => Str::random(10),
-                'password' => $request->password ?? null,
-                'id_massage' => $massage,
-                'created_by' => Auth::user()->email
-            ]);
-            DB::commit();
-            return redirect()->route('form.mainForm', ['slug' => $form->slug])->with('succsess', 'Form Succsess Created');
-        }catch(Exception $ex){
-            DB::rollBack();
-            return back()->withErrors($ex->getMessage());
-        }
+        return view('form.form-list', compact('forms'));
     }
 
     /**
-     * Random RGB Color
+     * GET Search List Form
      */
-    private function randomRGBColor(){
-        function random(){
-            return 'rgb(' . rand(0, 255) . ',' . rand(0, 255) . ',' . rand(0, 255) . ') ';
+    public function searchList(Request $request){
+        $forms = DB::table("forms")
+        ->where("title", "like", "%". $request->search ."%")
+        ->orWhere("created_by", "like", "%". $request->search ."%")
+        ->orWhere("categori", "like", "%". $request->search ."%")
+        ->paginate(6);
+
+        return view('form.form-list', compact('forms'));
+    }
+
+    /**
+     * GET List Form
+     */
+    public function list(){
+        $form = DB::table('forms')->orderByDesc('id')->paginate(10);
+
+        return view('form.form', compact('form'));
+    }
+
+    /**
+     * GET Search List Form
+     */
+    public function search(){
+
+    }
+
+    /**
+     * GET My Form
+     */
+    public function myForms(){
+        $user = UsersDetails::findOrFail(Auth::user()->id);
+        if($user->form){
+            $forms = unserialize($user->form);
+            if($forms == null || !is_array($forms)){
+                $forms = (object) null;
+                return view('form.form-my', compact('forms'));
+            }
+
+            $forms = DB::table("forms")
+            ->whereIn("slug", $forms)
+            ->get();
+            
+            return view('form.form-my', compact('forms'));
         }
-      
-        function derajat(){
-            return rand(0, 360) . "deg, ";
-        }
-        
-        function persen(){
-            return rand(0, 30) . "%, ";
-        }
-        
-        // linear-gradient(190deg, rgb(129, 168, 50) 0%, rgb(176, 46, 48) 100%)
-        return "linear-gradient(" . derajat() . random() . persen() . random() . "100%)";
+
+        $forms = (object) null;
+        return view('form.form-my', compact('forms'));
     }
 
     /**
@@ -159,43 +159,16 @@ class FormController extends Controller
         
     }
 
-    /**
-     * GET My Form
-     */
-    public function myForms(){
-        $user = UsersDetails::findOrFail(Auth::user()->id);
-        if($user->form){
-            $forms = unserialize($user->form);
-            if($forms == null || !is_array($forms)){
-                $forms = (object) null;
-                return view('form.form-my', compact('forms'));
-            }
-
-            $forms = DB::table("forms")
-            ->whereIn("slug", $forms)
-            ->get();
-            
-            return view('form.form-my', compact('forms'));
-        }
-
-        $forms = (object) null;
-        return view('form.form-my', compact('forms'));
+    public function create(){
+        return view('Form/form-create');
     }
 
-    /**
-     * GET Created Sub Form
-     */
-    public function subFormCreate(){
-        return view('form.subform-create');
-    }
-
-    /**
-     * POST Sub Form Create
-     */
-    public function postSubFormCreate(string $slug, Request $request){
+    public function postCreate(Request $request){
         $request->validate([
-            'title' => ['required', 'max:80'],
-            'details' => 'required'
+            'title' => ['required', 'max:200', 'unique:forms'],
+            'desc' => 'required',
+            'status_form' => ['required', 'in:public,private'],
+            'password' => 'nullable',
         ]);
 
         try{
@@ -207,85 +180,44 @@ class FormController extends Controller
                 $massage = null;
             }
 
-            $form = DB::table("forms")
-            ->where("slug", "=", $slug)
-            ->first();
-
-            $subform = SubForm::create([
+            $form = Form::create([
                 'title' => $request->title,
                 'slug' => Str::slug($request->title),
-                'form' => $form->form,
-                'details' => $request->details,
+                'desc' => $request->desc,
+                'status' => $request->status_form,
+                'img' => $this->randomRGBColor(),
+                'categori' => $request->categori ?? null,
+                'form' => Str::random(10),
+                'password' => $request->password ?? null,
                 'id_massage' => $massage,
-                'created_by' => Auth::user()->name
+                'created_by' => Auth::user()->email
             ]);
-
             DB::commit();
-
-            return redirect()->route('form.mainForm', ['slug' => $slug]);
-        } catch(Exception $ex){
+            return redirect()->route('form.mainForm', ['slug' => $form->slug])->with('succsess', 'Form Succsess Created');
+        }catch(Exception $ex){
             DB::rollBack();
-
-
-            return redirect()->back()->withErrors($ex->getMessage());
+            return back()->withErrors($ex->getMessage());
         }
     }
 
     /**
-     * GET Delete subform
+     * Random RGB Color
      */
-    public function deleteSubForm(int $id){
-        $subForm = SubForm::findOrFail($id);
-        $subForm->delete();
-        return redirect(url()->previous())->with("success", "berhasil menghapus sub-form");
-    }
-
-    /**
-     * GET Delete Main Form
-     */
-    public function deleteForm(string $slug){
-        $form = DB::table("forms")
-        ->where("slug", "=", $slug)
-        ->first();
-
-        if(!$form){
-            return redirect()->route('form.list')->with('errors', "Form not Found");
+    private function randomRGBColor(){
+        function random(){
+            return 'rgb(' . rand(0, 255) . ',' . rand(0, 255) . ',' . rand(0, 255) . ') ';
         }
-
-        $form = Form::find($form->id);
-        $form->delete();
-        return redirect()->route('form.list')->with('success', "Form deleted");
-    }
-
-    /**
-     * GET List User Form
-     */
-    public function listUser(){
-        $forms = DB::table('forms')->orderByDesc('id')->paginate(6);
-
-        return view('form.form-list', compact('forms'));
-    }
-
-    /**
-     * GET List Form
-     */
-    public function list(){
-        $form = DB::table('forms')->orderByDesc('id')->paginate(10);
-
-        return view('form.form', compact('form'));
-    }
-
-    /**
-     * GET Search List Form
-     */
-    public function searchList(Request $request){
-        $forms = DB::table("forms")
-        ->where("title", "like", "%". $request->search ."%")
-        ->orWhere("created_by", "like", "%". $request->search ."%")
-        ->orWhere("categori", "like", "%". $request->search ."%")
-        ->paginate(6);
-
-        return view('form.form-list', compact('forms'));
+      
+        function derajat(){
+            return rand(0, 360) . "deg, ";
+        }
+        
+        function persen(){
+            return rand(0, 30) . "%, ";
+        }
+        
+        // linear-gradient(190deg, rgb(129, 168, 50) 0%, rgb(176, 46, 48) 100%)
+        return "linear-gradient(" . derajat() . random() . persen() . random() . "100%)";
     }
 
     /**
@@ -370,6 +302,81 @@ class FormController extends Controller
             return redirect()->route('form.list')->with("errors", "failed update form, try again later. Error : " . $ex->getMessage());
         }
 
+    }
+
+    /**
+     * GET Created Sub Form
+     */
+    public function subFormCreate(){
+        return view('form.subform-create');
+    }
+
+    /**
+     * POST Sub Form Create
+     */
+    public function postSubFormCreate(string $slug, Request $request){
+        $request->validate([
+            'title' => ['required', 'max:80'],
+            'details' => 'required'
+        ]);
+
+        try{
+            DB::beginTransaction();
+            if($request->massage == 'yes'){
+                $massage = Massage::create(['code' => Str::random(25), 'status' => 'aktif']);
+                $massage = $massage->id;
+            }else{
+                $massage = null;
+            }
+
+            $form = DB::table("forms")
+            ->where("slug", "=", $slug)
+            ->first();
+
+            $subform = SubForm::create([
+                'title' => $request->title,
+                'slug' => Str::slug($request->title),
+                'form' => $form->form,
+                'details' => $request->details,
+                'id_massage' => $massage,
+                'created_by' => Auth::user()->name
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('form.mainForm', ['slug' => $slug]);
+        } catch(Exception $ex){
+            DB::rollBack();
+
+
+            return redirect()->back()->withErrors($ex->getMessage());
+        }
+    }
+
+    /**
+     * GET Delete subform
+     */
+    public function deleteSubForm(int $id){
+        $subForm = SubForm::findOrFail($id);
+        $subForm->delete();
+        return redirect(url()->previous())->with("success", "berhasil menghapus sub-form");
+    }
+
+    /**
+     * GET Delete Main Form
+     */
+    public function deleteForm(string $slug){
+        $form = DB::table("forms")
+        ->where("slug", "=", $slug)
+        ->first();
+
+        if(!$form){
+            return redirect()->route('form.list')->with('errors', "Form not Found");
+        }
+
+        $form = Form::find($form->id);
+        $form->delete();
+        return redirect()->route('form.list')->with('success', "Form deleted");
     }
 
     /**
