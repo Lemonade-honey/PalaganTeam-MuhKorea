@@ -266,7 +266,10 @@ class FormController extends Controller
      * GET Update Form
      */
     public function update(string $slug){
-        $form = DB::table('forms')->where('slug', '=', $slug)->first();
+        $form = DB::table('forms')
+        ->select("forms.*", "massages.status as massage_status")
+        ->leftJoin("massages", "massages.id", "=", "forms.id_massage")
+        ->where('forms.slug', '=', $slug)->first();
         if(!$form){
             return redirect()->route('form.list')->with('errors', 'Form Not Found');
         }
@@ -279,13 +282,68 @@ class FormController extends Controller
      * POST Update Form
      */
     public function postUpdate(Request $request, string $slug){
+        
+        $form = DB::table("forms")
+        ->where("slug", "=", $slug)
+        ->first();
+
         $request->validate([
-            'title' => ['required', 'max:200', 'unique:forms'],
-            'desc' => ['required', 'max:100'],
+            'title' => ['required', 'max:200'],
+            'desc' => 'required',
             'status_form' => ['required', 'in:public,private'],
-            'password' => 'required',
-            'details' => 'required'
+            'password' => 'nullable',
+            'categori' => 'nullable'
         ]);
+
+        if($request->status_form == 'private' && $request->password == null){
+            return redirect()->back()->withErrors("form set private, password form required");
+        }
+
+        try {
+            DB::beginTransaction();
+
+            // update massage table
+            if($form->id_massage != null && $request->massage == 'no'){
+                $massage = Massage::findOrFail($form->id_massage);
+                $massage->status = "nonaktif";
+                $massage->save();
+
+                $massage = $massage->id;
+            }else if($form->id_massage != null && $request->massage == 'yes'){
+                $massage = Massage::findOrFail($form->id_massage);
+                $massage->status = "aktif";
+                $massage->save();
+
+                $massage = $massage->id;
+            }
+
+            // create massage table
+            if($form->id_massage == null && $request->massage == 'no'){
+                $massage = null;
+            }else if($form->id_massage == null && $request->massage == 'yes'){
+                $massage = Massage::create(['code' => Str::random(25), 'status' => 'aktif']);
+
+                $massage = $massage->id;
+            }
+
+            $form = Form::find($form->id);
+            $form->title = $request->title;
+            $form->desc = $request->desc;
+            $form->status = $request->status_form;
+            $form->categori = $request->categori ?? null;
+            $form->password = $request->password ?? null;
+            $form->id_massage = $massage;
+
+            $form->save();
+            DB::commit();
+
+            return redirect()->route('form.list')->with("success", "success update form");
+        } catch (Exception $ex) {
+            DB::rollBack();
+
+            return redirect()->route('form.list')->with("errors", "failed update form, try again later. Error : " . $ex->getMessage());
+        }
+
     }
 
     /**
