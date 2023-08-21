@@ -28,7 +28,7 @@
                             
                         </div>
                         @auth
-                            @if ($value['by'] == Auth::user()->email || Auth::user()->role == 'admin' || Auth::user()->role == 'staf')
+                            @if ($value['email'] == Auth::user()->email || Auth::user()->role == 'admin' || Auth::user()->role == 'staf')
                             <button data-dropdown-toggle="dropdownComment{{$first}}"
                             class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50"
                             type="button">
@@ -84,7 +84,7 @@
                                 <p class="inline-flex items-center ml-2 text-sm text-gray-900">{{ $valueReply['by'] }}</p>
                             </div>
                             @auth
-                                @if ($value['by'] == Auth::user()->email || Auth::user()->role == 'admin' || Auth::user()->role == 'staf')
+                                @if ($value['email'] == Auth::user()->email || Auth::user()->role == 'admin' || Auth::user()->role == 'staf')
                                 <button data-dropdown-toggle="dropdownReply{{ $reply }}"
                                 class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50"
                                 type="button">
