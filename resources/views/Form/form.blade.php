@@ -89,6 +89,7 @@
                                 class="bg-blue-500  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                 View
                             </a>
+                            @if ($value->created_by == Auth::user()->email || Auth::user()->role == 'admin')
                             <a href="{{ route('form.update', ['slug' => $value->slug]) }}"
                                 class="bg-yellow-500  hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
                                 Edit
@@ -98,6 +99,7 @@
                                 class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-3.5 rounded">
                                 Delete
                             </a>
+                            @endif
                         </div>
                     </td>
                 </tr>
