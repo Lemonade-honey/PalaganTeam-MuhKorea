@@ -30,16 +30,17 @@
         </nav>
         <div :class="{ 'flex': open, 'hidden': !open }" class="ml-3 md:block">
             @if (auth()->check())
-                <div class="dropdown dropdown-right">
+                <div class="dropdown md:dropdown-left">
                     <label tabindex="0" class="btn btn-ghost btn-circle avatar">
-                        <div class="w-10 rounded-full">
-                            <img src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" />
+                        <div
+                            class="inline-flex  items-center justify-center w-7 h-7 overflow-hidden bg-gray-500 rounded-full ">
+                            <p class="text-sm text-white uppercase">{{ substr(Auth::user()->name, 0, 2) }}</p>
                         </div>
                     </label>
                     <ul tabindex="0"
                         class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
                         <li>
-                            <a href="#">Profile</a>
+                            <a href="#">Dashboard</a>
                         </li>
                         <li><a href="/dashboard/logout">Logout</a></li>
                     </ul>
@@ -48,9 +49,6 @@
                 <div class="flex flex-row space-x-3 mb-4 md:mb-0 ">
                     <a href="/login"
                         class="flex flex-row mt-2 md:w-auto md:mt-0 md:ml-4 text-white font-semibold  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300  rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</a>
-
-                    <a href="/register"
-                        class="flex flex-row mt-2 md:w-auto md:mt-0 md:ml-4 text-white font-semibold  bg-slate-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300  rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 ">Register</a>
                 </div>
             @endif
         </div>

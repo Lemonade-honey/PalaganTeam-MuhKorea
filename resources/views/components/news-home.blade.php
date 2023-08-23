@@ -1,7 +1,7 @@
 <main class="pt-8 pb-16 lg:pt-16 lg:pb-24">
-    <div class="flex flex-col justify-center items-center md:items-start py-5">
-        <h2 class="text-blue-800 mb-4 py-3 text-3xl md:ml-11 font-bold md:text-left md:text-md">
-            Trending
+    <div class="flex flex-col justify-center items-center  py-5">
+        <h2 class="text-blue-800 mb-4 py-3 text-3xl mx-auto font-bold md:text-left md:text-md">
+            Our Recent News
         </h2>
         <div class="row justify-center items-center mx-auto">
             <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">

@@ -10,7 +10,7 @@
     @include('components.visimisi')
 
 
-    @include('components.news-carousel')
+    @include('components.news-home')
 
 
     @include('components.activity-carousel')

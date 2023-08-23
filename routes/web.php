@@ -28,11 +28,14 @@ Route::get('/', function () {
 
 Route::get('/dashboardTest', function () {
     return view('form.form-list');
-} );
+});
+
+
 
 Route::get('/form/{slug}', [FormController::class, 'details'])->name('public.form.details');
 Route::post('/form/{slug}', [FormController::class, 'formPassword'])->name('form.formPassword');
 Route::get('/news/{slug}', [NewsController::class, 'details']);
+Route::get('/news', [NewsController::class, 'homeNews']);
 
 // geteway massage
 Route::post('/massage/{id}/{slug}', [MassageController::class, 'store'])->name('massage.store');
@@ -60,11 +63,6 @@ Route::prefix('email')->group(function () {
     Route::get('/verify/{id}/{hash}', [VerificationController::class, 'verify'])->middleware(['auth', 'signed'])->name('verification.verify');
 });
 
-Route::get('/news', [NewsController::class, 'list']);
-Route::get('/news/{slug}', [NewsController::class, 'details']);
-
-Route::get('/test', fn () => "awww")->middleware(['role:admin,user']);
-
 // Dashboard
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('/dashboard')->group(function () {
@@ -74,14 +72,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/profile', [DashboardController::class, 'profile']);
 
         // form route
-        Route::prefix('/form')->group(function (){
+        Route::prefix('/form')->group(function () {
 
             // private access
-            Route::middleware(['role:staf,admin'])->group(function (){
+            Route::middleware(['role:staf,admin'])->group(function () {
                 Route::get('/', [FormController::class, 'list'])->name('form.list');
                 Route::get('/create', [FormController::class, 'create'])->name('form.create');
                 Route::post('/create', [FormController::class, 'postCreate'])->name('form.postCreate');
-                
+
                 Route::get('/{slug}/create', [FormController::class, 'subFormCreate'])->name('form.subForm.create');
                 Route::post('/{slug}/create', [FormController::class, 'postSubFormCreate'])->name('subForm.postCreate');
 
@@ -94,10 +92,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/list', [FormController::class, 'listUser'])->name('form.listUser');
             Route::get('/list/search', [FormController::class, 'searchList'])->name('form.listSearch');
             Route::get('/myform', [FormController::class, 'myForms'])->name('form.myForm');
-            
+
             Route::get('/register-user/{slug}', [FormController::class, 'registerUserForm'])->name('form.registerUserForm');
             Route::get('/leave-user/{slug}', [FormController::class, 'leaveUserForm'])->name('form.leaveUserForm');
-            
+
             Route::get('/{slug}', [FormController::class, 'mainForm'])->name('form.mainForm');
             Route::get('/{slug}/{sub_slug}', [FormController::class, 'subForm'])->name('form.subForm');
         });
