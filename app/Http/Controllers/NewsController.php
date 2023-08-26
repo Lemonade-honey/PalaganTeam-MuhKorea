@@ -19,36 +19,27 @@ class NewsController extends Controller
     public function list(){
         $news = DB::table('news')->orderByDesc('id')->paginate(10);
 
-        // $news->map( function($news){
-        //     $news->details = unserialize($news->details);
-        // });
-
-        // dd($news);
         return view('News.news', compact('news'));
     }
 
+    /**
+     * GET Public News
+     */
     public function listPublic(){
         $news = DB::table('news')->orderByDesc('id')->paginate(10);
 
         $newsPanel = DB::table('news')->orderByDesc('id')->limit(4)->get();
-        // $news->map( function($news){
-        //     $news->details = unserialize($news->details);
-        // });
-
-        // dd($news);
         return view('components.news-public', compact('news', 'newsPanel'));
     }
 
+    /**
+     * GET Public Search News
+     */
     public function listPublicSearch(Request $request){
-        $news = DB::table('news')->where('title', 'like', '%'. $request->search .'%')
+        $news = DB::table('news')->where('title', 'like', '%'. $request .'%')
         ->orderByDesc('id')->paginate(10);
 
         $newsPanel = DB::table('news')->orderByDesc('id')->limit(4)->get();
-        // $news->map( function($news){
-        //     $news->details = unserialize($news->details);
-        // });
-
-        // dd($news);
         return view('components.news-public', compact('news', 'newsPanel'));
     }
 
