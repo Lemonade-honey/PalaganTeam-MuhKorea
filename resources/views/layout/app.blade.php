@@ -7,12 +7,22 @@
     <title>{{ $title ?? config('app.name') }}</title>
     @vite('public/assets/css/app.css')
     <link rel="stylesheet" href="{{asset('assets/css/CK.css')}}">
+    @yield('style')
+    <style>
+        .image-style{
+            width: 50rem;
+            height: 29rem;
+        }
+    </style>
 </head>
 
 <body>
     @include('Includes.navbar2')
 
-    @yield('body')
+    <div class="navbar-height">
+        <div class="pt-11"></div>
+        @yield('body')
+    </div>
     @include('Includes.footer')
 
     <script src="{{ asset('assets/js/jquery-3.7.0.min.js') }}"></script>
