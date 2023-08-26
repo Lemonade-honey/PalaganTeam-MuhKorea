@@ -7,6 +7,7 @@ use App\Http\Controllers\FormController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MassageController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\SliderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerificationController;
 use Illuminate\Support\Facades\Route;
@@ -22,17 +23,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/dashboardTest', function () {
     return view('form.form-list');
 } );
 
-Route::get('/form/{slug}', [FormController::class, 'details'])->name('public.form.details');
-Route::post('/form/{slug}', [FormController::class, 'formPassword'])->name('form.formPassword');
-Route::get('/news/{slug}', [NewsController::class, 'details']);
+// news
+Route::get('/news', [NewsController::class, 'listPublic']);
+Route::get('/news/search', [NewsController::class, 'listPublicSearch'])->name('newsPublicSearch');
+Route::get('/news/{slug}', [NewsController::class, 'details'])->name('newsPublic');
 
 // geteway massage
 Route::post('/massage/{id}/{slug}', [MassageController::class, 'store'])->name('massage.store');
@@ -59,11 +59,6 @@ Route::prefix('email')->group(function () {
     Route::get('/verify/need-verification', [VerificationController::class, 'notice'])->middleware(['auth'])->name('verification.notice');
     Route::get('/verify/{id}/{hash}', [VerificationController::class, 'verify'])->middleware(['auth', 'signed'])->name('verification.verify');
 });
-
-Route::get('/news', [NewsController::class, 'list']);
-Route::get('/news/{slug}', [NewsController::class, 'details']);
-
-Route::get('/test', fn () => "awww")->middleware(['role:admin,user']);
 
 // Dashboard
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -145,6 +140,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::get('/update/{id}', [UserController::class, 'update'])->name('users.update');
                 Route::post('/update/{id}', [UserController::class, 'postUpdate'])->name('users.postUpdate');
                 Route::get('/delete/{id}', [UserController::class, 'delete'])->name('users.delete');
+            });
+
+            Route::prefix('/sliders')->group(function (){
+                Route::get('/', [SliderController::class, 'index']);
+                Route::post('/', [SliderController::class, 'post']);
+                Route::get('/delete/{id}', [SliderController::class, 'delete'])->name('slider.delete');
             });
         });
     });
