@@ -9,25 +9,45 @@
 
     <div class="container gap-x-20 lg:flex">
         <div class="row lg:w-3/6 mb-10">
+            
+            @if (Auth::user()->role == 'admin')
             <h2 class="text-2xl font-bold mb-4">Stats</h2>
-            {{-- <div class="flex gap-5 mb-5">
+            <div class="flex gap-5 mb-5">
                 <div class="w-full p-4 bg-yellow-100 rounded-xl text-gray-800">
-                    <div class="font-bold text-2xl leading-none">0</div>
-                    <div class="mt-2">Join the activity</div>
+                    <div class="font-bold text-2xl leading-none">{{ $totalUser }}</div>
+                    <div class="mt-2">User Active</div>
                 </div>
                 <div class="w-full p-4 bg-yellow-100 rounded-xl text-gray-800">
-                    <div class="font-bold text-2xl leading-none">0</div>
-                    <div class="mt-2">Forms joined</div>
+                    <div class="font-bold text-2xl leading-none">{{ $totalForm }}</div>
+                    <div class="mt-2">Forms Active</div>
                 </div>
-            </div> --}}
-            <div class="p-4 mb-4 bg-yellow-100 rounded-xl text-gray-800">
-                <div class="font-bold text-2xl leading-none">{{ count((array)$forms) ?? '0'  }}</div>
-                <div class="mt-2">Forms joined</div>
             </div>
-            <div class="p-4 mb-4 bg-purple-100 rounded-xl text-gray-800">
-                <div class="font-bold text-xl leading-none">Qoute Today Is</div>
-                <div class="mt-2"><p class="font-serif italic">"Life isn’t about getting and having, it’s about giving and being." <span> -- Kevin Kruse</span></p></div>
+
+            @else
+            <div class="flex items-center justify-between">
+                <h2 class="text-2xl font-bold mb-4">My Forms</h2>
             </div>
+            <div class="space-y-4">
+                @forelse ($forms as $key => $value)
+                    @if ($key < 5)
+                        <div class="p-4 {{ ($value->status == 'private') ? 'bg-orange-200' : 'bg-blue-200' }} border rounded-xl text-gray-800 space-y-2">
+                            <div class="flex justify-between">
+                                <div class="text-black text-lg capitalize">{{ $value->status }}</div>
+                            </div>
+                            <a href="{{ route('form.mainForm', ['slug' => $value->slug]) }}" class="font-bold hover:text-yellow-800 capitalize hover:underline">{{ $value->title }}</a>
+                        </div>
+                        @if(count($forms) == $key + 1)
+                            <a href="#" class="float-right text-blue-500 hover:text-blue-700 underline">See all my form</a>
+                        @endif
+                    @endif
+                @empty
+                    <!-- Empty -->
+                    <div class="py-10 bg-white border rounded-xl text-gray-800 space-y-2">
+                        <p class="text-center text-lg">No Form Joined</p>
+                    </div>
+                @endforelse
+            </div>
+            @endif
         </div>
 
         <div class="row lg:w-3/6">
@@ -68,31 +88,5 @@
     </div>
 
     <hr class="my-8">
-
-    <div class="new">
-        <div class="flex items-center justify-between">
-            <h2 class="text-2xl font-bold mb-4">My Forms</h2>
-        </div>
-        <div class="space-y-4">
-            @forelse ($forms as $key => $value)
-                @if ($key < 5)
-                    <div class="p-4 {{ ($value->status == 'private') ? 'bg-orange-200' : 'bg-blue-200' }} border rounded-xl text-gray-800 space-y-2">
-                        <div class="flex justify-between">
-                            <div class="text-black text-lg capitalize">{{ $value->status }}</div>
-                        </div>
-                        <a href="{{ route('form.mainForm', ['slug' => $value->slug]) }}" class="font-bold hover:text-yellow-800 capitalize hover:underline">{{ $value->title }}</a>
-                    </div>
-                    @if(count($forms) == $key + 1)
-                        <a href="#" class="float-right text-blue-500 hover:text-blue-700 underline">See all my form</a>
-                    @endif
-                @endif
-            @empty
-                <!-- Empty -->
-                <div class="py-10 bg-white border rounded-xl text-gray-800 space-y-2">
-                    <p class="text-center text-lg">No Form Joined</p>
-                </div>
-            @endforelse
-        </div>
-    </div>
 </main>
 @endsection

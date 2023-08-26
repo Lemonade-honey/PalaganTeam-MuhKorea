@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Service\ActivityService;
 use App\Service\FormService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -19,8 +20,12 @@ class DashboardController extends Controller
     public function index(){
         $forms = $this->forms->accountFormJoined();
         $activitys = $this->activity->activityWeek();
+
+        // admin only
+        $totalForm = DB::table('forms')->count();
+        $totalUser = DB::table('users')->count();
         
-        return view('Dashboard/dashboard', compact('activitys', 'forms'));
+        return view('Dashboard/dashboard', compact('activitys', 'forms', 'totalForm', 'totalUser'));
     }
 
     public function profile(){
