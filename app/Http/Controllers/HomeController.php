@@ -10,6 +10,7 @@ use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 
@@ -26,7 +27,10 @@ class HomeController extends Controller
      * GET Home Page, Web Profile
      */
     public function index(){
-        return view('Home/home');
+        $slider = DB::table('sliders')
+        ->get();
+
+        return view('home', compact('slider'));
     }
 
     /**
