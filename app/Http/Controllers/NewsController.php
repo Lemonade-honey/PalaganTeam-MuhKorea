@@ -27,6 +27,31 @@ class NewsController extends Controller
         return view('News.news', compact('news'));
     }
 
+    public function listPublic(){
+        $news = DB::table('news')->orderByDesc('id')->paginate(10);
+
+        $newsPanel = DB::table('news')->orderByDesc('id')->limit(4)->get();
+        // $news->map( function($news){
+        //     $news->details = unserialize($news->details);
+        // });
+
+        // dd($news);
+        return view('components.news-public', compact('news', 'newsPanel'));
+    }
+
+    public function listPublicSearch(Request $request){
+        $news = DB::table('news')->where('title', 'like', '%'. $request->search .'%')
+        ->orderByDesc('id')->paginate(10);
+
+        $newsPanel = DB::table('news')->orderByDesc('id')->limit(4)->get();
+        // $news->map( function($news){
+        //     $news->details = unserialize($news->details);
+        // });
+
+        // dd($news);
+        return view('components.news-public', compact('news', 'newsPanel'));
+    }
+
     /**
      * GET Detail News
      */
