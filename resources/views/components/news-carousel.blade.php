@@ -1,18 +1,22 @@
-<main class="pt-8 pb-16 lg:pt-16 lg:pb-24">
-    <h2 class="text-blue-800 text-center mb-4 text-3xl font-bold md:text-md">
-        Our Recent News
-    </h2>
-    <div class="berita flex flex-wrap justify-center gap-4">
-        <div class="border border-gray-400 p-2 rounded-md max-w-xs">
-            <a href="#">
+<section class="mt-10" id="news">
+    <h1 class="text-2xl sm:text-4xl text-center font-bold text-emerald-600 mb-3">Our Recent News</h1>
+    <div class="berita flex flex-wrap justify-around gap-4">
+        
+        @forelse ($news as $item)
+        <div class="border border-gray-200 hover:border-gray-400 ease-in duration-150 p-2 rounded-md max-w-xs">
+            <a href="{{ route('newsPublic', ['slug' => $item->slug]) }}">
                 <div class="img-thumbnail mb-3">
-                    <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cmFuZG9tfGVufDB8fDB8fHww&w=1000&q=80" alt="">
+                    <img src="{{ asset('/image/news/thumbnail/' . $item->img) }}" alt="">
                 </div>
-                <h2 class="font-medium text-xl capitalize text-blue-800">ini judul</h2>
+                <p class="text-xs font-light">{{ date("M d, Y", strtotime($item->created_at)) }}</p>
+                <h2 class="font-medium text-xl capitalize text-emerald-600">{{ $item->title }}</h2>
             </a>
         </div>
-        {{-- <div class="w-full">
+        @empty
+        <div class="w-full border border-gray-200 rounded-md">
             <div class="h-20 flex justify-center items-center">No News</div>
-        </div> --}}
+        </div>
+        @endforelse
+
     </div>
-</main>
+</section>

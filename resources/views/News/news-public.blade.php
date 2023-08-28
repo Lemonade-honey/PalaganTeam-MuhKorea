@@ -46,7 +46,7 @@
                     @forelse ($news as $item)
                     <a href="{{ route('newsPublic', ['slug' => $item->slug]) }}" class="max-w-[31rem] w-full border border-gray-300 rounded-sm p-2 flex">
                         <div class="pr-3">
-                            <img src="https://images.unsplash.com/photo-1494253109108-2e30c049369b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHJhbmRvbXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80" alt="content" class="max-w-[10rem]">
+                            <img src="{{ asset('image/news/thumbnail/' . $item->img) }}" alt="content" class="max-w-[10rem]">
                         </div>
                         <div class="detail">
                             <h2 class="font-medium text-base md:text-xl capitalize">{{ $item->title }}</h2>
