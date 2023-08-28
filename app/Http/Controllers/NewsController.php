@@ -29,18 +29,19 @@ class NewsController extends Controller
         $news = DB::table('news')->orderByDesc('id')->paginate(10);
 
         $newsPanel = DB::table('news')->orderByDesc('id')->limit(4)->get();
-        return view('components.news-public', compact('news', 'newsPanel'));
+        return view('news.news-public', compact('news', 'newsPanel'));
     }
 
     /**
      * GET Public Search News
      */
     public function listPublicSearch(Request $request){
-        $news = DB::table('news')->where('title', 'like', '%'. $request .'%')
+        $news = DB::table('news')->where('title', 'like', '%'.$request->search.'%')
         ->orderByDesc('id')->paginate(10);
 
         $newsPanel = DB::table('news')->orderByDesc('id')->limit(4)->get();
-        return view('components.news-public', compact('news', 'newsPanel'));
+
+        return view('news.news-public', compact('news', 'newsPanel'));
     }
 
     /**
@@ -71,7 +72,7 @@ class NewsController extends Controller
     public function postCreate(Request $request){
         $request->validate([
             'title' => ['required', 'max:100', 'unique:news'],
-            'img-thumbnail' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2024'],
+            'img-thumbnail' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:4024'],
             'details' => 'required',
             'massage' => ['required', 'in:yes,no']
         ]);
@@ -125,7 +126,7 @@ class NewsController extends Controller
         $request->validate([
             'title' => ['required', 'max:100'],
             'details' => 'required',
-            'img-thumbnail' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2024'],
+            'img-thumbnail' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:4024'],
         ]);
 
         if($request->hasFile('img-thumbnail')){
