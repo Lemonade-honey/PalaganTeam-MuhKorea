@@ -25,10 +25,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/dashboardTest', function () {
-    return view('form.form-list');
-} );
-
 // news
 Route::get('/news', [NewsController::class, 'listPublic']);
 Route::get('/news/search', [NewsController::class, 'listPublicSearch'])->name('newsPublicSearch');
@@ -40,7 +36,6 @@ Route::post('/massage/reply/{id}/{slug}/{kode}', [MassageController::class, 'sto
 Route::get('/massage/{id}/{slug}/{kode}', [MassageController::class, 'delete'])->name('massage.delete');
 Route::get('/massage/{id}/{slug}/{kode}/{replyKode}', [MassageController::class, 'deleteReply'])->name('massage.deleteReply');
 
-Route::get('/test/{id}/{slug}/{kode}', [MassageController::class, 'test'])->name('massage.test');
 
 Route::middleware(['guest'])->group(function () {
     Route::get('/login', [HomeController::class, 'login'])->name('login');
@@ -66,7 +61,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/logout', [HomeController::class, 'logout'])->name('logout');
 
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard.home');
-        Route::get('/profile', [DashboardController::class, 'profile']);
 
         // form route
         Route::prefix('/form')->group(function (){
@@ -87,19 +81,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::get('/update/{slug}', [FormController::class, 'update'])->name('form.update');
                 Route::post('/update/{slug}', [FormController::class, 'postUpdate'])->name('form.postUpdate');
 
-                Route::get('/update/{slug}/member', [FormController::class, 'memberRegister'])->name('form.list.member');
-                Route::get('/update/{slug}/member/delete/{email}', [FormController::class, 'memberDelete'])->name('form.list.member.delete');
             });
-
+            
             // public url
             Route::get('/list', [FormController::class, 'listUser'])->name('form.listUser');
             Route::get('/list/search', [FormController::class, 'searchList'])->name('form.listSearch');
             Route::get('/myform', [FormController::class, 'myForms'])->name('form.myForm');
             
             Route::get('/register-user/{slug}', [FormController::class, 'registerUserForm'])->name('form.registerUserForm');
+            Route::post('/register-private/{slug}', [FormController::class, 'formPassword'])->name('form.formPassword');
             Route::get('/leave-user/{slug}', [FormController::class, 'leaveUserForm'])->name('form.leaveUserForm');
             
             Route::get('/{slug}', [FormController::class, 'mainForm'])->name('form.mainForm');
+            Route::get('/{slug}/member', [FormController::class, 'memberRegister'])->name('form.memberReg');
+            Route::get('/{slug}/member/delete/{email}', [FormController::class, 'memberDelete'])->name('form.member.delete');
             Route::get('/{slug}/{sub_slug}', [FormController::class, 'subForm'])->name('form.subForm');
         });
 
@@ -143,7 +138,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             });
 
             Route::prefix('/sliders')->group(function (){
-                Route::get('/', [SliderController::class, 'index']);
+                Route::get('/', [SliderController::class, 'index'])->name('sliders');
                 Route::post('/', [SliderController::class, 'post']);
                 Route::get('/delete/{id}', [SliderController::class, 'delete'])->name('slider.delete');
             });
