@@ -383,12 +383,13 @@ class FormController extends Controller
      * GET List Member Registerd
      */
     public function memberRegister(string $slug){
-        $form = DB::table('forms')->where('slug', '=', $slug)->where('register', '!=', null)->first();
+        $form = DB::table('forms')->where('slug', '=', $slug)->first();
         if(!$form){
             return redirect()->route('form.list')->with('errors', 'Form Not Found');
         }
 
-        $member = unserialize($form->register);
+        $member = (unserialize($form->register)) ? unserialize($form->register) : (object)null;
+
         $slug = $form->slug;
         return view('Form/form-list-member', compact('member', 'slug'));
     }
