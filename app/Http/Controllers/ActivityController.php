@@ -57,7 +57,7 @@ class ActivityController extends Controller
             'tanggal' => ['required', 'date', 'after_or_equal:' . date('Y-m-d')],
             'time_start' => ['required', 'date_format:H:i'],
             'time_finish' => ['required', 'date_format:H:i', 'after:time_start'],
-            'details' => ['required', 'max:1500']
+            'details' => ['required']
         ],[
             'time_finish.after' => 'finish time must be greater than start time'
         ]);
@@ -98,7 +98,7 @@ class ActivityController extends Controller
             'tanggal' => ['required', 'date', 'after_or_equal:' . date('Y-m-d')],
             'time_start' => ['required', 'date_format:H:i'],
             'time_finish' => ['required', 'date_format:H:i', 'after:time_start'],
-            'details' => ['required', 'max:1500']
+            'details' => ['required']
         ],[
             'time_finish.after' => 'finish time must be greater than start time'
         ]);
