@@ -40,7 +40,7 @@
             <textarea name="details" id="editor" cols="30" rows="10">{{ old('details') }}</textarea>
         </div>
 
-        <button class="bg-blue-600 hover:bg-blue-800 text-white rounded px-2 text-md font-semibold p-1 float-right mb-6">Create Activity</button>
+        <button class="bg-blue-600 hover:bg-blue-800 text-white rounded px-2 text-md font-semibold p-1 float-right mb-6">Create News</button>
     </form>
     @include('Includes.CKEditor')
 </div>

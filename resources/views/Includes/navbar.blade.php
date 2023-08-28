@@ -1,5 +1,5 @@
 <header>
-    <nav class="bg-emerald-800 fixed w-full z-20 top-0 left-0">
+    <nav class="bg-emerald-800 fixed w-full z-50 top-0 left-0">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
             <a href="/" class="flex items-center">
                 <h2 class="text-xl font-bold tracking-widest text-white hover:text-yellow-200 ease-in duration-150 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">Hidayah Kansai</h2>

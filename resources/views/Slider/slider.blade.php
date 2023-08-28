@@ -24,7 +24,7 @@
         @forelse ($slider as $item)
         <div class="gambar max-w-md mb-4 p-1 border border-gray-400 rounded-md">
             <img class="w-full aspect-video mb-2" src="{{ asset('image/slider/' . $item->img) }}" alt="">
-            <p>tanggal post</p>
+            <p>{{ $item->created_at }}</p>
             <div class="flex justify-end">
                 <a href="{{ route('slider.delete', ['id' => $item->id]) }}" class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-red-500 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300">
                     hapus

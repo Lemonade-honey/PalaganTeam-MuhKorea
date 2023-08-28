@@ -10,7 +10,7 @@
     </div>
     @endforeach
     @else
-    <div id="default-carousel" class="relative w-full" data-carousel="slide">
+    <div id="default-carousel" class="relative mt-2 w-full" data-carousel="slide">
         <!-- Carousel wrapper -->
         <div class="relative h-56 xl:h-128 md:h-96 overflow-hidden rounded-b-lg">
              <!-- Item 1 -->

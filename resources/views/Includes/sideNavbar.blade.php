@@ -16,7 +16,7 @@
                 </button>
                 <a href="/" class="flex ml-2 md:mr-24">
                     <span
-                        class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-blue-800">HIDAYAH</span>
+                        class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-emerald-700">HIDAYAH</span>
                 </a>
             </div>
             <div class="flex items-center">
@@ -25,9 +25,9 @@
                         <button type="button"
                             class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                             aria-expanded="false" data-dropdown-toggle="dropdown-user">
-                            <span class="sr-only">Open user menu</span>
-                            <img class="w-8 h-8 rounded-full"
-                                src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo">
+                            <div class="relative inline-flex items-center justify-center w-9 h-9 overflow-hidden bg-gray-100 rounded-full">
+                                <span class="font-medium text-gray-600 uppercase">{{ substr(Auth::user()->name, 0, 2) }}</span>
+                            </div>
                         </button>
                     </div>
                     <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
@@ -43,17 +43,12 @@
                         <ul class="py-1" role="none">
                             <li>
                                 <a href="{{ route('dashboard.home') }}"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                     role="menuitem">Dashboard</a>
                             </li>
                             <li>
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                    role="menuitem">Profile</a>
-                            </li>
-                            <li>
                                 <a href="{{ route('logout') }}"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                                    class="block px-4 py-2 text-sm text-red-700 hover:bg-gray-100"
                                     role="menuitem">Sign out</a>
                             </li>
                         </ul>
@@ -99,10 +94,12 @@
                     </svg>
                 </button>
                 <ul id="dropdown-example" class="hidden py-2 space-y-2">
+                    @if (Auth::user()->role != 'admin')
                     <li>
                         <a href="{{ route('form.myForm') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 ">My Form</a>
                     </li>
+                    @endif
                     <li>
                         <a href="{{ route('form.listUser') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 ">Forms</a>
@@ -162,6 +159,15 @@
                             List</a>
                     </li>
                 </ul>
+            </li>
+            <li>
+                <a href="{{ route('sliders') }}" class="flex items-center p-2 text-gra
+                y-900 rounded-lg  hover:bg-gray-100  group">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 16 16"> 
+                        <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/> <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/> 
+                    </svg>
+                    <span class="flex-1 ml-3 whitespace-nowrap">Slider</span>
+                </a>
             </li>
             @endif
             

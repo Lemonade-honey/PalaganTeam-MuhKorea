@@ -14,7 +14,7 @@
             <div class="p-4">
                 <a href="{{ route('form.mainForm', ['slug' => $item->slug]) }}">
                     <div class="h-44 rounded-lg" style="background-image: {{ $item->img }}"></div>
-                    <p class="font-medium text-gray-400 capitalize mb-2">{{ $item->created_by }}</p>
+                    <p class="font-medium text-gray-400 mb-2">{{ $item->created_by }}</p>
                     <h5 class="mb-1 text-2xl font-bold tracking-tight text-gray-900 hover:text-blue-800
                     ">{{ $item->title }}</h5>
                 </a>

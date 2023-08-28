@@ -4,7 +4,7 @@
 
 <div class="p-4">
     <div class="flex items-center justify-between py-5">
-        <h1 class="font-bold text-blue-800 text-2xl mb-0">Form List</h1>
+        <h1 class="font-bold text-emerald-700 text-2xl mb-0">Form List</h1>
         <a href="{{ route('form.create') }}">
             <button class="bg-blue-600 hover:bg-blue-800 text-white rounded px-2 text-md font-semibold p-1">Add
                 New Form</button>
@@ -94,11 +94,11 @@
                                 class="bg-yellow-500  hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
                                 Edit
                             </a>
-                            <a href="#"
+                            <button
                                 type="button" id="delete" dataGet="{{ $value->id }}"
                                 class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-3.5 rounded">
                                 Delete
-                            </a>
+                            </button>
                             @endif
                         </div>
                     </td>

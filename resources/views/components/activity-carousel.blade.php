@@ -1,4 +1,4 @@
-<section class="mt-10 my-4 lg:p-10 px-4" id="activities">
+<section class="mt-10 my-4 lg:p-10 px-10" id="activities">
     <h1 class="text-2xl sm:text-4xl text-center font-bold text-emerald-600 mb-3">Our Activities</h1>
     <div class="w-full {{ (count($activity) <= 1 ) ? '' : 'overflow-x-scroll' }} flex {{ (count($activity) == 1) ? 'justify-center' : ''}} gap-4">
 
@@ -20,7 +20,7 @@
             @endif
 
             <!-- tanggal -->
-            <p class="text-sm font-medium">{{ date('H:i', strtotime($value->details['time-start'])) }} - {{ date('H:i a', strtotime($value->details['time-finish'])) }}{{ (date('d M', strtotime($value->tanggal)) == date('d M', strtotime(now()))) ? '' : date(', M d', strtotime($value->tanggal)) }}
+            <p class="text-sm font-medium">{{ (date('d M', strtotime($value->tanggal)) == date('d M', strtotime(now()))) ? '' : date('M d,', strtotime($value->tanggal)) }} {{ date('H:i', strtotime($value->details['time-start'])) }} - {{ date('H:i a', strtotime($value->details['time-finish'])) }}
             
             </p>
             <h2 class="text-xl font-bold text-emerald-600 mb-2 capitalize">{{ $value->title }}</h2>

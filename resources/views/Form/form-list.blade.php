@@ -4,7 +4,7 @@
 
 <div class="p-4">
     <div class="mb-5">
-        <h1 class="font-bold text-blue-800 text-2xl mb-1">List Form</h1>
+        <h1 class="font-bold text-emerald-700 text-2xl mb-1">List Form</h1>
         <hr>
 
         <form action="{{ route('form.listSearch') }}" method="GET">   
@@ -27,8 +27,8 @@
             <div class="p-4">
                 <a href="{{ route('form.mainForm', ['slug' => $item->slug]) }}">
                     <div class="h-44 rounded-lg" style="background-image: {{ $item->img }}"></div>
-                    <p class="font-medium text-gray-400 capitalize mb-2">{{ $item->created_by }}</p>
-                    <h5 class="mb-1 text-2xl font-bold tracking-tight text-gray-900 sm:text-red-600 hover:text-blue-800
+                    <p class="font-medium text-gray-400 mb-2">{{ $item->created_by }}</p>
+                    <h5 class="mb-1 text-2xl font-bold tracking-tight text-emerald-800 hover:text-emerald-400
                     ">{{ $item->title }}</h5>
                 </a>
             </div>

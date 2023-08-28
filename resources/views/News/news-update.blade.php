@@ -24,7 +24,7 @@
             <label class="block mb-2 text-md font-medium text-gray-900 dark:text-white" for="file_input">News Thumbnail</label>
             <p>Old Thumbnail</p>
             <img src="{{asset('image/news/thumbnail/' . $news->img)}}" alt="old thumb" class="h-48 w-96 mb-4">
-            <input class="block w-full text-sm border border-gray-300 rounded-lg cursor-pointer bg-gray-50" aria-describedby="file_input_help" name="img-thumbnail" accept="image/png, image/jpeg" id="file_input" type="file">
+            <input class="block w-full text-sm border border-gray-300 rounded-lg cursor-pointer bg-gray-50" aria-describedby="file_input_help" name="img-thumbnail" accept="image/png, image/jpeg, image/webp" id="file_input" type="file">
             <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PNG, JPG and JPEG (MAX 2 MB).</p>
             <div id="display-img"></div>
         </div>
@@ -32,10 +32,10 @@
         <div class="mb-6">
             <label for="countries" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Commentar Massage</label>
             <select id="countries" name="massage" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                @if ($news->id_massage)
+                @if ($news->id_massage && $news->massage_status == "aktif")
                     <option value="yes" selected>Yes</option>
                 @endif
-                <option value="no" selected>No</option>
+                <option value="no">No</option>
                 <option value="yes">Yes</option>
             </select>
         </div>
@@ -45,7 +45,7 @@
             <textarea name="details" id="editor" cols="30" rows="10">{{ old('details') ?? $news->details }}</textarea>
         </div>
 
-        <button class="bg-blue-600 hover:bg-blue-800 text-white rounded px-2 text-md font-semibold p-1 float-right mb-6">Update Activity</button>
+        <button class="bg-blue-600 hover:bg-blue-800 text-white rounded px-2 text-md font-semibold p-1 float-right mb-6">Update News</button>
     </form>
     @include('Includes.CKEditor')
 </div>

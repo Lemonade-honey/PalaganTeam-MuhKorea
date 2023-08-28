@@ -4,7 +4,7 @@
 
 <div class="p-4">
     <div class="flex items-center justify-between py-5">
-        <h1 class="font-bold text-blue-800 text-2xl mb-0">News List</h1>
+        <h1 class="font-bold text-emerald-700 text-2xl mb-0">User List</h1>
     </div>
     <hr />
 
