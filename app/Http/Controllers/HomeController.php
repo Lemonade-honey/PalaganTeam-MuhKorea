@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\UsersDetails;
+use App\Service\ActivityService;
 use App\Service\UserService;
 use Exception;
 use Illuminate\Auth\Events\PasswordReset;
@@ -18,9 +19,11 @@ class HomeController extends Controller
 {
 
     private UserService $userService;
+    private ActivityService $activityService;
     public function __construct()
     {
         $this->userService = new UserService;
+        $this->activityService = new ActivityService;
     }
 
     /**
@@ -30,7 +33,14 @@ class HomeController extends Controller
         $slider = DB::table('sliders')
         ->get();
 
-        return view('home', compact('slider'));
+        $news = DB::table('news')
+        ->orderByDesc('id')
+        ->limit(3)
+        ->get();
+
+        $activity = $this->activityService->activityWeek();
+
+        return view('home', compact('slider', 'news', 'activity'));
     }
 
     /**
