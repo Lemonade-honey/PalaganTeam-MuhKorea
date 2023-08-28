@@ -12,6 +12,7 @@ class Activity extends Model
     protected $fillable = [
         'title',
         'tanggal',
-        'details'
+        'details',
+        'created_by'
     ];
 }
