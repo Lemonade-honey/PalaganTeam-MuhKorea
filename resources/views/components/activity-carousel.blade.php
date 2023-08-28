@@ -16,8 +16,9 @@
         </div>
         @empty
 
-        <div class="w-full text-center border border-gray-200 p-4">
-            no activity
+        <div class="w-full max-w-xs flex flex-col justify-center items-center">
+            <img src="/image/tidak-ada-agenda.png" alt="">
+            <p class="text-lg font-medium text-gray-300">No activity in this week</p>
         </div>
         @endforelse
         
