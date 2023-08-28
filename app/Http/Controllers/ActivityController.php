@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Activity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ActivityController extends Controller
@@ -69,7 +70,8 @@ class ActivityController extends Controller
                 'time-start' => $request->time_start,
                 'time-finish' => $request->time_finish,
                 'details' => $request->details
-            ])
+            ]),
+            'created_by' => Auth::user()->email
         ]);
 
         return redirect()->route('activity.list')->with('success', 'Activity Succsess Created');
