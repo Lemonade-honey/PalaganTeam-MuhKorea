@@ -62,7 +62,7 @@
                         <div class="text-gray-400 text-lg">{{ date("l, d", strtotime($value->tanggal)) }}</div>
                         <div class="text-gray-400 text-xs">{{ date("H:i a", strtotime($value->details['time-start'])) }}</div>
                     </div>
-                    <a href="#" class="font-bold hover:text-yellow-800 hover:underline capitalize">{{ $value->title }}</a>
+                    <a href="/#{{ Str::slug($value->title) }}" class="font-bold hover:text-yellow-800 hover:underline capitalize">{{ $value->title }}</a>
 
                     @if (date("H:i a", strtotime($value->details['time-finish'])) > date("H:i a", strtotime(now())) && date("d", strtotime($value->tanggal)) == date("d", strtotime(now())) && date("H:i a", strtotime($value->details['time-start'])) <= date("H:i a", strtotime(now())))
                     <div class="flex items-center text-sm text-gray-600">
@@ -74,7 +74,7 @@
                     <div class="flex items-center text-sm text-gray-600">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="text-gray-800 inline align-middle mr-1" viewBox="0 0 16 16">
                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
-                        </svg><p>Finished</p>
+                        </svg><p class="text-red-500">Finished</p>
                     </div>
                     @endif
                 </div>

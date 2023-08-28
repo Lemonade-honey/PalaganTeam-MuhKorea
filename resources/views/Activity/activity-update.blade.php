@@ -1,7 +1,11 @@
 @extends('layout.dashboard', ['title' => 'Edit Activity'])
 
 @section('body')
-
+@if ($errors->any())
+    <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-200 dark:bg-gray-800 dark:text-red-400" role="alert">
+        {{ $errors->first() }}
+    </div>
+@endif
 
 <form method="post" action="{{ route('activity.postUpdate', ['id' => $activity->id]) }}" enctype="multipart/form-data">
     @csrf

@@ -3,7 +3,8 @@
 @section('style')
 <style>
     .min-width{
-        min-width: 16rem;
+        min-width: 19rem;
+        max-width: 19rem;
     }
 </style>
 @endsection
