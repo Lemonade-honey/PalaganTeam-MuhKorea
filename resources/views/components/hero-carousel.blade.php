@@ -5,7 +5,7 @@
     @foreach ($slider as $item)
     <div class="relative w-full">
         <div class="relative h-56 xl:h-128 md:h-96 overflow-hidden rounded-b-lg">
-            <img src="{{ asset('image/slider/' . $item->img) }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+            <img src="{{ asset('storage/slider/' . $item->img) }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
        </div>
     </div>
     @endforeach
@@ -16,7 +16,7 @@
              <!-- Item 1 -->
             @foreach ($slider as $item)
             <div class="hidden duration-900 ease-in-out" data-carousel-item>
-                <img src="{{ asset('image/slider/' . $item->img) }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                <img src="{{ asset('storage/slider/' . $item->img) }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
             </div>
             @endforeach
         </div>
