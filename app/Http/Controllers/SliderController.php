@@ -19,7 +19,7 @@ class SliderController extends Controller
 
     public function post(Request $request){
         $request->validate([
-            'img' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2024']
+            'img' => ['required', 'image', 'mimes:jpeg,png,jpg,webp', 'max:4024']
         ]);
 
         $type = $request->file('img')->getClientOriginalExtension();
