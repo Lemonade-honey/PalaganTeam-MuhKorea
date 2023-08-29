@@ -20,13 +20,13 @@
 
 <body>
 
-    @include('includes.sideNavbar')
+    @include('Includes.sideNavbar')
     <div class="main-body mt-20">
         <div class="sm:ml-64">
             <div class="p-4 min-height">
                 @yield('body')
             </div>
-            @include('includes.footer-dash')
+            @include('Includes.footer-dash')
         </div>
     </div>
     @yield('script')
