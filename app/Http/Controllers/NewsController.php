@@ -19,7 +19,7 @@ class NewsController extends Controller
     public function list(){
         $news = DB::table('news')->orderByDesc('id')->paginate(10);
 
-        return view('News.news', compact('news'));
+        return view('News/news', compact('news'));
     }
 
     /**
@@ -29,7 +29,7 @@ class NewsController extends Controller
         $news = DB::table('news')->orderByDesc('id')->paginate(10);
 
         $newsPanel = DB::table('news')->orderByDesc('id')->limit(4)->get();
-        return view('news.news-public', compact('news', 'newsPanel'));
+        return view('News/news-public', compact('news', 'newsPanel'));
     }
 
     /**
@@ -41,7 +41,7 @@ class NewsController extends Controller
 
         $newsPanel = DB::table('news')->orderByDesc('id')->limit(4)->get();
 
-        return view('news.news-public', compact('news', 'newsPanel'));
+        return view('News/news-public', compact('news', 'newsPanel'));
     }
 
     /**
@@ -227,6 +227,6 @@ class NewsController extends Controller
         ->orWhere("created_by", "like", "%". $request->search ."%")
         ->paginate(10);
 
-        return view('news.news', compact('news'));
+        return view('News/news', compact('news'));
     }
 }

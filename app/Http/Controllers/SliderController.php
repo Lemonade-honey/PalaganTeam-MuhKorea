@@ -13,7 +13,7 @@ class SliderController extends Controller
         $slider = DB::table("sliders")
         ->get();
 
-        return view('slider.slider', compact('slider'));
+        return view('Slider/slider', compact('slider'));
     }
 
     public function post(Request $request){

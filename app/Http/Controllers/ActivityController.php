@@ -28,7 +28,7 @@ class ActivityController extends Controller
         ->orderByDesc('id')
         ->paginate(10);
 
-        return view('activity.activity', compact('activity'));
+        return view('Activity/activity', compact('activity'));
     }
 
     /**
@@ -39,7 +39,7 @@ class ActivityController extends Controller
         ->where("title", "like", "%" .$request->search. "%")
         ->paginate(10);
 
-        return view('activity.activity', compact('activity'));
+        return view('Activity/activity', compact('activity'));
     }
 
     /**

@@ -21,7 +21,7 @@ class FormController extends Controller
     public function listUser(){
         $forms = DB::table('forms')->orderByDesc('id')->paginate(6);
 
-        return view('form.form-list', compact('forms'));
+        return view('Form/form-list', compact('forms'));
     }
 
     /**
@@ -34,7 +34,7 @@ class FormController extends Controller
         ->orWhere("categori", "like", "%". $request->search ."%")
         ->paginate(6);
 
-        return view('form.form-list', compact('forms'));
+        return view('Form/form-list', compact('forms'));
     }
 
     /**
@@ -43,7 +43,7 @@ class FormController extends Controller
     public function list(){
         $form = DB::table('forms')->orderByDesc('id')->paginate(10);
 
-        return view('form.form', compact('form'));
+        return view('Form/form', compact('form'));
     }
 
     /**
@@ -62,18 +62,18 @@ class FormController extends Controller
             $forms = unserialize($user->form);
             if($forms == null || !is_array($forms)){
                 $forms = (object) null;
-                return view('form.form-my', compact('forms'));
+                return view('Form/form-my', compact('forms'));
             }
 
             $forms = DB::table("forms")
             ->whereIn("slug", $forms)
             ->get();
             
-            return view('form.form-my', compact('forms'));
+            return view('Form/form-my', compact('forms'));
         }
 
         $forms = (object) null;
-        return view('form.form-my', compact('forms'));
+        return view('Form/form-my', compact('forms'));
     }
 
     /**
@@ -147,14 +147,14 @@ class FormController extends Controller
             if($form->register != null){
                 $form->register = unserialize($form->register);
                 if(in_array(auth()->user()->email, $form->register)){
-                    return view('form.sub-form', compact('sub_form', 'form'));
+                    return view('Form/sub-form', compact('sub_form', 'form'));
                 }else{
                     return redirect()->route('form.mainForm', ['slug' => $slug]);
                 }
             }
             return redirect()->route('form.mainForm', ['slug' => $slug]);
         }else{
-            return view('form.sub-form', compact('sub_form', 'form'));
+            return view('Form/sub-form', compact('sub_form', 'form'));
         }
         
     }
@@ -308,7 +308,7 @@ class FormController extends Controller
      * GET Created Sub Form
      */
     public function subFormCreate(){
-        return view('form.subform-create');
+        return view('Form/subform-create');
     }
 
     /**
