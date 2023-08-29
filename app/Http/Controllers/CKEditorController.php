@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class CKEditorController extends Controller
@@ -12,9 +13,9 @@ class CKEditorController extends Controller
 
         $filename = date('dmy') . "_" . Str::random(20) . "." . $type;
 
-        $request->file('upload')->move(public_path('image/news/temp'), $filename);
+        Storage::putFileAs('image/temp', $request->file('upload'), $filename);
 
-        $url = asset('image/news/temp/' . $filename);
+        $url = asset('/storage/image/temp/' . $filename);
 
         return response()->json([
             'filename' => $filename, 
