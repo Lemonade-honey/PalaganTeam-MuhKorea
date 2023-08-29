@@ -68,6 +68,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             // private access
             Route::middleware(['role:staf,admin'])->group(function (){
                 Route::get('/', [FormController::class, 'list'])->name('form.list');
+                Route::get('/search', [FormController::class, 'search'])->name('form.search');
                 Route::get('/create', [FormController::class, 'create'])->name('form.create');
                 Route::post('/create', [FormController::class, 'postCreate'])->name('form.postCreate');
                 

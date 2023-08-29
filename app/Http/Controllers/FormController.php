@@ -45,12 +45,16 @@ class FormController extends Controller
 
         return view('Form/form', compact('form'));
     }
-
+    
     /**
      * GET Search List Form
      */
-    public function search(){
-
+    public function search(Request $request){
+        $form = DB::table('forms')
+        ->where('title', 'like', '%'.$request->search.'%')
+        ->paginate(10);
+        
+        return view('Form/form', compact('form'));
     }
 
     /**
