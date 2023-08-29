@@ -6,7 +6,7 @@
         <div class="border border-gray-200 hover:border-gray-400 ease-in duration-150 p-2 rounded-md max-w-xs">
             <a href="{{ route('newsPublic', ['slug' => $item->slug]) }}">
                 <div class="img-thumbnail mb-3">
-                    <img src="{{ asset('/image/news/thumbnail/' . $item->img) }}" alt="">
+                    <img src="{{ asset('/storage/news/thumbnail/' . $item->img) }}" alt="">
                 </div>
                 <p class="text-xs font-light">{{ date("M d, Y", strtotime($item->created_at)) }}</p>
                 <h2 class="font-medium text-xl capitalize text-emerald-600">{{ $item->title }}</h2>

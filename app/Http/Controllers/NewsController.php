@@ -72,7 +72,7 @@ class NewsController extends Controller
     public function postCreate(Request $request){
         $request->validate([
             'title' => ['required', 'max:100', 'unique:news'],
-            'img-thumbnail' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:4024'],
+            'img-thumbnail' => ['required', 'image', 'mimes:jpeg,png,jpg,webp', 'max:4024'],
             'details' => 'required',
             'massage' => ['required', 'in:yes,no']
         ]);
@@ -89,6 +89,8 @@ class NewsController extends Controller
             $type = $request->file('img-thumbnail')->getClientOriginalExtension();
             $filename = substr($request->title, 0, 10) . "_" . date('dmy') . "_" . Str::random(20) . "." . $type;
             
+            Storage::putFileAs('news/thumbnail', $request->file('img-thumbnail'), $filename);
+
             News::create([
                 'title' => $request->title,
                 'slug' => Str::slug($request->title),
@@ -98,7 +100,7 @@ class NewsController extends Controller
                 'id_massage' => $massage,
                 'created_by' => Auth::user()->email
             ]);
-            $request->file('img-thumbnail')->move(public_path('image/news/thumbnail'), $filename);
+
             DB::commit();
             return redirect()->route('news.list')->with('success', 'News Succsess Created');
         } catch( Exception $ex){
@@ -118,8 +120,6 @@ class NewsController extends Controller
         ->where('news.slug', '=', $slug)->first();;
 
         return view('News/news-update', compact('news'));
-
-        // return dd($news);
     }
 
     /**
@@ -165,15 +165,14 @@ class NewsController extends Controller
             if($request->hasFile('img-thumbnail')){
                 $type = $request->file('img-thumbnail')->getClientOriginalExtension();
                 $filename = substr($request->title, 0, 10) . "_" . date('dmy') . "_" . Str::random(20) . "." . $type;
-                // return dd($filename);
     
                 // move file
-                $request->file('img-thumbnail')->move(public_path('image/news/thumbnail'), $filename);
+                Storage::putFileAs('news/thumbnail', $request->file('img-thumbnail'), $filename);
     
                 // remove old image
                 $OldImgThum = $news->img;
-                if(file_exists(public_path('image/news/thumbnail/') . $OldImgThum)){
-                    unlink(public_path('image/news/thumbnail/') . $OldImgThum);
+                if(Storage::exists('news/thumbnail/' . $OldImgThum)){
+                    Storage::delete('news/thumbnail/' . $OldImgThum);
                 }
     
                 $news->title = $request->title;
@@ -192,7 +191,7 @@ class NewsController extends Controller
         } catch(Exception $ex){
             DB::rollBack();
 
-            return $ex->getMessage();
+            return $ex;
         }
     }
 
@@ -208,8 +207,10 @@ class NewsController extends Controller
             return redirect()->route('users.list')->with('errors', 'Failed to Delete, News Not Found');
         }
 
-        if(file_exists(public_path('image/news/thumbnail/') . $news->img)){
-            unlink(public_path('image/news/thumbnail/') . $news->img);
+        // delete thumb img
+        
+        if(Storage::exists('news/thumbnail/' . $news->img)){
+            Storage::delete('news/thumbnail/' . $news->img);
         }
 
         $news->delete();

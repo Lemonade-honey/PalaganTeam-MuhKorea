@@ -23,7 +23,7 @@
         <div class="mb-6">
             <label class="block mb-2 text-md font-medium text-gray-900" for="file_input">News Thumbnail</label>
             <p>Old Thumbnail</p>
-            <img src="{{asset('image/news/thumbnail/' . $news->img)}}" alt="old thumb" class="h-48 w-96 mb-4">
+            <img src="{{asset('storage/news/thumbnail/' . $news->img)}}" alt="old thumb" class="h-48 w-96 mb-4">
             <input class="block w-full text-sm border border-gray-300 rounded-lg cursor-pointer bg-gray-50" aria-describedby="file_input_help" name="img-thumbnail" accept="image/png, image/jpeg, image/webp" id="file_input" type="file">
             <p class="mt-1 text-sm text-gray-500" id="file_input_help">PNG, JPG and JPEG (MAX 2 MB).</p>
             <div id="display-img"></div>
