@@ -3,11 +3,16 @@
 @section('body')
 
 <div class="p-4">
-    @if ($errors->any())
-    <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-200" role="alert">
-        {{ $errors->first() }}
-    </div>
+    @if (session()->has('success'))
+        <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-200" role="alert">
+            {{ session()->get('success') }}
+        </div>
+    @elseif(session()->has('errors'))
+        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-200" role="alert">
+            {{ session()->get('errors') }}
+        </div>
     @endif
+
     <form action="" method="post" enctype="multipart/form-data">
         @csrf
         <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">Upload file</label>
@@ -23,7 +28,7 @@
     <div class="control w-full mt-11 flex justify-center items-center flex-col">
         @forelse ($slider as $item)
         <div class="gambar max-w-md mb-4 p-1 border border-gray-400 rounded-md">
-            <img class="w-full aspect-video mb-2" src="{{ asset('image/slider/' . $item->img) }}" alt="">
+            <img class="w-full aspect-video mb-2" src="{{ asset('storage/slider/' . $item->img) }}" alt="">
             <p>{{ $item->created_at }}</p>
             <div class="flex justify-end">
                 <a href="{{ route('slider.delete', ['id' => $item->id]) }}" class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-red-500 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300">

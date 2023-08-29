@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class SliderController extends Controller
@@ -24,22 +25,21 @@ class SliderController extends Controller
         $type = $request->file('img')->getClientOriginalExtension();
         $filename = "slider_" . date('dmy') . "_" . Str::random(20) . "." . $type;
 
+        Storage::putFileAs('slider', $request->file('img'), $filename);
+
         Slider::create([
             'img' => $filename
         ]);
 
-
-        $request->file('img')->move(public_path('image/slider/'), $filename);
         return redirect()->back()->with('success', 'berhasil ditambahkan');
     }
 
     public function delete(int $id){
         $slider = Slider::findOrFail($id);
 
-        if(file_exists(public_path('image/slider/') . $slider->img)){
-            unlink(public_path('image/slider/') . $slider->img);
+        if(Storage::exists('slider/' . $slider->img)){
+            Storage::delete('slider/' . $slider->img);
         }
-
 
         $slider->delete();
 
