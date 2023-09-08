@@ -14,51 +14,67 @@
 
 @section('body')
 <div class="p-4">
-    {{-- <div class="image-profile">
-        <img src="https://img.freepik.com/premium-vector/young-smiling-man-avatar-man-with-brown-beard-mustache-hair-wearing-yellow-sweater-sweatshirt-3d-vector-people-character-illustration-cartoon-minimal-style_365941-860.jpg" alt="profile pic" class="w-40 h-40">
-    </div> --}}
-    <div class="details">
-        <div class="mb-6">
-            <label for="website-admin" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Full Name</label>
-            <div class="flex">
-                <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                    <i class="fa-solid fa-user"></i>
-                </span>
-                <input type="text" id="website-admin" class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 capitalize" placeholder="{{ $user->name }}" disabled readonly>
+    <div class="flex items-center justify-between py-5">
+        <h1 class="font-bold text-emerald-700 text-2xl mb-0">User Detail</h1>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 w-full">
+        <div class="p-6 bg-white border border-gray-200 rounded-lg shadow">
+            <div class="flex items-center gap-2">
+                <div class="relative inline-flex items-center justify-center w-14 h-14 overflow-hidden bg-gray-100 rounded-full">
+                    <span class="font-medium text-gray-600 uppercase">{{ substr($user->name, 0, 2) }}</span>
+                </div>
+                <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 capitalize">{{ $user->name }}</h5>
+            </div>
+            <hr class="mt-2">
+    
+            <div class="data-profile">
+                <div class="my-2">
+                    <label for="email" class="text-sm font-extralight">Email Address</label>
+                    <p>{{ $user->email }}</p>
+                </div>
+                <div class="my-2">
+                    <label for="email" class="text-sm font-extralight">User Role</label>
+                    <p>{{ $user->role }}</p>
+                </div>
+                <div class="my-2">
+                    <label for="hp" class="text-sm font-extralight">Handphone</label>
+                    <p>{{ $user->handphone ?? '-' }}</p>
+                </div>
+                <div class="my-2">
+                    <label for="Address" class="text-sm font-extralight">Home Address</label>
+                    <p>{{ $user->address ?? '-' }}</p>
+                </div>
             </div>
         </div>
-
-        <div class="mb-6">
-            <label for="website-admin" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-            <div class="flex">
-                <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                    <i class="fa-solid fa-envelope"></i>
-                </span>
-                <input type="text" id="website-admin" class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="{{ $user->email }}" disabled readonly>
+    
+        <div class="p-6 bg-white border border-gray-200 rounded-lg shadow">
+            <div class="skills">
+                <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 capitalize">Skills</h5>
+                <div class="flex flex-wrap gap-1">
+                    @forelse ($data['skill'] as $item)
+                    <p class="p-2 bg-green-200 rounded-md capitalize">{{ $item }}</p>
+                    @empty
+                    <p>none</p>
+                    @endforelse
+                </div>
             </div>
+    
+            <div class="hobbys mt-4">
+                <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 capitalize">Hobbies</h5>
+                <div class="flex flex-wrap gap-1">
+                    @forelse ($data['hobby'] as $item)
+                    <p class="p-2 bg-blue-200 rounded-md capitalize">{{ $item }}</p>
+                    @empty
+                    <p>none</p>
+                    @endforelse
+                </div>
+            </div>
+    
         </div>
 
-        <div class="mb-6">
-            <label for="website-admin" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
-            <div class="flex">
-                <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                    <i class="fa-solid fa-universal-access"></i>
-                </span>
-                <input type="text" id="website-admin" class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 capitalize" placeholder="{{ $user->role }}" disabled readonly>
-            </div>
-        </div>
-
-        <div class="mb-6">
-            <label for="website-admin" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Created At</label>
-            <div class="flex">
-                <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                    <i class="fa-solid fa-envelope"></i>
-                </span>
-                <input type="text" id="website-admin" class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="{{ date('d-m-Y, H:i', strtotime($user->created_at)) }}" disabled readonly>
-            </div>
-        </div>
-
-        <a href="{{ route('users.update', ['id' => $user->id]) }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 float-right">Edit</a>
+    </div>
+    <div class="flex justify-end mt-2">
+        <a href="{{ route('users.update', ['id' => $user->id]) }}" class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">Edit</a>
     </div>
 </div>
 @endsection

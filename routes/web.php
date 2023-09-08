@@ -61,6 +61,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/logout', [HomeController::class, 'logout'])->name('logout');
 
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard.home');
+        Route::prefix('/profile')->group(function (){
+            Route::get('/', [DashboardController::class, 'profile'])->name('profile');
+            Route::get('/edit', [DashboardController::class, 'edit'])->name('profile.edit');
+            Route::post('/edit', [DashboardController::class, 'postEdit']);
+        });
 
         // form route
         Route::prefix('/form')->group(function (){

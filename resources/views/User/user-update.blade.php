@@ -31,40 +31,32 @@
         <form action="{{ route('users.postUpdate', ['id' => $user->id]) }}" method="post">
             @csrf
             <div class="mb-6">
-                <label for="website-admin" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Full Name</label>
+                <label for="website-admin" class="block mb-2 text-sm font-medium text-gray-900">Full Name</label>
                 <div class="flex">
-                    <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                    <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md">
                         <i class="fa-solid fa-user"></i>
                     </span>
-                    <input type="text" id="website-admin" class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 capitalize" name="name" value="{{ $user->name }}">
+                    <input type="text" id="website-admin" class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5 capitalize" name="name" value="{{ $user->name }}">
                 </div>
             </div>
     
             <div class="mb-6">
-                <label for="website-admin" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                <label for="website-admin" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
                 <div class="flex">
-                    <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                    <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md">
                         <i class="fa-solid fa-envelope"></i>
                     </span>
-                    <input type="text" id="website-admin" class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 cursor-not-allowed" value="{{ $user->email }}" disabled readonly>
+                    <input type="text" id="website-admin" class="rounded-none rounded-r-lg bg-gray-50 border text-gray-400 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5 cursor-not-allowed" value="{{ $user->email }}" disabled readonly>
                 </div>
             </div>
     
             <div class="mb-6">
-                {{-- <label for="website-admin" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
+                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">Role</label>
                 <div class="flex">
-                    <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                    <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md">
                         <i class="fa-solid fa-universal-access"></i>
                     </span>
-                    <input type="text" id="website-admin" class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 capitalize" placeholder="{{ $user->role }}" disabled readonly>
-                </div> --}}
-                
-                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
-                <div class="flex">
-                    <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                        <i class="fa-solid fa-universal-access"></i>
-                    </span>
-                    <select id="countries" class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 capitalize" name="role">
+                    <select id="countries" class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5 capitalize" name="role">
                         <option value="{{$user->role}}" selected>{{$user->role}}</option>
                         <option value="user">user</option>
                         <option value="staf">staf</option>
@@ -74,12 +66,12 @@
             </div>
     
             <div class="mb-6">
-                <label for="website-admin" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Created At</label>
+                <label for="website-admin" class="block mb-2 text-sm font-medium text-gray-900">Created At</label>
                 <div class="flex">
-                    <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                    <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md">
                         <i class="fa-solid fa-envelope"></i>
                     </span>
-                    <input type="text" id="website-admin" class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 cursor-not-allowed" placeholder="{{ date('d-m-Y, H:i', strtotime($user->created_at)) }}" disabled readonly>
+                    <input type="text" id="website-admin" class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5 cursor-not-allowed" placeholder="{{ date('d-m-Y, H:i', strtotime($user->created_at)) }}" disabled readonly>
                 </div>
             </div>
 

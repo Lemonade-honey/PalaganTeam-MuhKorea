@@ -1,6 +1,6 @@
 <header>
     <nav class="bg-emerald-800 fixed w-full z-50 top-0 left-0">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
+        <div class="flex flex-wrap items-center justify-between mx-auto p-2">
             <a href="/" class="flex items-center">
                 <h2 class="text-xl font-bold tracking-widest text-white hover:text-yellow-200 ease-in duration-150 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">Hidayah Kansai</h2>
             </a>
@@ -21,6 +21,9 @@
                     <ul class="py-2" aria-labelledby="user-menu-button">
                         <li>
                             <a href="{{ route('dashboard.home') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('profile') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
                         </li>
                         <li>
                             <a href="{{ route('logout') }}" class="block px-4 py-2 text-sm text-red-700 hover:bg-gray-100">Sign out</a>

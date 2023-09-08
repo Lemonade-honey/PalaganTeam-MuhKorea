@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UsersDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -21,12 +22,24 @@ class UserController extends Controller
      * GET Details User
      */
     public function details(int $id){
-        $user = User::find($id);
+        $user = DB::table('users')
+        ->select('users.*', 'users_details.*')
+        ->leftJoin('users_details', 'users.email', '=', 'users_details.email')
+        ->where('users.id', '=', $id)
+        ->first();
         if(!$user){
             return redirect()->route('users.list')->with('errors', 'User Not Found');
         }
 
-        return view('User/user-detail', compact('user'));
+        $data = unserialize($user->data);
+        if(!$data){
+            $data = [
+                'skill' => [],
+                'hobby' => []
+            ];
+        }
+
+        return view('User/user-detail', compact('user', 'data'));
     }
 
     /**
@@ -80,12 +93,14 @@ class UserController extends Controller
      */
     public function delete(int $id){
         $user = User::find($id);
+        $userDetail = UsersDetails::find($id);
 
         if(!$user){
             return redirect()->route('users.list')->with('errors', 'Failed to Delete, User Not Found');
         }
 
         $user->delete();
+        $userDetail->delete();
         return redirect()->route('users.list')->with('success', 'User Success Delete');
     }
 }
