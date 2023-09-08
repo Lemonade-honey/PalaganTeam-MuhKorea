@@ -358,6 +358,73 @@ class FormController extends Controller
     }
 
     /**
+     * GET Edit Sub Form
+     */
+    public function subFormUpdate(string $slug, int $id){
+        $subForm = DB::table('sub_forms')
+        ->select("sub_forms.*", 'massages.massage_box', 'massages.status as massage_status')
+        ->leftJoin('massages', 'sub_forms.id_massage', '=', 'massages.id')
+        ->where("sub_forms.id", "=", $id)
+        ->first();
+
+
+        return view('Form/subform-update', compact('subForm'));
+    }
+
+    /**
+     * POST Edit Sub FForm
+     */
+    public function postSubFormUpdate(string $slug, int $id, Request $request){
+        $subForm = SubForm::findOrFail($id);
+
+        $request->validate([
+            'title' => ['required', 'max:80'],
+            'details' => 'required'
+        ]);
+
+        try {
+            DB::beginTransaction();
+            // update massage table
+            if($subForm->id_massage != null && $request->massage == 'no'){
+                $massage = Massage::findOrFail($subForm->id_massage);
+                $massage->status = "nonaktif";
+                $massage->save();
+
+                $massage = $massage->id;
+            }else if($subForm->id_massage != null && $request->massage == 'yes'){
+                $massage = Massage::findOrFail($subForm->id_massage);
+                $massage->status = "aktif";
+                $massage->save();
+
+                $massage = $massage->id;
+            }
+
+            // create massage table
+            if($subForm->id_massage == null && $request->massage == 'no'){
+                $massage = null;
+            }else if($subForm->id_massage == null && $request->massage == 'yes'){
+                $massage = Massage::create(['code' => Str::random(25), 'status' => 'aktif']);
+
+                $massage = $massage->id;
+            }
+
+
+            $subForm->title = $request->title;
+            $subForm->details = $request->details;
+            $subForm->id_massage = $massage;
+
+            $subForm->save();
+            DB::commit();
+
+            return redirect()->route('form.subForm', ['slug' => $slug, 'sub_slug' => $subForm->slug])->with('success', 'success update sub form');
+        } catch (Exception $ex) {
+            DB::rollBack();
+
+            return redirect()->back()->with('errors', 'Failed to update, error : ' . $ex->getMessage());
+        }
+    }
+
+    /**
      * GET Delete subform
      */
     public function deleteSubForm(int $id){
@@ -369,16 +436,13 @@ class FormController extends Controller
     /**
      * GET Delete Main Form
      */
-    public function deleteForm(string $slug){
-        $form = DB::table("forms")
-        ->where("slug", "=", $slug)
-        ->first();
+    public function deleteForm(int $id){
+        $form = Form::find($id);
 
         if(!$form){
             return redirect()->route('form.list')->with('errors', "Form not Found");
         }
 
-        $form = Form::find($form->id);
         $form->delete();
         return redirect()->route('form.list')->with('success', "Form deleted");
     }

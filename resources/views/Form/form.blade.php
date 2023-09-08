@@ -133,7 +133,8 @@
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = '/dashboard/form/delete/' + element.getAttribute('dataGet')
+                window.location.href = '/dashboard/form/delete' + element.getAttribute('dataGet')
+                // console.log(element.getAttribute('dataGet'));
             }
         })
     })

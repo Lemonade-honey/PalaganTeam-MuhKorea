@@ -70,6 +70,9 @@
             <div id="drop{{ $key }}" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
                 <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownMenuIconButton">
                     <li>
+                        <a href="{{ route('form.subForm.update', ['slug' => $form->slug, 'id' => $value->id]) }}" class="block px-4 py-2 text-gray-500 hover:bg-gray-100">Edit</a>
+                    </li>
+                    <li>
                         <a href="{{ route('subForm.deleteSubForm', ['id' => $value->id, 'slug' => $form->slug]) }}" class="block px-4 py-2 text-red-500 hover:bg-gray-100">Delete</a>
                     </li>
                 </ul>

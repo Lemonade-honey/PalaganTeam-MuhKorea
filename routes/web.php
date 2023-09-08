@@ -86,6 +86,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
                 Route::get('/update/{slug}', [FormController::class, 'update'])->name('form.update');
                 Route::post('/update/{slug}', [FormController::class, 'postUpdate'])->name('form.postUpdate');
+                Route::get('/{slug}/{id}/update', [FormController::class, 'subFormUpdate'])->name('form.subForm.update');
+                Route::post('/{slug}/{id}/update', [FormController::class, 'postSubFormUpdate']);
 
             });
             
