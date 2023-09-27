@@ -4,6 +4,7 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\CKEditorController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MassageController;
 use App\Http\Controllers\NewsController;
@@ -29,6 +30,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/news', [NewsController::class, 'listPublic']);
 Route::get('/news/search', [NewsController::class, 'listPublicSearch'])->name('newsPublicSearch');
 Route::get('/news/{slug}', [NewsController::class, 'details'])->name('newsPublic');
+
+// gallery
+Route::get('/gallery', [GalleryController::class, 'index']);
 
 // geteway massage
 Route::post('/massage/{id}/{slug}', [MassageController::class, 'store'])->name('massage.store');
@@ -130,6 +134,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::get('/delete/{id}', [ActivityController::class, 'delete'])->name('activity.delete');
             });
 
+            Route::prefix('/gallery')->group(function(){
+                Route::get('/', [GalleryController::class, 'list'])->name('gallery.list');
+                Route::get('/post', [GalleryController::class, 'create'])->name('gallery.create');
+                Route::post('/post', [GalleryController::class, 'post']);
+                Route::get('/detail/{id}', [GalleryController::class, 'detail'])->name('gallery.detail');
+                Route::post('/detail/{id}', [GalleryController::class, 'update'])->name('gallery.update');
+
+                Route::get('/delete/{id}', [GalleryController::class, 'delete'])->name('gallery.delete');
+            });
             //ckeditor image upload
             Route::post('/ckeditor-upload', [CKEditorController::class, 'uploadNews'])->name('ckeditor.uploadNews');
         });

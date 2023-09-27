@@ -50,6 +50,9 @@
                         <a href="/news" class="block py-2 pl-3 pr-4 {{ $page == 'news' ? 'text-white bg-emerald-600 rounded md:bg-transparent md:text-yellow-300' : 'text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-500' }} md:p-0">News</a>
                     </li>
                     <li>
+                        <a href="/gallery" class="block py-2 pl-3 pr-4 {{ $page == 'gallery' ? 'text-white bg-emerald-600 rounded md:bg-transparent md:text-yellow-300' : 'text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-500' }} md:p-0">Gallery</a>
+                    </li>
+                    <li>
                         <a href="https://muhammadiyah.or.id/" class="block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-500 md:p-0">About Muhammadiyah</a>
                     </li>
                 </ul>
