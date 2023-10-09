@@ -4,7 +4,7 @@
         class="flex flex-col px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
         <div class="flex flex-row items-center justify-between p-4">
             <a href="/"
-                class="text-lg font-bold tracking-widest text-blue-700 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">HIDAYAH</a>
+                class="text-lg font-bold tracking-widest text-blue-700 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline"><i class="fa-solid fa-house"></i></a>
             <button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline" @click="open = !open">
                 <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
                     <path x-show="!open" fill-rule="evenodd"
@@ -18,12 +18,17 @@
         </div>
         <nav :class="{ 'flex': open, 'hidden': !open }"
             class="flex-col flex-grow hidden pb-4 md:pb-0 md:flex md:justify-center md:flex-row">
-            <a class="px-4 py-2 mt-2 text-sm font-semibold {{ $page == 'home' ? 'text-blue-700 bg-gray-200' : 'bg-transparent' }} rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-blue-700 focus:text-blue-700 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                href="#">Home</a>
             <a class="px-4 py-2 mt-2 text-sm font-semibold {{ $page == 'news' ? 'text-blue-700 bg-gray-200' : 'bg-transparent' }} rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-blue-700 focus:text-blue-700 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                href="#">News</a>
+                href="#">Profile</a>
             <a class="px-4 py-2 mt-2 text-sm font-semibold {{ $page == 'activity' ? 'text-blue-700 bg-gray-200' : 'bg-transparent' }} rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-blue-700 focus:text-blue-700 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                href="#">Activity</a>
+                href="#">Majelis</a>   
+            <a class="px-4 py-2 mt-2 text-sm font-semibold {{ $page == 'activity' ? 'text-blue-700 bg-gray-200' : 'bg-transparent' }} rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-blue-700 focus:text-blue-700 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                href="#">Lazismu</a>
+            <a class="px-4 py-2 mt-2 text-sm font-semibold {{ $page == 'activity' ? 'text-blue-700 bg-gray-200' : 'bg-transparent' }} rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-blue-700 focus:text-blue-700 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                href="#">Ortom</a>
+            <a class="px-4 py-2 mt-2 text-sm font-semibold {{ $page == 'activity' ? 'text-blue-700 bg-gray-200' : 'bg-transparent' }} rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-blue-700 focus:text-blue-700 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                href="#">Maklumat</a>
+            
             <a class="px-4 py-2 mt-2 text-sm font-semibold {{ $page == 'about' ? 'text-blue-700 bg-gray-200' : 'bg-transparent' }} rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-blue-700 focus:text-blue-700 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
                 href="https://muhammadiyah.or.id/">About Muhammadiyah</a>
 

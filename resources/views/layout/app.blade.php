@@ -49,5 +49,6 @@
             })
         });
     </script>
+    <script src="https://kit.fontawesome.com/75d934ac69.js" crossorigin="anonymous"></script>
 </body>
 </html>

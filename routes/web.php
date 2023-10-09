@@ -22,6 +22,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/homeTest', function () {
+    return view('pages.newHome');
+})->name('new.home');
+
 Route::get('/', function () {
     return view('home');
 })->name('home');
@@ -29,8 +33,6 @@ Route::get('/', function () {
 Route::get('/dashboardTest', function () {
     return view('form.form-list');
 });
-
-
 
 Route::get('/form/{slug}', [FormController::class, 'details'])->name('public.form.details');
 Route::post('/form/{slug}', [FormController::class, 'formPassword'])->name('form.formPassword');
