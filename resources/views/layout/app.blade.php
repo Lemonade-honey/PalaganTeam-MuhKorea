@@ -22,6 +22,27 @@
             color: blue;
         }
     </style>
+    <style>
+        div#google_translate_element div.goog-te-gadget-simple {
+            font-size: 19px;
+        }
+    
+        div#google_translate_element div.goog-te-gadget-simple {
+            background-color: black;
+        }
+    
+        div#google_translate_element div.goog-te-gadget-simple a.goog-te-menu-value span {
+            color: green
+        }
+    
+        div#google_translate_element div.goog-te-gadget-simple a.goog-te-menu-value span:hover {
+            color: blue
+        }
+    
+        div#google_translate_element div.goog-te-gadget-simple {
+            border: none;
+        }
+    </style>
 </head>
 
 <body>
