@@ -3,6 +3,11 @@
 @tailwind utilities;
 
 @layer base {
+
+    body {
+        background-color: #abb8c3;
+    }
+
     html {
         font-family: system-ui,
             -apple-system,
