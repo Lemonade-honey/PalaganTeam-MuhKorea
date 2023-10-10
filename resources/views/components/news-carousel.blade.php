@@ -1,5 +1,5 @@
 <section class="my-10" id="news">
-    <h1 class="text-2xl sm:text-4xl text-center font-bold text-emerald-600 mb-3">Our Recent News</h1>
+    <h1 class="text-2xl sm:text-4xl text-center font-bold text-blue-600 mb-3">Our Recent News</h1>
     <div class="berita flex flex-wrap justify-around gap-4">
         
         @forelse ($news as $item)

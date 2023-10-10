@@ -1,8 +1,8 @@
 <header>
-    <nav class="bg-emerald-800 fixed w-full z-50 top-0 left-0">
+    <nav class="bg-blue-800 fixed w-full z-50 top-0 left-0">
         <div class="flex flex-wrap items-center justify-between mx-auto p-2">
             <a href="/" class="flex items-center">
-                <h2 class="text-xl font-bold tracking-widest text-white hover:text-yellow-200 ease-in duration-150 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">Hidayah Kansai</h2>
+                <h2 class="text-xl font-bold tracking-widest text-white hover:text-yellow-200 ease-in duration-150 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">Muhammadiyah KorSel</h2>
             </a>
             <div class="flex items-center md:order-2">
     
@@ -42,15 +42,18 @@
                 </button>
             </div>
             <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
-                <ul class="flex flex-col font-medium p-4 md:p-0 mt-4  rounded-lg bg-emerald-500 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-emerald-800">
+                <ul class="flex flex-col font-medium p-4 md:p-0 mt-4  rounded-lg bg-blue-500 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-blue-800">
                     <li>
-                        <a href="/" class="block py-2 pl-3 pr-4 {{ $page == 'home' ? 'text-white bg-emerald-600 rounded md:bg-transparent md:text-yellow-300' : 'text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-500' }} md:p-0">Home</a>
+                        <a href="/" class="block py-2 pl-3 pr-4 {{ $page == 'home' ? 'text-white bg-blue-600 rounded md:bg-transparent md:text-yellow-300' : 'text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-500' }} md:p-0">Home</a>
                     </li>
                     <li>
-                        <a href="/news" class="block py-2 pl-3 pr-4 {{ $page == 'news' ? 'text-white bg-emerald-600 rounded md:bg-transparent md:text-yellow-300' : 'text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-500' }} md:p-0">News</a>
+                        <a href="/news" class="block py-2 pl-3 pr-4 {{ $page == 'news' ? 'text-white bg-blue-600 rounded md:bg-transparent md:text-yellow-300' : 'text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-500' }} md:p-0">News</a>
                     </li>
                     <li>
-                        <a href="/gallery" class="block py-2 pl-3 pr-4 {{ $page == 'gallery' ? 'text-white bg-emerald-600 rounded md:bg-transparent md:text-yellow-300' : 'text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-500' }} md:p-0">Gallery</a>
+                        <a href="/gallery" class="block py-2 pl-3 pr-4 {{ $page == 'gallery' ? 'text-white bg-blue-600 rounded md:bg-transparent md:text-yellow-300' : 'text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-500' }} md:p-0">Gallery</a>
+                    </li>
+                    <li>
+                        <div id="google_translate_element"></div>
                     </li>
                     <li>
                         <a href="https://muhammadiyah.or.id/" class="block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-500 md:p-0">About Muhammadiyah</a>
@@ -60,3 +63,12 @@
         </div>
     </nav>
 </header>
+
+@push('scripts')
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script>
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+    }
+</script>
+@endpush

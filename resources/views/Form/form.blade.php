@@ -4,7 +4,7 @@
 
 <div class="p-4">
     <div class="flex items-center justify-between py-5">
-        <h1 class="font-bold text-emerald-700 text-2xl mb-0">Form List</h1>
+        <h1 class="font-bold text-blue-700 text-2xl mb-0">Form List</h1>
         <a href="{{ route('form.create') }}">
             <button class="bg-blue-600 hover:bg-blue-800 text-white rounded px-2 text-md font-semibold p-1">Add
                 New Form</button>

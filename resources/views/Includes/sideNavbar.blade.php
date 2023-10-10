@@ -16,7 +16,7 @@
                 </button>
                 <a href="/" class="flex ml-2 md:mr-24">
                     <span
-                        class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-emerald-700">HIDAYAH</span>
+                        class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-blue-700">PCIM KorSel</span>
                 </a>
             </div>
             <div class="flex items-center">

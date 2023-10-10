@@ -2,7 +2,7 @@
 
 @section('body')
 <main>
-    <h1 class="text-3xl mb-1 text-emerald-700">Hi, How are you today ?</h1>
+    <h1 class="text-3xl mb-1 text-blue-700">Hi, How are you today ?</h1>
     <p class="text-lg">Hopefully in good day and healthy</p>
 
     <hr class="my-8">
@@ -25,7 +25,7 @@
 
             @else
             <div class="flex items-center justify-between">
-                <h2 class="text-2xl text-emerald-700 font-bold mb-4">My Forms</h2>
+                <h2 class="text-2xl text-blue-700 font-bold mb-4">My Forms</h2>
             </div>
             <div class="space-y-4">
                 @forelse ($forms as $key => $value)
@@ -52,7 +52,7 @@
 
         <div class="row lg:w-3/6">
             <div class="flex items-center justify-between">
-                <h2 class="text-2xl font-bold text-emerald-700 mb-4">Activity This Week ({{ count($activitys) ?? 0 }})</h2>
+                <h2 class="text-2xl font-bold text-blue-700 mb-4">Activity This Week ({{ count($activitys) ?? 0 }})</h2>
                 <p>{{ date("d, M") }}</p>
             </div>
             <div class="space-y-4 {{ (count($activitys) > 4) ? 'overflow-x-hidden' : '' }} h-96">

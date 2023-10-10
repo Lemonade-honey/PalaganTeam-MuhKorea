@@ -4,7 +4,7 @@
 
 <div class="p-4">
     <div class="mb-5">
-        <h1 class="font-bold text-emerald-700 text-2xl mb-1">My Form</h1>
+        <h1 class="font-bold text-blue-700 text-2xl mb-1">My Form</h1>
         <hr>
     </div>
     <div class="flex flex-wrap xl:gap-10 gap-5 lg:justify-center justify-start">

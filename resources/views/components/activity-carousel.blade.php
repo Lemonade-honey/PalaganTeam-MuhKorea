@@ -1,5 +1,5 @@
 <section class="mt-10 my-4 lg:p-10 px-10" id="activities">
-    <h1 class="text-2xl sm:text-4xl text-center font-bold text-emerald-600 mb-3">Our Activities</h1>
+    <h1 class="text-2xl sm:text-4xl text-center font-bold text-blue-600 mb-3">Our Activities</h1>
     <div class="w-full {{ (count($activity) <= 1 ) ? '' : 'overflow-x-scroll' }} flex {{ (count($activity) <= 1) ? 'justify-center' : ''}} gap-4">
 
         @forelse ($activity as $key => $value)

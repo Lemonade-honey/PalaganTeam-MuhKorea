@@ -1,12 +1,12 @@
-<footer class="bg-emerald-800">
+<footer class="bg-blue-800">
     <div class="mx-auto max-w-screen-xl p-5 md:p-8 lg:p-10">
 
         <div class="text-center">
             <a href="#" class="flex justify-center items-center uppercase pt-5 md:pt-0 mb-5 text-2xl font-semibold text-white">
-                Muhammadiyah Kansai
+                Muhammadiyah Korea Selatan
             </a>
             <span class="block text-sm text-center text-white">© 2023 <a href="/"
-                    class="hover:underline">Muhammadiyah Kansai</a>. All Rights Reserved.
+                    class="hover:underline">Muhammadiyah Korea Selatan</a>. All Rights Reserved.
             </span>
             <ul class="flex justify-center mt-5 space-x-5">
                 <li>

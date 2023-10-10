@@ -2,7 +2,7 @@
 
 @section('body')
 <div class="relative overflow-x-auto">
-    <h1 class="text-2xl text-emerald-700 font-medium mb-4">List Member</h1>
+    <h1 class="text-2xl text-blue-700 font-medium mb-4">List Member</h1>
     @if (session()->has('success'))
         <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-100 capitalize" role="alert">
             {{ session()->get('success') }}

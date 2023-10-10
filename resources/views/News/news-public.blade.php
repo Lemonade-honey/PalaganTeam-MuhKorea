@@ -24,7 +24,7 @@
         <div class="grid sm:grid-cols-4 gap-4">
 
             <div class="w-full sm:col-span-3 col-start-1">
-                <div class="judul w-full border border-green-400 bg-green-400 p-1 mb-4">
+                <div class="judul w-full border border-blue-400 bg-blue-400 p-1 mb-4">
                     <h1 class="font-medium text-xl capitalize">berita</h1>
                 </div>
 
@@ -61,7 +61,7 @@
                 </div>
             </div>
             <div class="w-full col-span-1 border border-gray-300">
-                <h1 class="text-xl font-medium capitalize border border-green-400 rounded-sm bg-green-400 text-center">Berita Terbaru</h1>
+                <h1 class="text-xl font-medium capitalize border border-blue-400 rounded-sm bg-blue-400 text-center">Berita Terbaru</h1>
                 <div class="content p-2">
                     @forelse ($newsPanel as $key => $value)
                     <a href="{{ route('newsPublic', ['slug' => $value->slug]) }}" class="container w-full mb-2 hover:text-blue-500">
